@@ -26,20 +26,25 @@
     <!-- Reading Progress Bar -->
     <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
 
-    <!-- Top Bar Navigation -->
+    <!-- Interactive Editorial Ambient Background -->
+    <canvas id="ambient-canvas" class="ambient-canvas" aria-hidden="true"></canvas>
+    <div id="ambient-cursor-glow" class="ambient-cursor-glow" aria-hidden="true"></div>
+
+    <!-- NAVBAR (Logo · Work · Services · Process · About · Testimonials · Contact) -->
     <header class="site-header">
         <div class="header-inner">
             <!-- Zone 1: Single text element wordmark -->
-            <a href="#" class="brand-mark">Olukorede Yishau</a>
+            <a href="#" class="brand-mark">O. Yishau</a>
 
             <!-- Zone 2: Clean text navigation links -->
             <nav class="site-nav" aria-label="Main Navigation">
                 <ul class="nav-list">
-                    <li><a href="#about" class="nav-link">Biography</a></li>
-                    <li><a href="#books" class="nav-link">Books</a></li>
-                    <li><a href="#journalism" class="nav-link">Selected Works</a></li>
-                    <li><a href="#accolades" class="nav-link">Accolades</a></li>
-                    <li><a href="#contact" class="nav-link">Inquiries</a></li>
+                    <li><a href="#work" class="nav-link">Work</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#process" class="nav-link">Process</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
 
@@ -48,7 +53,7 @@
                 <button id="theme-toggle" class="utility-btn" type="button" aria-label="Toggle dark theme" title="Toggle dark theme">
                     <i class="fas fa-moon" aria-hidden="true"></i>
                 </button>
-                <a href="#contact" class="btn-primary-compact">Get in Touch</a>
+                <a href="#contact" class="btn-primary-compact">Start a Project</a>
                 <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -59,50 +64,52 @@
         <!-- Mobile Drawer -->
         <div class="mobile-drawer" id="mobile-menu" aria-hidden="true">
             <nav class="mobile-nav">
-                <a href="#about" class="mobile-nav-link">Biography</a>
-                <a href="#books" class="mobile-nav-link">Books</a>
-                <a href="#journalism" class="mobile-nav-link">Selected Works</a>
-                <a href="#accolades" class="mobile-nav-link">Accolades</a>
-                <a href="#contact" class="mobile-nav-link">Inquiries</a>
+                <a href="#work" class="mobile-nav-link">Work</a>
+                <a href="#services" class="mobile-nav-link">Services</a>
+                <a href="#process" class="mobile-nav-link">Process</a>
+                <a href="#about" class="mobile-nav-link">About Me</a>
+                <a href="#testimonials" class="mobile-nav-link">Testimonials</a>
+                <a href="#contact" class="mobile-nav-link">Contact</a>
             </nav>
         </div>
     </header>
 
     <main id="main-content">
-        <!-- Hero Section -->
-        <section class="hero-section">
+        <!-- YOUR HERO -->
+        <section class="hero-section" id="hero">
             <div class="container hero-grid">
                 <div class="hero-copy">
                     <div class="editorial-folio">
-                        <span class="folio-tag">Broadsheet & Literary Chronicle</span>
+                        <span class="folio-tag">Creative Direction & Editorial Monograph</span>
                         <span class="folio-sep">·</span>
-                        <span class="folio-tag">Est. Lagos & Washington D.C.</span>
+                        <span class="folio-tag">Lagos & Washington D.C.</span>
                     </div>
 
-                    <h1 class="hero-title">A quarter-century chronicling power, human conscience, and African realities.</h1>
+                    <!-- HERO STATEMENT REQUESTED BY USER -->
+                    <h1 class="hero-title">"I build digital experiences people remember."</h1>
 
                     <p class="hero-lead">
-                        Olukorede Yishau is an acclaimed Nigerian novelist, investigative journalist, and United States Bureau Chief for <em>The Nation</em> newspaper. Over 25+ years, his fearless exposés and compelling fiction have interrogated the delicate intersection of political authority, civil rights, and social truth.
+                        I am Olukorede Yishau — an acclaimed Nigerian author, investigative journalist, and United States Bureau Chief. With over 25+ years shaping high-impact narratives, I fuse rigorous broadsheet depth, literary realism, and modern digital craft to engineer stories and platforms that resonate across generations.
                     </p>
 
                     <div class="hero-cta-cluster">
-                        <a href="#books" class="btn-action">Explore Published Books</a>
-                        <a href="#journalism" class="btn-ghost">Read Selected Articles <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        <a href="#work" class="btn-action">View My Work <i class="fas fa-arrow-down" aria-hidden="true"></i></a>
+                        <a href="#contact" class="btn-ghost">Contact Me <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
 
                     <div class="hero-proof-strip">
                         <div class="proof-metric">
-                            <span class="metric-value">25+</span>
-                            <span class="metric-label">Years of Investigative Reporting</span>
+                            <span class="metric-value" data-count-to="25" data-suffix="+">25+</span>
+                            <span class="metric-label">Years of Master Storytelling</span>
                         </div>
                         <div class="proof-divider" aria-hidden="true"></div>
                         <div class="proof-metric">
-                            <span class="metric-value">03</span>
+                            <span class="metric-value" data-count-to="3" data-prefix="0">03</span>
                             <span class="metric-label">Published Literary Works</span>
                         </div>
                         <div class="proof-divider" aria-hidden="true"></div>
                         <div class="proof-metric">
-                            <span class="metric-value">NMMA</span>
+                            <span class="metric-value" data-count-shimmer="true">NMMA</span>
                             <span class="metric-label">Multiple Media Merit Laureate</span>
                         </div>
                     </div>
@@ -127,616 +134,527 @@
                         <div class="portrait-caption">
                             <div class="caption-header">
                                 <span class="caption-name">Olukorede Yishau</span>
-                                <span class="caption-title">Associate Editor & Bureau Chief</span>
+                                <span class="caption-title">Associate Editor & Novelist</span>
                             </div>
-                            <p class="caption-quote">"Literature and investigative reporting share the same moral mandate: to dismantle falsehood and bear witness to truth."</p>
+                            <p class="caption-quote">"Memorable experiences are born when moral clarity meets unyielding narrative craft."</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Curatorial Pull Quote Banner -->
-        <aside class="curatorial-quote-banner" aria-label="Author Quote">
-            <div class="container quote-container">
-                <blockquote class="editorial-blockquote">
-                    "When power retreats behind polished rhetoric and official secrets, the journalist’s pen remains society’s most uncompromising mirror."
-                </blockquote>
-                <cite class="quote-attribution">From the collected commentary of Olukorede Yishau</cite>
-            </div>
-        </aside>
-
-        <!-- Biography Section -->
-        <section id="about" class="section-biography">
+        <!-- SELECTED WORK -->
+        <section id="work" class="section-work">
             <div class="container">
-                <header class="section-header">
-                    <span class="section-kicker">Biographical Narrative</span>
-                    <h2 class="section-title">The Conscience of the Newsroom</h2>
-                </header>
-
-                <div class="biography-layout">
-                    <div class="bio-prose">
-                        <p class="lead-paragraph">
-                            With a career forged in Nigeria’s bustling print newsrooms and extended across the Atlantic as United States Bureau Chief for <em>The Nation</em>, Olukorede Yishau has spent more than twenty-five years at the forefront of African investigative journalism and literary commentary.
-                        </p>
-                        <p>
-                            His weekly columns and investigative reportage have consistently examined structural corruption, electoral transparency, executive accountability, and the daily struggles of ordinary citizens navigating complex socioeconomic landscapes. Known for an incisive, unflinching prose style, Yishau pairs rigorous investigative methodology with a profound empathy for human resilience.
-                        </p>
-                        <p>
-                            Parallel to his editorial career, Yishau has established himself as one of contemporary African literature’s most compelling storytellers. His debut novel, <em>In the Name of Our Father</em>, was longlisted for the prestigious Nigeria Prize for Literature, garnering praise from critics across the continent for its bold interrogation of religious charlatanism, media compromise, and military dictatorship.
-                        </p>
-
-                        <div class="bio-career-highlights">
-                            <div class="highlight-item">
-                                <span class="highlight-year">1999–2005</span>
-                                <div class="highlight-desc">
-                                    <h4>Underground & Investigative Reporting</h4>
-                                    <p>Reporting through the turbulent transitions of post-military Nigeria with <em>The News</em> and <em>Tempo</em>, uncovering human rights violations and clandestine state surveillance.</p>
-                                </div>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-year">2006–2019</span>
-                                <div class="highlight-desc">
-                                    <h4>Founding Editor & Senior Columnist</h4>
-                                    <p>Founding editorial member and General Editor at <em>The Nation</em>, authoring the celebrated weekly socio-political column that earned multiple NMMA honors.</p>
-                                </div>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-year">2020–Present</span>
-                                <div class="highlight-desc">
-                                    <h4>United States Bureau Chief & Associate Editor</h4>
-                                    <p>Directing North American bureaus from Washington D.C., leading transatlantic diplomatic dispatches, IMF/World Bank briefings, and diaspora economic analyses.</p>
-                                </div>
-                            </div>
-                        </div>
+                <div class="work-header-split">
+                    <div>
+                        <span class="section-kicker">Curated Portfolio</span>
+                        <h2 class="section-title">Selected Work</h2>
+                        <p class="section-subtitle">A showcase of landmark investigative dossiers, published novels, and high-retention digital editorial platforms.</p>
                     </div>
 
-                    <aside class="bio-sidebar">
-                        <div class="curator-card">
-                            <h3 class="curator-title">Curatorial Inquest</h3>
-                            <ul class="curator-list">
-                                <li>
-                                    <strong>Investigative Forensics</strong>
-                                    <span>Public procurement audit, ghost projects, and institutional transparency.</span>
-                                </li>
-                                <li>
-                                    <strong>Statecraft & Civil Rights</strong>
-                                    <span>Electoral reform, constitutional integrity, and executive checks & balances.</span>
-                                </li>
-                                <li>
-                                    <strong>Literary Realism</strong>
-                                    <span>Exploring ecclesiastical power dynamics, widowhood traditions, and human grief.</span>
-                                </li>
-                                <li>
-                                    <strong>Transatlantic Diplomacy</strong>
-                                    <span>US-Africa bilateral foreign policy, trade corridors, and diaspora remittances.</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="speaking-callout">
-                            <span class="callout-tag">Editorial Philosophy</span>
-                            <h4>The Journalist's Obligation</h4>
-                            <p>"To write without fear is not recklessness; it is the highest form of patriotism. When official archives stay silent, journalism must speak."</p>
-                            <a href="#contact" class="speaking-link">Engage for Keynotes & Panels <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
-                        </div>
-                    </aside>
+                    <!-- Filter Controls (Segmented Buttons) -->
+                    <div class="filter-controls" role="group" aria-label="Filter works by category">
+                        <button type="button" class="filter-btn active" data-filter="all">All Projects</button>
+                        <button type="button" class="filter-btn" data-filter="literature">Literary Books</button>
+                        <button type="button" class="filter-btn" data-filter="investigative">Investigative</button>
+                        <button type="button" class="filter-btn" data-filter="editorial">Broadsheet & US Bureau</button>
+                    </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Published Books Section -->
-        <section id="books" class="section-books">
-            <div class="container">
-                <header class="section-header">
-                    <span class="section-kicker">Literary Oeuvre</span>
-                    <h2 class="section-title">Published Literary Works</h2>
-                    <p class="section-subtitle">Characterized by atmospheric tension, intricate narrative pacing, and unflinching social critique.</p>
-                </header>
-
-                <div class="books-showcase">
-                    <!-- Book 1: In The Name of Our Father -->
-                    <article class="book-card featured-book">
-                        <div class="book-cover-plate dark-plate">
-                            <div class="book-cover-artwork">
-                                <div class="cover-art-header">
-                                    <span class="cover-sub">A Novel</span>
-                                    <span class="cover-laurel">NLNG Longlisted</span>
-                                </div>
-                                <h3 class="cover-title">IN THE NAME OF OUR FATHER</h3>
-                                <div class="cover-author">OLUKOREDE YISHAU</div>
-                                <div class="cover-motif">
-                                    <svg viewBox="0 0 100 100" class="motif-svg" aria-hidden="true">
-                                        <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4"/>
-                                        <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" stroke-width="1.5"/>
-                                        <line x1="20" y1="35" x2="80" y2="35" stroke="currentColor" stroke-width="1.5"/>
-                                    </svg>
-                                </div>
+                <!-- Projects Grid -->
+                <div class="projects-grid">
+                    <!-- Project 1: In The Name of Our Father -->
+                    <article class="project-card work-filterable" data-category="literature">
+                        <div class="project-visual-wrapper dark-plate">
+                            <div class="project-plate-content">
+                                <span class="plate-tag">Project 01 · Literary Novel</span>
+                                <h3 class="plate-title">IN THE NAME OF OUR FATHER</h3>
+                                <span class="plate-sub">NLNG Prize Longlist · Parresia Publishers</span>
                             </div>
                         </div>
-
-                        <div class="book-details">
-                            <div class="book-meta-line">
+                        <div class="project-body">
+                            <div class="project-meta-strip">
                                 <span>Literary Thriller</span>
                                 <span class="sep">·</span>
-                                <span>Parresia Publishers</span>
-                                <span class="sep">·</span>
                                 <span>254 Pages</span>
-                            </div>
-                            <h3 class="book-headline">In the Name of Our Father</h3>
-                            <p class="book-synopsis">
-                                Set against the claustrophobic tension of Nigeria’s brutal military dictatorship, <em>In the Name of Our Father</em> unravels the corrupt pact between a charismatic, self-styled religious prophet and an insecure military ruler desperate to retain absolute power. When an idealistic young journalist stumbles onto their dark arrangement, he is plunged into a perilous web of censorship, state intimidation, and personal crisis.
-                            </p>
-                            
-                            <dl class="book-specs-grid">
-                                <div class="spec-item">
-                                    <dt>Core Themes</dt>
-                                    <dd>Religious Charlatanism · Military Tyranny · Press Martyrdom</dd>
-                                </div>
-                                <div class="spec-item">
-                                    <dt>Critical Standing</dt>
-                                    <dd>Longlisted for Nigeria Prize for Literature ($100,000 NLNG Award)</dd>
-                                </div>
-                            </dl>
-
-                            <div class="book-critique">
-                                <p class="critique-quote">"A tour de force that lays bare the spiritual and political charlatanism of our times with terrifying precision."</p>
-                                <span class="critique-source">— The Guardian (Nigeria) Literary Review</span>
-                            </div>
-                            <div class="book-actions">
-                                <button type="button" class="btn-read-excerpt" data-book="father">
-                                    <i class="fas fa-book-open" aria-hidden="true"></i> Read Chapter Excerpt
-                                </button>
-                                <a href="#contact" class="btn-inquire">Library & Rights Inquiries</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Book 2: Vaults of Secrets -->
-                    <article class="book-card">
-                        <div class="book-cover-plate emerald-plate">
-                            <div class="book-cover-artwork">
-                                <div class="cover-art-header">
-                                    <span class="cover-sub">Short Fiction</span>
-                                    <span class="cover-laurel">Anthology</span>
-                                </div>
-                                <h3 class="cover-title">VAULTS OF SECRETS</h3>
-                                <div class="cover-author">OLUKOREDE YISHAU</div>
-                                <div class="cover-motif">
-                                    <svg viewBox="0 0 100 100" class="motif-svg" aria-hidden="true">
-                                        <rect x="25" y="25" width="50" height="50" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
-                                        <circle cx="50" cy="45" r="8" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                                        <line x1="50" y1="53" x2="50" y2="65" stroke="currentColor" stroke-width="1.5"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="book-details">
-                            <div class="book-meta-line">
-                                <span>Short Fiction Anthology</span>
                                 <span class="sep">·</span>
-                                <span>Collected Stories</span>
-                                <span class="sep">·</span>
-                                <span>192 Pages</span>
+                                <span>NLNG $100k Longlist</span>
                             </div>
-                            <h3 class="book-headline">Vaults of Secrets</h3>
-                            <p class="book-synopsis">
-                                A masterclass in narrative tension, this poignant collection of short stories peers behind the bolted doors of suburban homes, corporate executive suites, and rural village squares. Each tale exposes the hidden burdens, clandestine alliances, and moral compromises individuals make in their quest for survival and acceptance.
+                            <h3 class="project-name">In the Name of Our Father</h3>
+                            <p class="project-description">
+                                A high-tension political and spiritual thriller unmasking the unholy alliance between charismatic religious charlatans and authoritarian state power in Nigeria.
                             </p>
-
-                            <dl class="book-specs-grid">
-                                <div class="spec-item">
-                                    <dt>Core Themes</dt>
-                                    <dd>Hidden Alliances · Domestic Hypocrisy · Societal Complicity</dd>
-                                </div>
-                                <div class="spec-item">
-                                    <dt>Curatorial Note</dt>
-                                    <dd>Ten interconnected portraits of contemporary urban and rural African life</dd>
-                                </div>
-                            </dl>
-
-                            <div class="book-critique">
-                                <p class="critique-quote">"Yishau possesses an uncanny ability to dissect the complex interior lives of ordinary people caught in extraordinary dilemmas."</p>
-                                <span class="critique-source">— African Literature Forum</span>
-                            </div>
-                            <div class="book-actions">
-                                <button type="button" class="btn-read-excerpt" data-book="vaults">
-                                    <i class="fas fa-book-open" aria-hidden="true"></i> Read Story Synopsis
-                                </button>
-                                <a href="#contact" class="btn-inquire">Acquire Copies</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Book 3: After The End -->
-                    <article class="book-card">
-                        <div class="book-cover-plate burgundy-plate">
-                            <div class="book-cover-artwork">
-                                <div class="cover-art-header">
-                                    <span class="cover-sub">Contemporary Novel</span>
-                                    <span class="cover-laurel">Prose Masterwork</span>
-                                </div>
-                                <h3 class="cover-title">AFTER THE END</h3>
-                                <div class="cover-author">OLUKOREDE YISHAU</div>
-                                <div class="cover-motif">
-                                    <svg viewBox="0 0 100 100" class="motif-svg" aria-hidden="true">
-                                        <path d="M20,50 Q50,15 80,50 Q50,85 20,50 Z" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.6"/>
-                                        <circle cx="50" cy="50" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="book-details">
-                            <div class="book-meta-line">
-                                <span>Novel</span>
-                                <span class="sep">·</span>
-                                <span>Social Realism</span>
-                                <span class="sep">·</span>
-                                <span>218 Pages</span>
-                            </div>
-                            <h3 class="book-headline">After The End</h3>
-                            <p class="book-synopsis">
-                                A compassionate, emotionally layered exploration of widowhood, patriarchal customs, and emotional rediscovery. <em>After The End</em> follows Demilade as she navigates the sudden rupture of her marriage and the aggressive encroachment of in-laws, revealing how the spirit rebuilds when everything familiar is stripped away.
-                            </p>
-
-                            <dl class="book-specs-grid">
-                                <div class="spec-item">
-                                    <dt>Core Themes</dt>
-                                    <dd>Widowhood Rites · Female Sovereignty · Familial Dispossession</dd>
-                                </div>
-                                <div class="spec-item">
-                                    <dt>Critical Acclaim</dt>
-                                    <dd>Celebrated for tender, unflinching realism and emotional honesty</dd>
-                                </div>
-                            </dl>
-
-                            <div class="book-critique">
-                                <p class="critique-quote">"A sensitive, unflinching confrontation with widowhood practices and the enduring resilience of African womanhood."</p>
-                                <span class="critique-source">— Daily Sun Review</span>
-                            </div>
-                            <div class="book-actions">
-                                <button type="button" class="btn-read-excerpt" data-book="after">
-                                    <i class="fas fa-book-open" aria-hidden="true"></i> Read Synopsis
-                                </button>
-                                <a href="#contact" class="btn-inquire">Reading Club Orders</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Press & Critical Reception Banner -->
-        <section class="press-review-strip" aria-label="Critical Reception">
-            <div class="container">
-                <div class="press-reviews-grid">
-                    <div class="press-quote-item">
-                        <p class="press-text">"Incisive, fearless, and morally grounded. Olukorede Yishau’s prose is required reading for anyone seeking to understand modern Nigeria."</p>
-                        <span class="press-source">The Nation Editorial Board</span>
-                    </div>
-                    <div class="press-quote-item">
-                        <p class="press-text">"Yishau writes with the relentless urgency of an investigative journalist and the tender empathy of a novelist who knows the human heart."</p>
-                        <span class="press-source">African Literature Forum</span>
-                    </div>
-                    <div class="press-quote-item">
-                        <p class="press-text">"A masterclass in investigative storytelling. Few writers balance empirical rigor with artistic beauty so effortlessly."</p>
-                        <span class="press-source">The Lagos Review</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Selected Journalism & Essays (3-Tier Curatorial Layout) -->
-        <section id="journalism" class="section-journalism">
-            <div class="container">
-                <div class="journalism-header-split">
-                    <div>
-                        <span class="section-kicker">Dispatches & Columns</span>
-                        <h2 class="section-title">Selected Journalism</h2>
-                        <p class="section-subtitle">Exemplary investigative reports, foreign correspondence, and weekly socio-political commentaries curated across two decades.</p>
-                    </div>
-
-                    <!-- Interactive Filter Controls (Segmented Buttons) -->
-                    <div class="filter-controls" role="group" aria-label="Filter works by category">
-                        <button type="button" class="filter-btn active" data-filter="all">All Despatches</button>
-                        <button type="button" class="filter-btn" data-filter="investigative">Investigative</button>
-                        <button type="button" class="filter-btn" data-filter="columns">Columns & Analysis</button>
-                        <button type="button" class="filter-btn" data-filter="international">US Bureau & Diplomacy</button>
-                    </div>
-                </div>
-
-                <!-- Tier 1: Lead Investigation Feature -->
-                <div class="lead-investigation-box journalism-filterable" data-category="investigative">
-                    <div class="lead-inv-badge">
-                        <span>Lead Investigation Dossier</span>
-                        <span class="sep">·</span>
-                        <span>Forensic Public Audit</span>
-                        <span class="sep">·</span>
-                        <span>8 min read</span>
-                    </div>
-                    <div class="lead-inv-content">
-                        <div class="lead-inv-main">
-                            <h3 class="lead-inv-title">The Anatomy of a Nation's Conscience: Financial Shadows in Public Procurement</h3>
-                            <p class="lead-inv-deck">
-                                A six-month forensic audit spanning three states, documenting ₦18B in phantom project certifications, shell corporations, and the institutional barriers facing civil service whistleblowers in West Africa.
-                            </p>
-                            <div class="lead-inv-takeaways">
-                                <div class="takeaway-pill">
-                                    <strong>Scope</strong>
-                                    <span>36 Project Sites Audited</span>
-                                </div>
-                                <div class="takeaway-pill">
-                                    <strong>Impact</strong>
-                                    <span>500k+ Citizens Affected</span>
-                                </div>
-                                <div class="takeaway-pill">
-                                    <strong>Methodology</strong>
-                                    <span>Whistleblower Logs & Registry Filings</span>
-                                </div>
-                            </div>
-                            <div class="lead-inv-actions">
-                                <button type="button" class="btn-read-article btn-lead-action" data-article-id="art-1">
-                                    <span>Read Full Investigation Dossier</span>
+                            <div class="project-actions">
+                                <button type="button" class="btn-project-view" data-project-id="father">
+                                    <span>Read Chapter Excerpt</span>
                                     <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
-                        <aside class="lead-inv-sidebar">
-                            <blockquote class="lead-sidebar-quote">
-                                "Public procurement is not merely an administrative procedure; it is the fundamental moral contract between the governors and the governed."
-                            </blockquote>
-                            <cite class="lead-sidebar-source">— Excerpt from Special Investigation</cite>
-                        </aside>
-                    </div>
-                </div>
+                    </article>
 
-                <!-- Tier 2: Secondary Featured Dispatches -->
-                <div class="secondary-journalism-row">
-                    <!-- Article 2 -->
-                    <article class="journalism-card secondary-card journalism-filterable" data-category="columns">
-                        <div class="article-meta">
-                            <span class="meta-cat">Column & Analysis</span>
-                            <span class="meta-sep">·</span>
-                            <span class="meta-pub">The Nation Broadsheet</span>
-                            <span class="meta-sep">·</span>
-                            <span class="meta-time">5 min read</span>
+                    <!-- Project 2: Public Procurement Investigation -->
+                    <article class="project-card work-filterable" data-category="investigative">
+                        <div class="project-visual-wrapper navy-plate">
+                            <div class="project-plate-content">
+                                <span class="plate-tag">Project 02 · Forensic Dossier</span>
+                                <h3 class="plate-title">FINANCIAL SHADOWS IN PROCUREMENT</h3>
+                                <span class="plate-sub">The Nation Special Investigations Desk</span>
+                            </div>
                         </div>
-                        <h3 class="article-title">The State of the Republic: Why Electoral Reform Cannot Wait</h3>
-                        <p class="article-excerpt">
-                            Examining the institutional fragility of democratic transitions, the urgent imperative of electronic ballot auditability, and the civic disillusionment of young voters.
-                        </p>
-                        <div class="article-footer">
-                            <button type="button" class="btn-read-article" data-article-id="art-2">
-                                Read Full Dispatch <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                            </button>
+                        <div class="project-body">
+                            <div class="project-meta-strip">
+                                <span>Forensic Audit</span>
+                                <span class="sep">·</span>
+                                <span>8 Min Read</span>
+                                <span class="sep">·</span>
+                                <span>3 States Surveyed</span>
+                            </div>
+                            <h3 class="project-name">The Anatomy of a Nation's Conscience</h3>
+                            <p class="project-description">
+                                A six-month investigative audit unravelling ₦18B in phantom project certifications, shell companies, and the systemic silencing of public sector whistleblowers.
+                            </p>
+                            <div class="project-actions">
+                                <button type="button" class="btn-project-view" data-project-id="art-1">
+                                    <span>Read Full Investigation</span>
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
                         </div>
                     </article>
 
-                    <!-- Article 3 -->
-                    <article class="journalism-card secondary-card journalism-filterable" data-category="international">
-                        <div class="article-meta">
-                            <span class="meta-cat">US Bureau & Diplomacy</span>
-                            <span class="meta-pub">Washington Bureau</span>
-                            <span class="meta-sep">·</span>
-                            <span class="meta-time">7 min read</span>
+                    <!-- Project 3: Vaults of Secrets -->
+                    <article class="project-card work-filterable" data-category="literature">
+                        <div class="project-visual-wrapper emerald-plate">
+                            <div class="project-plate-content">
+                                <span class="plate-tag">Project 03 · Short Fiction</span>
+                                <h3 class="plate-title">VAULTS OF SECRETS</h3>
+                                <span class="plate-sub">Anthology of 10 Interconnected Tales</span>
+                            </div>
                         </div>
-                        <h3 class="article-title">From the Potomac to the Niger: Re-imagining US-Nigeria Strategic Partnerships</h3>
-                        <p class="article-excerpt">
-                            Reporting from Capitol Hill on evolving American foreign policy toward Sub-Saharan Africa, security assistance frameworks, and diaspora economic remittances.
-                        </p>
-                        <div class="article-footer">
-                            <button type="button" class="btn-read-article" data-article-id="art-3">
-                                Read Full Dispatch <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                            </button>
+                        <div class="project-body">
+                            <div class="project-meta-strip">
+                                <span>Short Fiction</span>
+                                <span class="sep">·</span>
+                                <span>192 Pages</span>
+                                <span class="sep">·</span>
+                                <span>Social Realism</span>
+                            </div>
+                            <h3 class="project-name">Vaults of Secrets</h3>
+                            <p class="project-description">
+                                A masterclass in narrative tension exploring the hidden moral compromises, clandestine alliances, and quiet burdens carried behind closed domestic doors.
+                            </p>
+                            <div class="project-actions">
+                                <button type="button" class="btn-project-view" data-project-id="vaults">
+                                    <span>Read Story Synopsis</span>
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
                         </div>
                     </article>
-                </div>
 
-                <!-- Tier 3: Chronological Dispatch Register -->
-                <div class="dispatch-register-section">
-                    <div class="register-header">
-                        <h4 class="register-title">Chronological Dispatch Register</h4>
-                        <span class="register-counter">Historical Archives</span>
-                    </div>
-
-                    <div class="dispatch-register-list">
-                        <!-- Item 4 -->
-                        <div class="register-item journalism-filterable" data-category="investigative">
-                            <div class="reg-date">Investigative Feature</div>
-                            <div class="reg-body">
-                                <h5 class="reg-title">Unspoken Sacrifices: Behind the Frontlines of Community Healthcare</h5>
-                                <p class="reg-deck">An on-the-ground exposé tracing underfunded regional clinics where rural medical practitioners grapple with power outages and medicine shortages.</p>
+                    <!-- Project 4: After The End -->
+                    <article class="project-card work-filterable" data-category="literature">
+                        <div class="project-visual-wrapper burgundy-plate">
+                            <div class="project-plate-content">
+                                <span class="plate-tag">Project 04 · Contemporary Novel</span>
+                                <h3 class="plate-title">AFTER THE END</h3>
+                                <span class="plate-sub">Widowhood & Resilience in Modern Lagos</span>
                             </div>
-                            <div class="reg-action">
-                                <span class="reg-time">10 min read</span>
-                                <button type="button" class="btn-register-read" data-article-id="art-4" aria-label="Read Unspoken Sacrifices">
-                                    <span>Read</span> <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-meta-strip">
+                                <span>Contemporary Novel</span>
+                                <span class="sep">·</span>
+                                <span>218 Pages</span>
+                                <span class="sep">·</span>
+                                <span>Daily Sun Acclaim</span>
+                            </div>
+                            <h3 class="project-name">After The End</h3>
+                            <p class="project-description">
+                                An unflinching, compassionate confrontation with patriarchal inheritance customs, grief, and female self-determination in contemporary West Africa.
+                            </p>
+                            <div class="project-actions">
+                                <button type="button" class="btn-project-view" data-project-id="after">
+                                    <span>Read Book Excerpt</span>
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
+                    </article>
 
-                        <!-- Item 5 -->
-                        <div class="register-item journalism-filterable" data-category="columns">
-                            <div class="reg-date">Award Submission</div>
-                            <div class="reg-body">
-                                <h5 class="reg-title">Between the Pulpit and the Ballot: The Dangerous Currency of Religious Politics</h5>
-                                <p class="reg-deck">A rigorous appraisal of how clerical endorsements and sectarian manipulation warp civic discourse during critical gubernatorial and presidential cycles.</p>
+                    <!-- Project 5: Washington Bureau Diplomatic Platform -->
+                    <article class="project-card work-filterable" data-category="editorial">
+                        <div class="project-visual-wrapper bronze-plate">
+                            <div class="project-plate-content">
+                                <span class="plate-tag">Project 05 · Foreign Bureau</span>
+                                <h3 class="plate-title">US-NIGERIA DIPLOMATIC WIRE</h3>
+                                <span class="plate-sub">Capitol Hill & West African Statecraft</span>
                             </div>
-                            <div class="reg-action">
-                                <span class="reg-time">6 min read</span>
-                                <button type="button" class="btn-register-read" data-article-id="art-5" aria-label="Read Between the Pulpit and the Ballot">
-                                    <span>Read</span> <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-meta-strip">
+                                <span>Diplomacy</span>
+                                <span class="sep">·</span>
+                                <span>7 Min Read</span>
+                                <span class="sep">·</span>
+                                <span>Washington Bureau</span>
+                            </div>
+                            <h3 class="project-name">From the Potomac to the Niger</h3>
+                            <p class="project-description">
+                                Grounded analysis on modern bilateral trade, security cooperation frameworks, and diaspora capital flows reshaping trans-Atlantic relationships.
+                            </p>
+                            <div class="project-actions">
+                                <button type="button" class="btn-project-view" data-project-id="art-3">
+                                    <span>Read Dispatch</span>
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
+                    </article>
 
-                        <!-- Item 6 -->
-                        <div class="register-item journalism-filterable" data-category="international">
-                            <div class="reg-date">US Bureau Report</div>
-                            <div class="reg-body">
-                                <h5 class="reg-title">The Brain Drain Paradox: Nigerian Intellectual Capital in the American Diaspora</h5>
-                                <p class="reg-deck">Profiling leading Nigerian surgeons, engineers, and academics in North America navigating dual citizenship and homeward development investments.</p>
+                    <!-- Project 6: Democratic Institutions & Electoral Reform -->
+                    <article class="project-card work-filterable" data-category="editorial">
+                        <div class="project-visual-wrapper slate-plate">
+                            <div class="project-plate-content">
+                                <span class="plate-tag">Project 06 · Broadsheet Column</span>
+                                <h3 class="plate-title">THE STATE OF THE REPUBLIC</h3>
+                                <span class="plate-sub">NMMA Award-Winning Column Series</span>
                             </div>
-                            <div class="reg-action">
-                                <span class="reg-time">6 min read</span>
-                                <button type="button" class="btn-register-read" data-article-id="art-6" aria-label="Read The Brain Drain Paradox">
-                                    <span>Read</span> <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-meta-strip">
+                                <span>Political Column</span>
+                                <span class="sep">·</span>
+                                <span>5 Min Read</span>
+                                <span class="sep">·</span>
+                                <span>NMMA Laureate</span>
+                            </div>
+                            <h3 class="project-name">The State of the Republic</h3>
+                            <p class="project-description">
+                                A celebrated weekly broadsheet examination of democratic consolidation, voter disillusionment, and the constitutional imperative of electronic ballot transparency.
+                            </p>
+                            <div class="project-actions">
+                                <button type="button" class="btn-project-view" data-project-id="art-2">
+                                    <span>Read Full Dispatch</span>
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- Accolades & Milestones -->
-        <section id="accolades" class="section-accolades">
+        <!-- SERVICES -->
+        <section id="services" class="section-services">
             <div class="container">
-                <header class="section-header text-center">
-                    <span class="section-kicker">Honors & Milestones</span>
-                    <h2 class="section-title">Critical Recognition & Industry Honors</h2>
-                    <p class="section-subtitle max-w-xl">A testament to enduring journalistic integrity and literary merit across two and a half decades.</p>
+                <header class="section-header">
+                    <span class="section-kicker">Core Capabilities</span>
+                    <h2 class="section-title">Services</h2>
+                    <p class="section-subtitle">How I collaborate with publishers, cultural institutions, newsrooms, and global organizations.</p>
                 </header>
 
-                <div class="accolades-grid">
-                    <div class="accolade-card">
-                        <div class="accolade-top">
-                            <span class="accolade-num">01</span>
-                            <span class="accolade-year">Award Laureate</span>
+                <div class="services-grid">
+                    <!-- Service 1 -->
+                    <div class="service-item">
+                        <div class="service-num">01</div>
+                        <h3 class="service-title">Investigative Journalism & Documentary Inquest</h3>
+                        <p class="service-desc">
+                            Deep-dive forensic audits, whistleblower interview dossiers, public procurement investigations, and long-form analytical features grounded in verified facts.
+                        </p>
+                        <ul class="service-points">
+                            <li>Public finance & integrity investigations</li>
+                            <li>Field research across West Africa & North America</li>
+                            <li>Ethical fact-checking & source protection</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="service-item">
+                        <div class="service-num">02</div>
+                        <h3 class="service-title">Editorial Direction & Publishing Strategy</h3>
+                        <p class="service-desc">
+                            Senior newsroom management, broadsheet column syndication, digital narrative architecture, and institutional communication advisories.
+                        </p>
+                        <ul class="service-points">
+                            <li>Editorial board guidance & column development</li>
+                            <li>Newsroom mentoring & trans-Atlantic coverage</li>
+                            <li>Special publication curation & monograph editing</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="service-item">
+                        <div class="service-num">03</div>
+                        <h3 class="service-title">Literary Fiction & Narrative Architecture</h3>
+                        <p class="service-desc">
+                            Full-length novels, short story anthologies, creative nonfiction manuscript consultations, and narrative advisory for complex human stories.
+                        </p>
+                        <ul class="service-points">
+                            <li>Novel drafting & structural manuscript reviews</li>
+                            <li>Character psychology & political realism</li>
+                            <li>Publishing rights & global adaptation discussions</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="service-item">
+                        <div class="service-num">04</div>
+                        <h3 class="service-title">Keynotes, University Lectures & Panels</h3>
+                        <p class="service-desc">
+                            Engaging keynotes and masterclasses addressing the ethics of journalism, literary craft, press freedom under democratic duress, and African diaspora relations.
+                        </p>
+                        <ul class="service-points">
+                            <li>International literary festival panels</li>
+                            <li>Academic journalism seminars & guest lectures</li>
+                            <li>Diplomatic & civic society roundtable addresses</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MY PROCESS -->
+        <section id="process" class="section-process">
+            <div class="container">
+                <header class="section-header">
+                    <span class="section-kicker">Methodology & Rigor</span>
+                    <h2 class="section-title">My Process</h2>
+                    <p class="section-subtitle">A battle-tested four-stage architecture developed over 25+ years in national newsrooms and literary presses.</p>
+                </header>
+
+                <div class="process-track">
+                    <!-- Step 1 -->
+                    <div class="process-node">
+                        <div class="node-indicator">
+                            <span class="node-number">01</span>
+                            <div class="node-line" aria-hidden="true"></div>
                         </div>
-                        <h3 class="accolade-title">Nigeria Media Merit Award (NMMA)</h3>
-                        <p class="accolade-org">Board of Trustees, NMMA</p>
-                        <p class="accolade-desc">Multiple-time recipient for exceptional investigative reportage, editorial clarity, and fearless column writing that catalyzed national policy discussions.</p>
-                        <div class="accolade-citation">
-                            <span class="citation-tag">Jury Citation</span>
-                            <p class="citation-text">"Commended for sustained investigative courage in the face of executive pressure."</p>
+                        <div class="node-content">
+                            <h3 class="node-title">Discovery & Forensic Research</h3>
+                            <p class="node-body">
+                                Every memorable piece starts with immersive inquest. I comb through public records, conducted field interviews, cross-examine whistleblower testimonies, and map out the underlying human stakes.
+                            </p>
+                            <span class="node-deliverable">Outcome: Comprehensive Dossier & Verified Facts</span>
                         </div>
                     </div>
 
-                    <div class="accolade-card">
-                        <div class="accolade-top">
-                            <span class="accolade-num">02</span>
-                            <span class="accolade-year">NLNG Longlist</span>
+                    <!-- Step 2 -->
+                    <div class="process-node">
+                        <div class="node-indicator">
+                            <span class="node-number">02</span>
+                            <div class="node-line" aria-hidden="true"></div>
                         </div>
-                        <h3 class="accolade-title">The Nigeria Prize for Literature</h3>
-                        <p class="accolade-org">Nigeria LNG Advisory Board ($100,000 Prize)</p>
-                        <p class="accolade-desc">Longlisted for the celebrated debut novel <em>In the Name of Our Father</em>, distinguished among hundreds of entries for narrative innovation and social moral weight.</p>
-                        <div class="accolade-citation">
-                            <span class="citation-tag">Panel Assessment</span>
-                            <p class="citation-text">"An urgent, structurally taut dissection of faith used as an instrument of state tyranny."</p>
-                        </div>
-                    </div>
-
-                    <div class="accolade-card">
-                        <div class="accolade-top">
-                            <span class="accolade-num">03</span>
-                            <span class="accolade-year">Distinction</span>
-                        </div>
-                        <h3 class="accolade-title">Columnist of the Year</h3>
-                        <p class="accolade-org">Nigerian Media Merit Awards</p>
-                        <p class="accolade-desc">Conferred for sustained weekly excellence in socio-political commentary, civil liberties defense, and masterfully crafted broadsheet rhetoric.</p>
-                        <div class="accolade-citation">
-                            <span class="citation-tag">Citation</span>
-                            <p class="citation-text">"A master of the essay form who transforms complex national events into accessible civic wisdom."</p>
+                        <div class="node-content">
+                            <h3 class="node-title">Narrative Architecture</h3>
+                            <p class="node-body">
+                                Facts alone do not persuade; architecture does. I design the narrative trajectory, pacing, character dilemmas, and rhetorical arcs to ensure maximum emotional resonance and cognitive retention.
+                            </p>
+                            <span class="node-deliverable">Outcome: Structural Blueprint & Thematic Cadence</span>
                         </div>
                     </div>
 
-                    <div class="accolade-card">
-                        <div class="accolade-top">
-                            <span class="accolade-num">04</span>
-                            <span class="accolade-year">Bureau Post</span>
+                    <!-- Step 3 -->
+                    <div class="process-node">
+                        <div class="node-indicator">
+                            <span class="node-number">03</span>
+                            <div class="node-line" aria-hidden="true"></div>
                         </div>
-                        <h3 class="accolade-title">United States Bureau Chief & Associate Editor</h3>
-                        <p class="accolade-org">The Nation Newspaper</p>
-                        <p class="accolade-desc">Leading North American editorial bureaus from Washington D.C., directing transatlantic diplomatic reportage, and mentoring emerging African investigative journalists.</p>
-                        <div class="accolade-citation">
-                            <span class="citation-tag">Bureau Mandate</span>
-                            <p class="citation-text">"Expanding the reach of independent West African journalism across the Atlantic basin."</p>
+                        <div class="node-content">
+                            <h3 class="node-title">Refinement & Editorial Polish</h3>
+                            <p class="node-body">
+                                Relentless sentence-level craftsmanship. Prose is stripped of superfluous clutter, rhythm is calibrated, and legal/ethical invariants are audited to ensure bulletproof authority.
+                            </p>
+                            <span class="node-deliverable">Outcome: Pristine Literary & Broadsheet Prose</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="process-node">
+                        <div class="node-indicator">
+                            <span class="node-number">04</span>
+                            <div class="node-line" aria-hidden="true"></div>
+                        </div>
+                        <div class="node-content">
+                            <h3 class="node-title">Launch, Syndication & Dialogue</h3>
+                            <p class="node-body">
+                                Publication is not the finish line; it is the ignition point. I coordinate syndication across national dailies, diplomatic bureaus, book clubs, and academic forums to spark enduring civic impact.
+                            </p>
+                            <span class="node-deliverable">Outcome: Lasting Cultural & Institutional Impact</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Inquiries / Contact Section -->
-        <section id="contact" class="section-contact">
+        <!-- ABOUT ME -->
+        <section id="about" class="section-about">
             <div class="container">
-                <div class="contact-frame">
-                    <div class="contact-intro">
-                        <span class="section-kicker">Connect & Consult</span>
-                        <h2 class="section-title">Editorial & Literary Inquiries</h2>
-                        <p class="contact-lead">
-                            Olukorede Yishau is available for keynote addresses, literary readings, manuscript consultations, syndication rights, and university lectures.
+                <header class="section-header">
+                    <span class="section-kicker">Biographical Narrative</span>
+                    <h2 class="section-title">About Me</h2>
+                </header>
+
+                <div class="about-grid-layout">
+                    <div class="about-main-text">
+                        <p class="lead-dropcap">
+                            For more than a quarter of a century, I have dedicated my life to the uncompromising pursuit of truth and the craft of storytelling. As an investigative journalist and United States Bureau Chief for <em>The Nation</em>, I have reported from the trenches of military decrees to the halls of Capitol Hill in Washington D.C.
                         </p>
-
-                        <div class="contact-details">
-                            <div class="contact-method">
-                                <span class="method-label">Direct Correspondence</span>
-                                <a href="mailto:contact@olukoredeyishau.com" class="method-link">contact@olukoredeyishau.com</a>
+                        <p>
+                            My novels, including the Nigeria Prize for Literature longlisted <em>In the Name of Our Father</em>, <em>Vaults of Secrets</em>, and <em>After The End</em>, explore the intimate human cost of religious hypocrisy, political tyranny, and social dogma. Whether writing a front-page broadsheet exposé or a 300-page novel, my guiding conviction remains unchanged:
+                        </p>
+                        <blockquote class="about-inline-quote">
+                            "A story that doesn't challenge power or comfort the afflicted is merely decorative. I build digital and narrative experiences that leave an indelible mark on the conscience."
+                        </blockquote>
+                        <div class="about-timeline-cards">
+                            <div class="timeline-card">
+                                <span class="t-year">1999–2005</span>
+                                <h4>Underground Journalism</h4>
+                                <p>Reporting under military transition decrees at <em>The News</em> and <em>Tempo</em>.</p>
                             </div>
-
-                            <div class="contact-method">
-                                <span class="method-label">Bureaus & Locations</span>
-                                <span class="method-text">Washington, D.C., USA · Lagos, Nigeria</span>
+                            <div class="timeline-card">
+                                <span class="t-year">2006–2019</span>
+                                <h4>Founding Editor & Columnist</h4>
+                                <p>General Editor at <em>The Nation</em>; multiple NMMA Columnist of the Year awards.</p>
                             </div>
-
-                            <div class="contact-method">
-                                <span class="method-label">Social & Professional Channels</span>
-                                <div class="social-icon-row">
-                                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Twitter">
-                                        <i class="fab fa-x-twitter" aria-hidden="true"></i>
-                                    </a>
-                                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
-                                        <i class="fab fa-linkedin-in" aria-hidden="true"></i>
-                                    </a>
-                                    <a href="mailto:contact@olukoredeyishau.com" class="social-icon" aria-label="Email">
-                                        <i class="fas fa-envelope" aria-hidden="true"></i>
-                                    </a>
-                                </div>
+                            <div class="timeline-card">
+                                <span class="t-year">2020–Present</span>
+                                <h4>US Bureau Chief & Author</h4>
+                                <p>Directing Washington D.C. international operations & transatlantic dispatches.</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="contact-form-wrapper">
-                        <form id="inquiry-form" class="inquiry-form">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="form-name" class="form-label">Full Name</label>
-                                    <input type="text" id="form-name" class="form-input" placeholder="e.g. Eleanor Vance" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="form-email" class="form-label">Email Address</label>
-                                    <input type="email" id="form-email" class="form-input" placeholder="e.g. vance@institution.org" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="form-inquiry-type" class="form-label">Nature of Inquiry</label>
-                                <select id="form-inquiry-type" class="form-select" required>
-                                    <option value="" disabled selected>Select conversation topic</option>
-                                    <option value="speaking">Keynote Address or Literary Festival Panel</option>
-                                    <option value="interview">Press Interview or Media Comment</option>
-                                    <option value="rights">Book Rights, Syndication or Translations</option>
-                                    <option value="academic">University Lecture / Workshop</option>
-                                    <option value="general">General Correspondence</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="form-message" class="form-label">Message</label>
-                                <textarea id="form-message" class="form-textarea" rows="5" placeholder="Please outline the scope, timeline, and institutional context of your inquiry..." required></textarea>
-                            </div>
-
-                            <button type="submit" class="btn-submit" id="submit-btn">
-                                <span>Transmit Inquiry</span>
-                                <i class="fas fa-paper-plane" aria-hidden="true"></i>
-                            </button>
-
-                            <div id="form-feedback" class="form-feedback" aria-live="polite"></div>
-                        </form>
+                    <div class="about-stat-column">
+                        <div class="stat-box">
+                            <span class="stat-number">25+</span>
+                            <span class="stat-title">Years of Experience</span>
+                            <p class="stat-sub">Spanning national newsrooms, literary imprints, and international bureaus.</p>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">3</span>
+                            <span class="stat-title">Published Books</span>
+                            <p class="stat-sub">Critically acclaimed literary fiction longlisted for prestigious prizes.</p>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">5+</span>
+                            <span class="stat-title">Major Industry Awards</span>
+                            <p class="stat-sub">Including multiple Nigeria Media Merit Awards for investigative excellence.</p>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS -->
+        <section id="testimonials" class="section-testimonials">
+            <div class="container">
+                <header class="section-header text-center">
+                    <span class="section-kicker">Voices & Critiques</span>
+                    <h2 class="section-title">Testimonials</h2>
+                    <p class="section-subtitle max-w-xl">Critical reception and endorsements from esteemed editors, literary scholars, and national review boards.</p>
+                </header>
+
+                <div class="testimonials-grid">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card">
+                        <div class="quote-symbol" aria-hidden="true">“</div>
+                        <p class="testimonial-text">
+                            "A tour de force that lays bare the spiritual and political charlatanism of our times with terrifying precision. Olukorede Yishau has crafted an essential piece of contemporary African literature."
+                        </p>
+                        <div class="testimonial-author">
+                            <strong>The Guardian (Nigeria)</strong>
+                            <span>Literary Review Board</span>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card">
+                        <div class="quote-symbol" aria-hidden="true">“</div>
+                        <p class="testimonial-text">
+                            "Incisive, fearless, and morally grounded. Olukorede Yishau’s column is required reading for anyone seeking to understand modern Nigeria. His prose transforms complex politics into civic wisdom."
+                        </p>
+                        <div class="testimonial-author">
+                            <strong>The Nation Editorial Board</strong>
+                            <span>National Broadsheet Review</span>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card">
+                        <div class="quote-symbol" aria-hidden="true">“</div>
+                        <p class="testimonial-text">
+                            "Yishau possesses the rare dual gift of an investigative reporter who tracks down the hardest secrets and the tender empathy of a novelist who understands the fragile human heart."
+                        </p>
+                        <div class="testimonial-author">
+                            <strong>African Literature Forum</strong>
+                            <span>Critical Monograph Review</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LET'S WORK TOGETHER -->
+        <section id="contact" class="section-contact-cta">
+            <div class="container">
+                <div class="work-together-banner">
+                    <span class="section-kicker">Collaboration & Dialogue</span>
+                    <h2 class="work-together-title">Let's Work Together</h2>
+                    <p class="work-together-lead">
+                        Have an investigative inquiry, literary publication, speaking engagement, or editorial project in mind? Let's build something people will remember.
+                    </p>
+                    <a href="#project-intake" class="btn-start-project" id="btn-open-intake">
+                        <span>Start a Project</span>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <!-- Interactive Project Intake Form Container -->
+                <div id="project-intake" class="intake-form-box">
+                    <div class="intake-header">
+                        <h3>Project Intake & Correspondence</h3>
+                        <p>Fill out the parameters below to initiate a direct consultation with Olukorede Yishau.</p>
+                    </div>
+
+                    <form id="inquiry-form" class="inquiry-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="form-name" class="form-label">Your Name</label>
+                                <input type="text" id="form-name" class="form-input" placeholder="e.g. Professor Adeyemi" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-email" class="form-label">Email Address</label>
+                                <input type="email" id="form-email" class="form-input" placeholder="e.g. adeyemi@institution.org" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form-inquiry-type" class="form-label">Project Scope</label>
+                            <select id="form-inquiry-type" class="form-select" required>
+                                <option value="" disabled selected>Select project type</option>
+                                <option value="investigative">Investigative Feature / Editorial Project</option>
+                                <option value="speaking">Keynote Address / Literary Festival</option>
+                                <option value="rights">Book Rights / Syndication / Adaptation</option>
+                                <option value="academic">University Lecture / Workshop</option>
+                                <option value="general">Direct Correspondence</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form-message" class="form-label">Project Overview & Timeline</label>
+                            <textarea id="form-message" class="form-textarea" rows="4" placeholder="Briefly describe your goals, institutional context, and preferred timeline..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="submit-btn">
+                            <span>Submit Project Request</span>
+                            <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                        </button>
+
+                        <div id="form-feedback" class="form-feedback" aria-live="polite"></div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -748,7 +666,7 @@
             <div class="modal-drag-handle" aria-hidden="true"></div>
             <header class="modal-header">
                 <div class="modal-meta-group">
-                    <span class="modal-meta" id="modal-meta-tag">Dispatch Archive</span>
+                    <span class="modal-meta" id="modal-meta-tag">Work Archive</span>
                     <span class="modal-meta-readtime" id="modal-readtime"></span>
                 </div>
                 <div class="modal-reading-controls">
@@ -763,51 +681,121 @@
                 <!-- Dynamically populated -->
             </div>
             <footer class="modal-footer">
-                <button type="button" class="btn-modal-dismiss" id="modal-dismiss-btn">Close Reader</button>
+                <button type="button" class="btn-modal-dismiss" id="modal-dismiss-btn">Close Viewer</button>
             </footer>
         </div>
     </div>
 
-    <!-- Mobile Fixed Bottom Navigation Bar (Thumb Zone) -->
+    <!-- Interactive Background Controls HUD -->
+    <div id="bg-control-panel" class="bg-control-panel" role="region" aria-label="Interactive background settings">
+        <button id="bg-mode-toggle" class="bg-mode-indicator" type="button" title="Switch interactive background visual style">
+            <span class="bg-pulse-dot" aria-hidden="true"></span>
+            <span id="bg-mode-label">✦ Constellation</span>
+        </button>
+        <button id="bg-ripple-trigger" class="bg-control-btn" type="button" title="Emit interactive narrative wave">
+            <i class="fas fa-wave-square" aria-hidden="true"></i> Pulse
+        </button>
+    </div>
+
+    <!-- Small Work & Literary AI Assistant Widget -->
+    <div id="ai-assistant-widget" class="ai-assistant-widget" role="region" aria-label="Work & Literary AI Assistant">
+        <button id="ai-assistant-toggle" class="ai-assistant-toggle" type="button" aria-expanded="false" aria-controls="ai-assistant-modal" aria-label="Open AI Assistant about Olukorede Yishau's Work" title="Ask AI about Olukorede Yishau's work">
+            <span class="ai-toggle-icon">
+                <i class="fas fa-feather-pointed" aria-hidden="true"></i>
+            </span>
+            <span class="ai-toggle-text">Ask About My Work</span>
+            <span class="ai-status-pulse" aria-hidden="true"></span>
+        </button>
+
+        <!-- Assistant Floating Drawer / Panel -->
+        <div id="ai-assistant-modal" class="ai-assistant-panel" aria-hidden="true">
+            <div class="ai-panel-header">
+                <div class="ai-panel-brand">
+                    <div class="ai-avatar-ring">
+                        <i class="fas fa-feather-pointed" aria-hidden="true"></i>
+                    </div>
+                    <div class="ai-brand-info">
+                        <span class="ai-brand-name">Bureau Work Desk AI</span>
+                        <span class="ai-brand-status">Grounded in Olukorede Yishau's Works</span>
+                    </div>
+                </div>
+                <button id="ai-assistant-close" class="ai-panel-close" type="button" aria-label="Close Assistant">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <div class="ai-panel-body" id="ai-chat-stream">
+                <div class="ai-message ai-message-assistant">
+                    <div class="ai-message-bubble">
+                        <p>Welcome. I am Olukorede Yishau’s Work & Literary Desk Assistant. You can ask me about his published books (<em>In the Name of Our Father</em>, <em>Vaults of Secrets</em>, <em>After The End</em>), his 25+ years in investigative journalism, awards, or project commissions.</p>
+                    </div>
+                    <span class="ai-message-time">Assistant</span>
+                </div>
+
+                <!-- Quick Suggestion Prompt Chips -->
+                <div class="ai-prompt-chips" id="ai-prompt-chips">
+                    <button type="button" class="ai-chip" data-prompt="What books has Olukorede Yishau published?">Published Books</button>
+                    <button type="button" class="ai-chip" data-prompt="What major awards and honours has he received?">Awards & NMMA</button>
+                    <button type="button" class="ai-chip" data-prompt="Tell me about his key investigative journalism.">Investigative Reports</button>
+                    <button type="button" class="ai-chip" data-prompt="How can I commission or collaborate with Olukorede?">Hire & Inquiries</button>
+                </div>
+            </div>
+
+            <form id="ai-chat-form" class="ai-panel-footer">
+                <input type="text" id="ai-chat-input" class="ai-chat-input" placeholder="Ask about his books, journalism, or awards..." aria-label="Question about Olukorede Yishau's work" autocomplete="off" maxlength="400" required>
+                <button type="submit" id="ai-chat-send" class="ai-chat-send" aria-label="Send question">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Floating Action -->
+    <button id="scroll-to-top" class="scroll-to-top" type="button" aria-label="Scroll back to top" title="Scroll back to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- Mobile Fixed Bottom Navigation Bar (Matching User's Layout) -->
     <nav class="mobile-bottom-nav" aria-label="Mobile Quick Navigation">
+        <a href="#work" class="bottom-tab" data-section="work">
+            <i class="fas fa-folder-open" aria-hidden="true"></i>
+            <span>Work</span>
+        </a>
+        <a href="#services" class="bottom-tab" data-section="services">
+            <i class="fas fa-layer-group" aria-hidden="true"></i>
+            <span>Services</span>
+        </a>
+        <a href="#process" class="bottom-tab" data-section="process">
+            <i class="fas fa-diagram-project" aria-hidden="true"></i>
+            <span>Process</span>
+        </a>
         <a href="#about" class="bottom-tab" data-section="about">
-            <i class="fas fa-user-pen" aria-hidden="true"></i>
-            <span>Bio</span>
-        </a>
-        <a href="#books" class="bottom-tab" data-section="books">
-            <i class="fas fa-book" aria-hidden="true"></i>
-            <span>Books</span>
-        </a>
-        <a href="#journalism" class="bottom-tab" data-section="journalism">
-            <i class="fas fa-newspaper" aria-hidden="true"></i>
-            <span>Selected</span>
-        </a>
-        <a href="#accolades" class="bottom-tab" data-section="accolades">
-            <i class="fas fa-award" aria-hidden="true"></i>
-            <span>Accolades</span>
+            <i class="fas fa-user" aria-hidden="true"></i>
+            <span>About</span>
         </a>
         <a href="#contact" class="bottom-tab" data-section="contact">
             <i class="fas fa-paper-plane" aria-hidden="true"></i>
-            <span>Inquire</span>
+            <span>Contact</span>
         </a>
     </nav>
 
-    <!-- Editorial Site Footer -->
+    <!-- FOOTER -->
     <footer class="site-footer">
         <div class="container footer-content">
             <div class="footer-brand">
                 <span class="footer-title">Olukorede Yishau</span>
-                <p class="footer-desc">Novelist, investigative journalist, and associate editor. Chronicling societal truth across West Africa and North America.</p>
+                <p class="footer-desc">Author, investigative journalist, and digital storyteller with 25+ years experience building narratives people remember.</p>
             </div>
             <div class="footer-links">
-                <a href="#about">Biography</a>
-                <a href="#books">Books</a>
-                <a href="#journalism">Selected Works</a>
-                <a href="#accolades">Accolades</a>
-                <a href="#contact">Inquiries</a>
+                <a href="#work">Work</a>
+                <a href="#services">Services</a>
+                <a href="#process">My Process</a>
+                <a href="#about">About Me</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
             </div>
             <div class="footer-copy">
-                <p>&copy; 2026 Olukorede Yishau. All rights reserved. Curated broadsheet & literary portfolio.</p>
+                <p>&copy; 2026 Olukorede Yishau. All rights reserved. Crafted with editorial rigor & digital elegance.</p>
             </div>
         </div>
     </footer>
