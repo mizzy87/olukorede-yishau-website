@@ -50,6 +50,34 @@
 
             <!-- Zone 3: Primary action & utilities -->
             <div class="header-actions">
+                <div class="palette-picker-container" id="palette-picker-container">
+                    <button id="palette-toggle" class="utility-btn palette-btn" type="button" aria-label="Change Accent Color Palette" title="Change Color Palette">
+                        <span class="palette-color-preview" id="palette-active-dot"></span>
+                        <i class="fas fa-palette" aria-hidden="true"></i>
+                    </button>
+                    <div class="palette-dropdown" id="palette-dropdown" role="menu" aria-label="Color Themes">
+                        <button type="button" class="palette-option active" data-color="sapphire" title="Royal Sapphire">
+                            <span class="swatch swatch-sapphire"></span>
+                            <span class="swatch-label">Sapphire</span>
+                        </button>
+                        <button type="button" class="palette-option" data-color="emerald" title="Lagos Emerald">
+                            <span class="swatch swatch-emerald"></span>
+                            <span class="swatch-label">Emerald</span>
+                        </button>
+                        <button type="button" class="palette-option" data-color="crimson" title="Crimson Ink">
+                            <span class="swatch swatch-crimson"></span>
+                            <span class="swatch-label">Crimson</span>
+                        </button>
+                        <button type="button" class="palette-option" data-color="amber" title="Imperial Amber">
+                            <span class="swatch swatch-amber"></span>
+                            <span class="swatch-label">Amber</span>
+                        </button>
+                        <button type="button" class="palette-option" data-color="obsidian" title="Obsidian Slate">
+                            <span class="swatch swatch-obsidian"></span>
+                            <span class="swatch-label">Obsidian</span>
+                        </button>
+                    </div>
+                </div>
                 <button id="theme-toggle" class="utility-btn" type="button" aria-label="Toggle dark theme" title="Toggle dark theme">
                     <i class="fas fa-moon" aria-hidden="true"></i>
                 </button>
@@ -165,8 +193,15 @@
                 <!-- Projects Grid -->
                 <div class="projects-grid">
                     <!-- Project 1: In The Name of Our Father -->
-                    <article class="project-card work-filterable" data-category="literature">
+                    <article class="project-card work-filterable" data-category="literature" data-book-card="father">
                         <div class="project-visual-wrapper dark-plate">
+                            <div class="plate-reading-badge" data-book-badge="father" aria-label="Excerpt reading progress: 100% left" title="Excerpt reading progress">
+                                <svg class="plate-mini-ring" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+                                    <circle class="mini-ring-bg" cx="11" cy="11" r="9" />
+                                    <circle class="mini-ring-fill" cx="11" cy="11" r="9" />
+                                </svg>
+                                <span class="plate-badge-text">100% left</span>
+                            </div>
                             <div class="project-plate-content">
                                 <span class="plate-tag">Project 01 · Literary Novel</span>
                                 <h3 class="plate-title">IN THE NAME OF OUR FATHER</h3>
@@ -187,9 +222,25 @@
                             </p>
                             <div class="project-actions">
                                 <button type="button" class="btn-project-view" data-project-id="father">
-                                    <span>Read Chapter Excerpt</span>
+                                    <span class="btn-text">Read Chapter Excerpt</span>
                                     <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
+                                <div class="reading-progress-widget" data-book-widget="father" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="In the Name of Our Father excerpt reading progress" title="Excerpt reading progress: 100% left (click to open excerpt)">
+                                    <div class="progress-circle-frame">
+                                        <svg class="progress-ring-svg" width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
+                                            <circle class="progress-ring-bg" cx="22" cy="22" r="18" />
+                                            <circle class="progress-ring-fill" cx="22" cy="22" r="18" />
+                                        </svg>
+                                        <div class="progress-ring-inner">
+                                            <span class="progress-pct-num">100%</span>
+                                            <span class="progress-pct-sub">left</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress-info-block">
+                                        <span class="progress-kicker">Excerpt Left</span>
+                                        <span class="progress-status-label">100% left · 12 min</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -225,8 +276,15 @@
                     </article>
 
                     <!-- Project 3: Vaults of Secrets -->
-                    <article class="project-card work-filterable" data-category="literature">
+                    <article class="project-card work-filterable" data-category="literature" data-book-card="vaults">
                         <div class="project-visual-wrapper emerald-plate">
+                            <div class="plate-reading-badge" data-book-badge="vaults" aria-label="Excerpt reading progress: 100% left" title="Excerpt reading progress">
+                                <svg class="plate-mini-ring" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+                                    <circle class="mini-ring-bg" cx="11" cy="11" r="9" />
+                                    <circle class="mini-ring-fill" cx="11" cy="11" r="9" />
+                                </svg>
+                                <span class="plate-badge-text">100% left</span>
+                            </div>
                             <div class="project-plate-content">
                                 <span class="plate-tag">Project 03 · Short Fiction</span>
                                 <h3 class="plate-title">VAULTS OF SECRETS</h3>
@@ -247,16 +305,39 @@
                             </p>
                             <div class="project-actions">
                                 <button type="button" class="btn-project-view" data-project-id="vaults">
-                                    <span>Read Story Synopsis</span>
+                                    <span class="btn-text">Read Story Synopsis</span>
                                     <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
+                                <div class="reading-progress-widget" data-book-widget="vaults" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Vaults of Secrets excerpt reading progress" title="Excerpt reading progress: 100% left (click to open excerpt)">
+                                    <div class="progress-circle-frame">
+                                        <svg class="progress-ring-svg" width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
+                                            <circle class="progress-ring-bg" cx="22" cy="22" r="18" />
+                                            <circle class="progress-ring-fill" cx="22" cy="22" r="18" />
+                                        </svg>
+                                        <div class="progress-ring-inner">
+                                            <span class="progress-pct-num">100%</span>
+                                            <span class="progress-pct-sub">left</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress-info-block">
+                                        <span class="progress-kicker">Excerpt Left</span>
+                                        <span class="progress-status-label">100% left · 9 min</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </article>
 
                     <!-- Project 4: After The End -->
-                    <article class="project-card work-filterable" data-category="literature">
+                    <article class="project-card work-filterable" data-category="literature" data-book-card="after">
                         <div class="project-visual-wrapper burgundy-plate">
+                            <div class="plate-reading-badge" data-book-badge="after" aria-label="Excerpt reading progress: 100% left" title="Excerpt reading progress">
+                                <svg class="plate-mini-ring" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+                                    <circle class="mini-ring-bg" cx="11" cy="11" r="9" />
+                                    <circle class="mini-ring-fill" cx="11" cy="11" r="9" />
+                                </svg>
+                                <span class="plate-badge-text">100% left</span>
+                            </div>
                             <div class="project-plate-content">
                                 <span class="plate-tag">Project 04 · Contemporary Novel</span>
                                 <h3 class="plate-title">AFTER THE END</h3>
@@ -277,9 +358,25 @@
                             </p>
                             <div class="project-actions">
                                 <button type="button" class="btn-project-view" data-project-id="after">
-                                    <span>Read Book Excerpt</span>
+                                    <span class="btn-text">Read Book Excerpt</span>
                                     <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
+                                <div class="reading-progress-widget" data-book-widget="after" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="After The End excerpt reading progress" title="Excerpt reading progress: 100% left (click to open excerpt)">
+                                    <div class="progress-circle-frame">
+                                        <svg class="progress-ring-svg" width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
+                                            <circle class="progress-ring-bg" cx="22" cy="22" r="18" />
+                                            <circle class="progress-ring-fill" cx="22" cy="22" r="18" />
+                                        </svg>
+                                        <div class="progress-ring-inner">
+                                            <span class="progress-pct-num">100%</span>
+                                            <span class="progress-pct-sub">left</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress-info-block">
+                                        <span class="progress-kicker">Excerpt Left</span>
+                                        <span class="progress-status-label">100% left · 11 min</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -663,13 +760,31 @@
     <!-- Reading Modal / Drawer for Articles & Book Excerpts -->
     <div id="reader-modal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
         <div class="modal-window">
+            <!-- Live Excerpt Reading Progress Line -->
+            <div id="modal-reading-line" class="modal-reading-line" aria-hidden="true">
+                <div class="modal-reading-line-fill" id="modal-reading-line-fill"></div>
+            </div>
             <div class="modal-drag-handle" aria-hidden="true"></div>
             <header class="modal-header">
                 <div class="modal-meta-group">
                     <span class="modal-meta" id="modal-meta-tag">Work Archive</span>
                     <span class="modal-meta-readtime" id="modal-readtime"></span>
+                    <div class="modal-reading-gauge" id="modal-reading-gauge" title="Excerpt reading progress">
+                        <div class="modal-mini-circle">
+                            <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+                                <circle class="gauge-ring-bg" cx="13" cy="13" r="10" />
+                                <circle class="gauge-ring-fill" cx="13" cy="13" r="10" />
+                            </svg>
+                            <span class="gauge-pct" id="modal-gauge-pct">100%</span>
+                        </div>
+                        <span class="gauge-label" id="modal-gauge-label">100% left</span>
+                    </div>
                 </div>
                 <div class="modal-reading-controls">
+                    <button type="button" class="reader-tool-btn reader-share-btn" id="modal-share-btn" title="Copy shareable link to this excerpt" aria-label="Share excerpt link">
+                        <i class="fas fa-share-nodes" aria-hidden="true"></i>
+                        <span class="share-btn-label">Share</span>
+                    </button>
                     <button type="button" class="reader-tool-btn" id="reader-font-dec" title="Decrease font size" aria-label="Decrease font size">A−</button>
                     <button type="button" class="reader-tool-btn" id="reader-font-inc" title="Increase font size" aria-label="Increase font size">A+</button>
                     <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close reading view">
@@ -681,13 +796,23 @@
                 <!-- Dynamically populated -->
             </div>
             <footer class="modal-footer">
+                <div class="modal-footer-left">
+                    <button type="button" class="btn-modal-reset" id="modal-reset-scroll-btn" title="Restart excerpt from beginning">
+                        <i class="fas fa-undo-alt" aria-hidden="true"></i>
+                        <span>Restart Excerpt</span>
+                    </button>
+                    <button type="button" class="btn-modal-share" id="modal-share-footer-btn" title="Copy shareable link to this excerpt">
+                        <i class="fas fa-share-nodes" aria-hidden="true"></i>
+                        <span class="share-footer-label">Share Excerpt</span>
+                    </button>
+                </div>
                 <button type="button" class="btn-modal-dismiss" id="modal-dismiss-btn">Close Viewer</button>
             </footer>
         </div>
     </div>
 
-    <!-- Interactive Background Controls HUD -->
-    <div id="bg-control-panel" class="bg-control-panel" role="region" aria-label="Interactive background settings">
+    <!-- Interactive Background Controls HUD & Ambient Newsroom Audio -->
+    <div id="bg-control-panel" class="bg-control-panel" role="region" aria-label="Interactive background and ambient audio settings">
         <button id="bg-mode-toggle" class="bg-mode-indicator" type="button" title="Switch interactive background visual style">
             <span class="bg-pulse-dot" aria-hidden="true"></span>
             <span id="bg-mode-label">✦ Constellation</span>
@@ -695,7 +820,28 @@
         <button id="bg-ripple-trigger" class="bg-control-btn" type="button" title="Emit interactive narrative wave">
             <i class="fas fa-wave-square" aria-hidden="true"></i> Pulse
         </button>
+
+        <span class="hud-divider" aria-hidden="true"></span>
+
+        <!-- Ambient Newsroom HTML5 Audio Controls -->
+        <div class="audio-hud-group">
+            <button id="newsroom-audio-toggle" class="bg-control-btn audio-toggle-btn" type="button" aria-pressed="false" title="Toggle ambient newsroom background audio (mechanical typewriter, paper rustle, quiet room tone)">
+                <span class="audio-eq-bars" aria-hidden="true">
+                    <span class="eq-bar bar-1"></span>
+                    <span class="eq-bar bar-2"></span>
+                    <span class="eq-bar bar-3"></span>
+                </span>
+                <i class="fas fa-volume-xmark audio-status-icon" id="newsroom-audio-icon" aria-hidden="true"></i>
+                <span class="audio-label" id="newsroom-audio-label">Newsroom Sound</span>
+            </button>
+            <button id="newsroom-volume-toggle" class="bg-control-btn volume-toggle-btn" type="button" title="Cycle newsroom audio volume: 20% (Subtle) → 40% (Medium) → 60% (Clear)" aria-label="Cycle newsroom volume">
+                <span id="newsroom-volume-text">20%</span>
+            </button>
+        </div>
     </div>
+
+    <!-- HTML5 Audio Element for Ambient Newsroom Background Track -->
+    <audio id="newsroom-audio" loop preload="auto" aria-hidden="true"></audio>
 
     <!-- Small Work & Literary AI Assistant Widget -->
     <div id="ai-assistant-widget" class="ai-assistant-widget" role="region" aria-label="Work & Literary AI Assistant">
@@ -799,6 +945,22 @@
             </div>
         </div>
     </footer>
+
+    <!-- Toast Notification System for Copy Feedback & Confirmations -->
+    <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true">
+        <div id="toast-notification" class="toast" role="status" aria-hidden="true">
+            <div class="toast-icon" id="toast-icon">
+                <i class="fas fa-check" aria-hidden="true"></i>
+            </div>
+            <div class="toast-content">
+                <div class="toast-title" id="toast-title">Link copied!</div>
+                <div class="toast-message" id="toast-message">Deep link copied to your clipboard.</div>
+            </div>
+            <button type="button" class="toast-close" id="toast-close" aria-label="Close notification">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
