@@ -149,7 +149,7 @@ const BUDGET_LABELS = {
 // GET: List all inquiries
 app.get('/api/inquiries', async (req, res) => {
   const inquiries = await readJson(INQUIRIES_FILE, []);
-  const { status, type } = req.query;
+  const { status, type, tag } = req.query;
 
   let filtered = inquiries;
   if (status) {
@@ -157,6 +157,10 @@ app.get('/api/inquiries', async (req, res) => {
   }
   if (type) {
     filtered = filtered.filter(i => i.inquiryType?.toLowerCase() === type.toLowerCase());
+  }
+  if (tag) {
+    const searchTag = tag.trim().toLowerCase();
+    filtered = filtered.filter(i => (i.tags || []).some(t => t.toLowerCase() === searchTag));
   }
 
   res.json({
@@ -167,7 +171,7 @@ app.get('/api/inquiries', async (req, res) => {
 
 // POST: Create a new RFP mandate inquiry
 app.post('/api/inquiries', async (req, res) => {
-  const { name, email, company, inquiryType, budget, nda, message } = req.body || {};
+  const { name, email, company, inquiryType, budget, nda, message, tags } = req.body || {};
 
   if (!name || typeof name !== 'string' || !name.trim()) {
     return res.status(400).json({ error: 'Client full name & title is required.' });
@@ -191,6 +195,10 @@ app.post('/api/inquiries', async (req, res) => {
   const randomSuffix = Math.floor(1000 + Math.random() * 9000);
   const id = `YSM-${dateStr}-${randomSuffix}`;
 
+  const sanitizedTags = Array.isArray(tags)
+    ? tags.map(t => typeof t === 'string' ? (t.trim().startsWith('#') ? t.trim() : '#' + t.trim()) : '').filter(Boolean)
+    : [];
+
   const newInquiry = {
     id,
     createdAt: now.toISOString(),
@@ -203,6 +211,7 @@ app.post('/api/inquiries', async (req, res) => {
     budgetLabel: BUDGET_LABELS[budget] || 'Custom Institutional Mandate',
     nda: Boolean(nda ?? true),
     message: message.trim(),
+    tags: sanitizedTags,
     status: 'Pending Review',
     notes: 'Submitted via Yishau Strategic Advisory Consultation Desk.'
   };
@@ -226,10 +235,10 @@ app.post('/api/inquiries', async (req, res) => {
   });
 });
 
-// PATCH: Update an inquiry's status or notes
+// PATCH: Update an inquiry's status, notes, or tags
 app.patch('/api/inquiries/:id', async (req, res) => {
   const { id } = req.params;
-  const { status, notes } = req.body || {};
+  const { status, notes, tags } = req.body || {};
 
   const inquiries = await readJson(INQUIRIES_FILE, []);
   const index = inquiries.findIndex(i => i.id === id);
@@ -243,6 +252,9 @@ app.patch('/api/inquiries/:id', async (req, res) => {
   }
   if (notes !== undefined) {
     inquiries[index].notes = notes;
+  }
+  if (Array.isArray(tags)) {
+    inquiries[index].tags = tags.map(t => typeof t === 'string' ? (t.trim().startsWith('#') ? t.trim() : '#' + t.trim()) : '').filter(Boolean);
   }
   inquiries[index].updatedAt = new Date().toISOString();
 

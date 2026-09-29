@@ -486,17 +486,104 @@ button {
     gap: 2rem;
 }
 
+/* Executive Brand Identity Logo */
 .brand-mark {
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
     color: var(--text-primary);
     white-space: nowrap;
+    transition: transform var(--transition-fast);
 }
 
 .brand-mark:hover {
+    transform: translateY(-1px);
+}
+
+.brand-logo-crest {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform var(--transition-base), filter var(--transition-base);
+}
+
+.logo-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.logo-frame {
+    color: var(--border-hairline);
+    transition: stroke var(--transition-fast), color var(--transition-fast);
+}
+
+.brand-mark:hover .logo-frame {
     color: var(--accent-gold);
+}
+
+.brand-mark:hover .brand-logo-crest {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 10px rgba(200, 150, 60, 0.35));
+}
+
+.brand-text-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.1;
+}
+
+.brand-name-main {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-primary);
+    transition: color var(--transition-fast);
+}
+
+.brand-mark:hover .brand-name-main {
+    color: var(--accent-gold);
+}
+
+.brand-tagline-sub {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+/* Mobile Drawer Brand */
+.mobile-drawer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-hairline);
+    margin-bottom: 0.5rem;
+}
+
+/* Footer Brand Lockup */
+.footer-brand-lockup {
+    margin-bottom: 1rem;
+}
+
+.footer-brand-lockup .brand-name-main {
+    font-size: 1.5rem;
+}
+
+.footer-brand-lockup .brand-logo-crest {
+    width: 44px;
+    height: 44px;
 }
 
 .site-nav {
@@ -887,6 +974,29 @@ button {
 
 [data-theme="dark"] .btn-action:hover {
     background: var(--accent-gold-hover);
+}
+
+.btn-secondary-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.925rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.95rem 1.85rem;
+    background: var(--surface-card);
+    color: var(--text-primary);
+    border: 1px solid var(--accent-gold-border);
+    border-radius: 3px;
+    box-shadow: var(--shadow-soft);
+    transition: all var(--transition-fast);
+}
+
+.btn-secondary-action:hover {
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
 }
 
 .btn-ghost {
@@ -5710,6 +5820,276 @@ button.footer-social-btn {
     color: #EAB308;
     border-color: rgba(234, 179, 8, 0.3);
     background: rgba(234, 179, 8, 0.08);
+}
+
+.mandate-msg-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.725rem;
+    color: var(--accent-gold);
+    background: var(--accent-gold-subtle);
+    border: 1px solid var(--accent-gold-border);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   INTERACTIVE MESSAGE & MANDATE TAGS SELECTOR
+   ========================================================================== */
+
+.message-tags-wrapper {
+    background: var(--surface-inset);
+    border: 1px solid var(--border-hairline);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.message-tags-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.message-tags-title {
+    font-size: 0.925rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.message-tags-counter {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-gold);
+    background: var(--surface-card);
+    border: 1px solid var(--border-hairline);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+}
+
+.message-tags-sub {
+    font-size: 0.825rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.message-tags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.msg-tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.785rem;
+    padding: 0.35rem 0.75rem;
+    background: var(--surface-card);
+    border: 1px solid var(--border-hairline);
+    color: var(--text-secondary);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    user-select: none;
+}
+
+.msg-tag-chip .tag-hash {
+    color: var(--accent-gold);
+    font-weight: 700;
+}
+
+.msg-tag-chip:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-gold);
+    transform: translateY(-1px);
+}
+
+.msg-tag-chip.active {
+    background: var(--accent-gold-subtle);
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+    font-weight: 600;
+    box-shadow: 0 0 10px rgba(200, 150, 60, 0.2);
+}
+
+.msg-tag-chip-featured {
+    background: var(--accent-gold-subtle);
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+    font-weight: 700;
+    position: relative;
+}
+
+.msg-tag-chip-featured:hover {
+    box-shadow: 0 0 14px rgba(200, 150, 60, 0.4);
+}
+
+.tag-live-dot {
+    width: 6px;
+    height: 6px;
+    background: #10B981;
+    border-radius: 50%;
+    margin-left: 0.25rem;
+    box-shadow: 0 0 6px #10B981;
+    display: inline-block;
+    animation: livePulse 2s infinite ease-in-out;
+}
+
+@keyframes livePulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+.lets-talk-pill {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    background: var(--accent-gold-subtle);
+    border: 1px solid var(--accent-gold-border);
+    padding: 0.15rem 0.45rem;
+    border-radius: 12px;
+    margin-right: 0.35rem;
+    letter-spacing: 0.02em;
+    transition: all var(--transition-fast);
+}
+
+.btn-secondary-action:hover .lets-talk-pill,
+.btn-start-project:hover .lets-talk-pill,
+.btn-primary-compact:hover .lets-talk-pill {
+    background: var(--accent-gold);
+    color: #0B0E14;
+    border-color: var(--accent-gold);
+}
+
+.custom-tag-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.custom-tag-input-group {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.tag-prefix {
+    position: absolute;
+    left: 0.85rem;
+    color: var(--accent-gold);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.9rem;
+    pointer-events: none;
+}
+
+.custom-tag-input {
+    width: 100%;
+    padding: 0.45rem 0.85rem 0.45rem 1.85rem;
+    background: var(--surface-card);
+    border: 1px solid var(--border-hairline);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color var(--transition-fast);
+}
+
+.custom-tag-input:focus {
+    border-color: var(--accent-gold);
+}
+
+.btn-add-custom-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.85rem;
+    background: var(--surface-card);
+    border: 1px solid var(--border-hairline);
+    color: var(--text-primary);
+    font-size: 0.775rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.btn-add-custom-tag:hover {
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+}
+
+.selected-tags-display {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--border-hairline);
+    flex-wrap: wrap;
+}
+
+.selected-tags-label {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--accent-gold);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.selected-tags-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.active-tag-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.725rem;
+    color: var(--text-primary);
+    background: var(--surface-card);
+    border: 1px solid var(--accent-gold);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+}
+
+.btn-remove-tag {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    transition: color var(--transition-fast);
+}
+
+.btn-remove-tag:hover {
+    color: #DC2626;
 }
 
 .mandate-message-text {

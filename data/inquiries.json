@@ -1,5 +1,26 @@
 [
   {
+    "id": "YSM-20260929-1161",
+    "createdAt": "2026-09-29T12:32:11.138Z",
+    "name": "Dr. Folashade Aina",
+    "email": "f.aina@transatlanticinvest.com",
+    "company": "Transatlantic Investment Corporation",
+    "inquiryType": "crisis",
+    "inquiryTypeLabel": "24/7 Crisis Communications & War Room",
+    "budget": "tier-surge",
+    "budgetLabel": "Crisis War Room & Surge ($25,000 – $75,000)",
+    "nda": true,
+    "message": "Urgent containment brief regarding regulatory audit leaks.",
+    "tags": [
+      "#LetsTalk",
+      "#CrisisWarRoom",
+      "#StrictEmbargo",
+      "#SurgeResponse24h"
+    ],
+    "status": "Pending Review",
+    "notes": "Submitted via Yishau Strategic Advisory Consultation Desk."
+  },
+  {
     "id": "YSM-20260929-7815",
     "createdAt": "2026-09-29T12:16:22.847Z",
     "name": "Governor Tunde Fashola",
@@ -11,6 +32,11 @@
     "budgetLabel": "Executive Retainer ($10,000 – $25,000 / month)",
     "nda": true,
     "message": "Consultation on international bond roadshow strategic messaging.",
+    "tags": [
+      "#BondRoadshow",
+      "#CSuiteOpEd",
+      "#StrictEmbargo"
+    ],
     "status": "Pending Review",
     "notes": "Submitted via Yishau Strategic Advisory Consultation Desk."
   },
@@ -26,6 +52,11 @@
     "budgetLabel": "Executive Retainer ($10,000 – $25,000 / month)",
     "nda": true,
     "message": "Engaging for executive thought leadership and syndication across London and New York dailies ahead of our Q4 infrastructure bond issuance.",
+    "tags": [
+      "#CSuiteOpEd",
+      "#BroadsheetSyndication",
+      "#DebtIssuance"
+    ],
     "status": "Consultation Scheduled",
     "notes": "Discovery call set with Olukorede Yishau; mutual NDA signed."
   },
@@ -41,6 +72,11 @@
     "budgetLabel": "Crisis War Room & Surge ($25,000 – $75,000)",
     "nda": true,
     "message": "Immediate 24/7 dark-site preparation and regulatory rebuttal drafting regarding multi-jurisdictional compliance inquiry.",
+    "tags": [
+      "#CrisisWarRoom",
+      "#RegulatoryScrutiny",
+      "#SurgeResponse24h"
+    ],
     "status": "NDA Dispatched",
     "notes": "Standard corporate mutual NDA dispatched within 2 hours."
   },
@@ -56,6 +92,11 @@
     "budgetLabel": "Enterprise Monograph Project ($50,000 – $120,000)",
     "nda": false,
     "message": "Commissioning a 350-page centenary commemorative monograph chronicling 50 years of industrial expansion and legacy.",
+    "tags": [
+      "#ExecutiveMonograph",
+      "#CentenaryPublishing",
+      "#LegacyArchive"
+    ],
     "status": "Pending Review",
     "notes": "Reviewing preliminary historical archive requirements."
   }

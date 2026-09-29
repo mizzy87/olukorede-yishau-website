@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B0E14'/%3E%3Crect x='2' y='2' width='28' height='28' rx='4' fill='none' stroke='%23C8963E' stroke-width='1.2'/%3E%3Cpath d='M16 5l3.5 7h-7z' fill='%23E5C158'/%3E%3Cpath d='M10 12l6 7 6-7' fill='none' stroke='%23E5C158' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16 19v8' stroke='%23E5C158' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
     <script>
         (function() {
             const savedTheme = localStorage.getItem('theme');
@@ -33,18 +34,48 @@
     <!-- NAVBAR (Logo · Capabilities · Case Studies · Retainers · Calculator · Leadership · RFP Desk) -->
     <header class="site-header">
         <div class="header-inner">
-            <!-- Zone 1: Single text element wordmark -->
-            <a href="#" class="brand-mark">Yishau Advisory</a>
+            <!-- Zone 1: Executive Brand Mark & Monogram Crest -->
+            <a href="#" class="brand-mark" aria-label="Yishau Strategic Advisory Home">
+                <span class="brand-logo-crest" aria-hidden="true">
+                    <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                        <!-- Shield / Fiduciary Perimeter Frame -->
+                        <rect x="2" y="2" width="40" height="40" rx="9" class="logo-frame" stroke="currentColor" stroke-width="1.5" />
+                        <rect x="5.5" y="5.5" width="33" height="33" rx="6.5" class="logo-frame-inner" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2 2" opacity="0.6"/>
+                        
+                        <!-- Pen Nib / Quill Apex: Broadsheet Journalism & Literary Craft -->
+                        <path d="M22 8L27 18H17L22 8Z" class="logo-nib" fill="url(#logoGoldGrad)" />
+                        
+                        <!-- Stylized Geometric 'Y' & Intersecting Monogram -->
+                        <path d="M14 18L22 27L30 18" class="logo-letter-y" stroke="url(#logoGoldGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 27V36" class="logo-stem" stroke="url(#logoGoldGrad)" stroke-width="2.5" stroke-linecap="round"/>
+                        
+                        <!-- Archival Diamond Accents -->
+                        <circle cx="22" cy="19.5" r="1.5" fill="currentColor" class="logo-diamond"/>
+                        <circle cx="9.5" cy="22" r="1.2" fill="url(#logoGoldGrad)"/>
+                        <circle cx="34.5" cy="22" r="1.2" fill="url(#logoGoldGrad)"/>
+
+                        <defs>
+                            <linearGradient id="logoGoldGrad" x1="12" y1="8" x2="32" y2="36" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#E5C158" />
+                                <stop offset="50%" stop-color="#C8963E" />
+                                <stop offset="100%" stop-color="#9A6B22" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </span>
+                <span class="brand-text-group">
+                    <span class="brand-name-main">YISHAU</span>
+                    <span class="brand-tagline-sub">STRATEGIC ADVISORY</span>
+                </span>
+            </a>
 
             <!-- Zone 2: Clean text navigation links -->
             <nav class="site-nav" aria-label="Main Navigation">
                 <ul class="nav-list">
-                    <li><a href="#capabilities" class="nav-link">Capabilities</a></li>
-                    <li><a href="#calculator" class="nav-link">Scope Estimator</a></li>
-                    <li><a href="#case-studies" class="nav-link">Case Studies</a></li>
-                    <li><a href="#retainers" class="nav-link">Advisory Tiers</a></li>
-                    <li><a href="#leadership" class="nav-link">Leadership</a></li>
-                    <li><a href="#contact" class="nav-link">RFP Desk</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#work" class="nav-link">Work</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
 
@@ -85,7 +116,10 @@
                     <i class="fas fa-envelope" aria-hidden="true"></i>
                     <span class="email-btn-text">Email</span>
                 </button>
-                <a href="#contact" class="btn-primary-compact">Request Proposal</a>
+                <a href="#contact" class="btn-primary-compact btn-lets-talk" data-tag="#LetsTalk" title="Initiate mandate with #LetsTalk tag">
+                    <span class="lets-talk-pill">#LetsTalk</span>
+                    <span>Let's Talk</span>
+                </a>
                 <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -95,13 +129,36 @@
 
         <!-- Mobile Drawer -->
         <div class="mobile-drawer" id="mobile-menu" aria-hidden="true">
+            <div class="mobile-drawer-brand">
+                <span class="brand-logo-crest" aria-hidden="true">
+                    <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                        <rect x="2" y="2" width="40" height="40" rx="9" class="logo-frame" stroke="currentColor" stroke-width="1.5" />
+                        <rect x="5.5" y="5.5" width="33" height="33" rx="6.5" class="logo-frame-inner" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2 2" opacity="0.6"/>
+                        <path d="M22 8L27 18H17L22 8Z" class="logo-nib" fill="url(#logoGoldGradMob)" />
+                        <path d="M14 18L22 27L30 18" class="logo-letter-y" stroke="url(#logoGoldGradMob)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 27V36" class="logo-stem" stroke="url(#logoGoldGradMob)" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="22" cy="19.5" r="1.5" fill="currentColor" class="logo-diamond"/>
+                        <defs>
+                            <linearGradient id="logoGoldGradMob" x1="12" y1="8" x2="32" y2="36" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#E5C158" />
+                                <stop offset="50%" stop-color="#C8963E" />
+                                <stop offset="100%" stop-color="#9A6B22" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </span>
+                <span class="brand-text-group">
+                    <span class="brand-name-main">YISHAU</span>
+                    <span class="brand-tagline-sub">STRATEGIC ADVISORY</span>
+                </span>
+            </div>
             <nav class="mobile-nav">
-                <a href="#capabilities" class="mobile-nav-link">Capabilities</a>
-                <a href="#calculator" class="mobile-nav-link">Scope Estimator</a>
-                <a href="#case-studies" class="mobile-nav-link">Case Studies</a>
-                <a href="#retainers" class="mobile-nav-link">Advisory Tiers</a>
-                <a href="#leadership" class="mobile-nav-link">Leadership</a>
-                <a href="#contact" class="mobile-nav-link">RFP Desk</a>
+                <a href="#about" class="mobile-nav-link">About</a>
+                <a href="#services" class="mobile-nav-link">Services</a>
+                <a href="#work" class="mobile-nav-link">Work</a>
+                <a href="#process" class="mobile-nav-link">Process</a>
+                <a href="#testimonials" class="mobile-nav-link">Testimonials</a>
+                <a href="#contact" class="mobile-nav-link">Contact</a>
                 <button type="button" class="mobile-nav-link mobile-nav-email dynamic-email-btn" id="mobile-email-btn">
                     <i class="fas fa-envelope" aria-hidden="true"></i> <span class="email-val-display">Direct Email</span>
                 </button>
@@ -111,7 +168,9 @@
 
     <main id="main-content">
         <!-- CORPORATE HERO -->
-        <section class="hero-section" id="hero">
+        
+
+<section class="hero-section" id="hero">
             <div class="container hero-grid">
                 <div class="hero-copy">
                     <div class="editorial-folio">
@@ -120,16 +179,20 @@
                         <span class="folio-tag">Lagos & Washington D.C.</span>
                     </div>
 
-                    <h1 class="hero-title">"Strategic narratives and media intelligence that command enterprise market trust."</h1>
+                    <h1 class="hero-title">"I help enterprise leaders, multinational boards, and sovereign entities command market trust."</h1>
 
                     <p class="hero-lead">
-                        Yishau Strategic Media & Advisory partners with C-suite executives, multinational conglomerates, private equity sponsors, and sovereign entities to navigate high-stakes transactions, neutralize reputational crises, and build enduring institutional authority. Led by veteran US Bureau Chief, acclaimed author, and investigative journalist Olukorede Yishau.
+                        Specialized transatlantic strategic communications, 24/7 crisis containment war room, and high-impact executive publishing. Led by veteran US Bureau Chief, acclaimed author, and investigative journalist Olukorede Yishau.
                     </p>
 
                     <div class="hero-cta-cluster">
-                        <a href="#contact" class="btn-action">Request Advisory Proposal <i class="fas fa-arrow-down" aria-hidden="true"></i></a>
+                        <a href="#work" class="btn-action">View Work <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        <a href="#contact" class="btn-secondary-action btn-lets-talk" data-tag="#LetsTalk" id="hero-lets-talk-btn" title="Initiate discussion with #LetsTalk tag">
+                            <span class="lets-talk-pill">#LetsTalk</span>
+                            <span>Let's Talk</span>
+                            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+                        </a>
                         <button type="button" class="btn-ghost dynamic-email-btn" id="hero-email-btn" title="Send direct confidential email"><i class="fas fa-envelope" aria-hidden="true"></i> <span class="email-val-display">Direct Email</span></button>
-                        <a href="#capabilities" class="btn-link-simple">Practice Areas <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
 
                     <div class="hero-proof-strip">
@@ -223,7 +286,9 @@
         </section>
 
         <!-- INSTITUTIONAL TRUST & SECTOR BAND -->
-        <section class="section-trust" id="trust-band" aria-label="Enterprise Sectors Served">
+        
+
+<section class="section-trust" id="trust-band" aria-label="Enterprise Sectors Served">
             <div class="container trust-inner">
                 <span class="trust-lead">Trusted by Leadership Across Key Economic Sectors</span>
                 <div class="trust-sectors-grid">
@@ -252,503 +317,15 @@
         </section>
 
         <!-- PRACTICE AREAS & CAPABILITIES -->
-        <section id="capabilities" class="section-services">
+        
+
+<!-- ABOUT ME -->
+        <section id="about" class="section-about">
+            <span id="leadership" style="display:none;" aria-hidden="true"></span>
             <div class="container">
                 <header class="section-header">
-                    <span class="section-kicker">Enterprise Practice Areas</span>
-                    <h2 class="section-title">Core Capabilities</h2>
-                    <p class="section-subtitle">High-conviction narrative counsel and investigative discipline designed for boardrooms and institutions facing intense public scrutiny.</p>
-                </header>
-
-                <div class="services-grid">
-                    <!-- Service 1 -->
-                    <div class="service-item">
-                        <div class="service-num">01</div>
-                        <h3 class="service-title">C-Suite Strategic Communications & Boardroom Counsel</h3>
-                        <p class="service-desc">
-                            High-altitude executive ghostwriting, CEO keynotes, shareholder annual letters, and top-tier broadsheet op-ed syndication across *The Nation*, *Financial Times*, and *The Guardian*.
-                        </p>
-                        <ul class="service-points">
-                            <li>Executive reputation architecture & positioning</li>
-                            <li>Shareholder, investor & regulatory message alignment</li>
-                            <li>International broadsheet column & op-ed syndication</li>
-                        </ul>
-                    </div>
-
-                    <!-- Service 2 -->
-                    <div class="service-item">
-                        <div class="service-num">02</div>
-                        <h3 class="service-title">Crisis Communications & 24/7 War Room</h3>
-                        <p class="service-desc">
-                            Immediate crisis containment during regulatory inquests, corporate litigation, cross-border banking scrutiny, and hostile media campaigns with rapid 2-hour SLA activation.
-                        </p>
-                        <ul class="service-points">
-                            <li>24/7 war room activation & rapid media containment</li>
-                            <li>Litigation, compliance & regulatory defense statements</li>
-                            <li>Stakeholder narrative containment & dark-site standby</li>
-                        </ul>
-                    </div>
-
-                    <!-- Service 3 -->
-                    <div class="service-item">
-                        <div class="service-num">03</div>
-                        <h3 class="service-title">Investigative Due Diligence & Narrative Intelligence</h3>
-                        <p class="service-desc">
-                            Pre-merger narrative forensics, cross-border forensic investigations, counter-disinformation audits, and supply chain integrity dossiers leveraging 25+ years of investigative reporting.
-                        </p>
-                        <ul class="service-points">
-                            <li>Cross-border financial & public procurement forensics</li>
-                            <li>Counter-disinformation & reputation vulnerability audits</li>
-                            <li>Whistleblower interview dossiers & verifiable evidence</li>
-                        </ul>
-                    </div>
-
-                    <!-- Service 4 -->
-                    <div class="service-item">
-                        <div class="service-num">04</div>
-                        <h3 class="service-title">Corporate Publishing & Executive Monographs</h3>
-                        <p class="service-desc">
-                            Turnkey book packaging, manuscript ghostwriting, structural editing, and international distribution for founders, chairpersons, and industry pioneers seeking enduring legacy.
-                        </p>
-                        <ul class="service-points">
-                            <li>End-to-end executive biography & monograph ghostwriting</li>
-                            <li>Publisher negotiations, printing & worldwide rights</li>
-                            <li>Global book launch, media reviews & bestseller distribution</li>
-                        </ul>
-                    </div>
-
-                    <!-- Service 5 -->
-                    <div class="service-item">
-                        <div class="service-num">05</div>
-                        <h3 class="service-title">Media Interrogation & Executive Broadcast Readiness</h3>
-                        <p class="service-desc">
-                            High-intensity on-camera drills, parliamentary and congressional inquiry simulations, and broadcast training for C-suite leaders facing hostile press inquiries.
-                        </p>
-                        <ul class="service-points">
-                            <li>Hostile television & broadcast interrogation drills</li>
-                            <li>Parliamentary & senate committee testimony simulations</li>
-                            <li>Keynote delivery, speechwriting & executive presence</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- INTERACTIVE ENGAGEMENT SCOPE & ESTIMATOR -->
-        <section id="calculator" class="section-calculator">
-            <div class="container">
-                <div class="calculator-wrapper">
-                    <div class="calc-controls">
-                        <span class="section-kicker">Live Engagement Modeling</span>
-                        <h3 class="calc-section-title">Interactive Scope & Advisory Estimator</h3>
-                        <p class="calc-section-subtitle">
-                            Configure your corporate parameters below to generate an immediate strategic deliverables roadmap, senior counsel allocation, and advisory structure.
-                        </p>
-
-                        <!-- Group 1: Practice Area -->
-                        <div class="calc-group">
-                            <label class="calc-group-label">1. Select Core Practice Area</label>
-                            <div class="calc-segmented-btns" id="calc-practice-btns">
-                                <button type="button" class="calc-pill-btn active" data-practice="csuite">
-                                    <span>C-Suite Communications</span>
-                                    <span class="pill-sub">Thought Leadership & Op-Eds</span>
-                                </button>
-                                <button type="button" class="calc-pill-btn" data-practice="crisis">
-                                    <span>Crisis War Room</span>
-                                    <span class="pill-sub">24/7 Rapid Response</span>
-                                </button>
-                                <button type="button" class="calc-pill-btn" data-practice="diligence">
-                                    <span>Due Diligence Inquest</span>
-                                    <span class="pill-sub">Narrative Forensics</span>
-                                </button>
-                                <button type="button" class="calc-pill-btn" data-practice="publishing">
-                                    <span>Executive Monograph</span>
-                                    <span class="pill-sub">Legacy Publishing</span>
-                                </button>
-                                <button type="button" class="calc-pill-btn" data-practice="broadcast">
-                                    <span>Broadcast Interrogation</span>
-                                    <span class="pill-sub">Media Readiness Drills</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Group 2: Geographic Corridor -->
-                        <div class="calc-group">
-                            <label class="calc-group-label">2. Target Geographic Corridor</label>
-                            <div class="calc-segmented-btns" id="calc-geo-btns">
-                                <button type="button" class="calc-pill-btn active" data-geo="wa">
-                                    <span>West Africa Regional</span>
-                                    <span class="pill-sub">Lagos, Abuja & ECOWAS</span>
-                                </button>
-                                <button type="button" class="calc-pill-btn" data-geo="us">
-                                    <span>US & North America</span>
-                                    <span class="pill-sub">Washington D.C. & New York</span>
-                                </button>
-                                <button type="button" class="calc-pill-btn" data-geo="global">
-                                    <span>Pan-African & Global</span>
-                                    <span class="pill-sub">Transatlantic Syndicate</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Group 3: Engagement Horizon -->
-                        <div class="calc-group">
-                            <label class="calc-group-label">3. Engagement Horizon & Urgency</label>
-                            <div class="calc-segmented-btns" id="calc-horizon-btns">
-                                <button type="button" class="calc-pill-btn" data-horizon="surge">
-                                    <span>72-Hour Rapid Surge</span>
-                                    <span class="pill-sub">Immediate Emergency Support</span>
-                                </button>
-                                <button type="button" class="calc-pill-btn active" data-horizon="sprint">
-                                    <span>3-Month Strategic Sprint</span>
-                                    <span class="pill-sub">Transaction or Campaign</span>
-                                </button>
-                                <button type="button" class="calc-pill-btn" data-horizon="annual">
-                                    <span>12-Month Annual Retainer</span>
-                                    <span class="pill-sub">Continuous Board Advisory</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Calculator Summary Box -->
-                    <div class="calc-summary-panel">
-                        <div class="summary-header">
-                            <span class="summary-tier-badge" id="summary-tier-badge">Corporate Retainer Tier</span>
-                            <h4 class="summary-scope-name" id="summary-scope-name">C-Suite Thought Leadership Retainer</h4>
-                        </div>
-
-                        <ul class="summary-specs-list">
-                            <li class="summary-spec-item">
-                                <span class="spec-label">Counsel Allocation:</span>
-                                <span class="spec-val" id="summary-counsel">Olukorede Yishau + 2 Senior Directors</span>
-                            </li>
-                            <li class="summary-spec-item">
-                                <span class="spec-label">Response Commitment:</span>
-                                <span class="spec-val" id="summary-response">Within 4 Business Hours</span>
-                            </li>
-                            <li class="summary-spec-item">
-                                <span class="spec-label">Advisory Framework:</span>
-                                <span class="spec-val" id="summary-framework">Dedicated Milestone Retainer</span>
-                            </li>
-                        </ul>
-
-                        <div class="calc-deliverables-box">
-                            <div class="calc-deliverables-title">Strategic Deliverables Blueprint</div>
-                            <p class="calc-deliverables-text" id="summary-deliverables">
-                                • Bi-weekly executive op-eds syndicated to Tier-1 broadsheets<br>
-                                • CEO keynote drafting and congressional hearing preparation<br>
-                                • Monthly narrative risk audit & counter-disinformation monitoring
-                            </p>
-                        </div>
-
-                        <button type="button" class="btn-transfer-scope" id="btn-transfer-scope">
-                            <span>Transfer Scope to RFP Form</span>
-                            <i class="fas fa-arrow-down" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SELECTED CASE STUDIES -->
-        <section id="case-studies" class="section-work">
-            <div class="container">
-                <div class="work-header-split">
-                    <div>
-                        <span class="section-kicker">Proven Impact & Transaction Track Record</span>
-                        <h2 class="section-title">Selected Case Studies</h2>
-                        <p class="section-subtitle">Representative corporate engagements demonstrating narrative choreography, regulatory crisis containment, and corporate publishing authority.</p>
-                    </div>
-
-                    <!-- Filter Controls (Segmented Buttons) -->
-                    <div class="filter-controls" role="group" aria-label="Filter case studies by category">
-                        <button type="button" class="filter-btn active" data-filter="all">All Mandates</button>
-                        <button type="button" class="filter-btn" data-filter="transactions">Transactions & M&A</button>
-                        <button type="button" class="filter-btn" data-filter="crisis">Crisis & Regulatory</button>
-                        <button type="button" class="filter-btn" data-filter="publishing">Corporate Publishing</button>
-                    </div>
-                </div>
-
-                <!-- Projects / Case Studies Grid -->
-                <div class="projects-grid">
-                    <!-- Case Study 1: Pan-African Energy Restructuring -->
-                    <article class="project-card work-filterable" data-category="transactions">
-                        <div class="project-visual-wrapper navy-plate">
-                            <div class="project-plate-content">
-                                <span class="plate-tag">Mandate 01 · Capital Restructuring</span>
-                                <h3 class="plate-title">PAN-AFRICAN ENERGY DEBT RESTRUCTURING</h3>
-                                <span class="plate-sub">$1.2B Refinancing Narrative · Lagos, London & NYC</span>
-                            </div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-meta-strip">
-                                <span>Capital Markets</span>
-                                <span class="sep">·</span>
-                                <span>$1.2B Facility</span>
-                                <span class="sep">·</span>
-                                <span>100% Positive Coverage</span>
-                            </div>
-                            <h3 class="project-name">Cross-Border Energy Consortium Debt Refinancing</h3>
-                            <p class="project-description">
-                                Designed and executed a comprehensive multi-jurisdiction stakeholder narrative aligning international bondholders, regulatory agencies, and institutional syndicates during a complex $1.2B debt restructuring.
-                            </p>
-                            <div class="project-actions">
-                                <button type="button" class="btn-project-view" data-project-id="art-1">
-                                    <span>Examine Case Dossier</span>
-                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Case Study 2: Fintech Unicorn Crisis Defense -->
-                    <article class="project-card work-filterable" data-category="crisis">
-                        <div class="project-visual-wrapper slate-plate">
-                            <div class="project-plate-content">
-                                <span class="plate-tag">Mandate 02 · 24/7 Crisis Response</span>
-                                <h3 class="plate-title">FINTECH UNICORN REGULATORY SUSPENSION</h3>
-                                <span class="plate-sub">Central Bank Defense & $65M Series B</span>
-                            </div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-meta-strip">
-                                <span>Regulatory Crisis</span>
-                                <span class="sep">·</span>
-                                <span>14-Day Resolution</span>
-                                <span class="sep">·</span>
-                                <span>94% Sentiment Rebound</span>
-                            </div>
-                            <h3 class="project-name">Fintech Unicorn Regulatory License Containment</h3>
-                            <p class="project-description">
-                                Orchestrated a 24/7 rapid response war room when unexpected regulatory suspension threatened payment processing operations, achieving full license reinstatement within 14 days and safeguarding a $65M Series B round.
-                            </p>
-                            <div class="project-actions">
-                                <button type="button" class="btn-project-view" data-project-id="art-2">
-                                    <span>Examine Case Dossier</span>
-                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Case Study 3: Industrial Titan Monograph -->
-                    <article class="project-card work-filterable" data-category="publishing" data-book-card="father">
-                        <div class="project-visual-wrapper dark-plate">
-                            <div class="plate-reading-badge" data-book-badge="father" aria-label="Excerpt reading progress: 100% left" title="Excerpt reading progress">
-                                <svg class="plate-mini-ring" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
-                                    <circle class="mini-ring-bg" cx="11" cy="11" r="9" />
-                                    <circle class="mini-ring-fill" cx="11" cy="11" r="9" />
-                                </svg>
-                                <span class="plate-badge-text">100% left</span>
-                            </div>
-                            <div class="project-plate-content">
-                                <span class="plate-tag">Mandate 03 · Executive Monograph</span>
-                                <h3 class="plate-title">INDUSTRIAL TITAN LEGACY BIOGRAPHY</h3>
-                                <span class="plate-sub">40,000+ Distributed · NLNG Prize Recognition</span>
-                            </div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-meta-strip">
-                                <span>Corporate Biography</span>
-                                <span class="sep">·</span>
-                                <span>320 Pages</span>
-                                <span class="sep">·</span>
-                                <span>Amazon Category #1</span>
-                            </div>
-                            <h3 class="project-name">Industrial Titan Legacy Biography & Global Rollout</h3>
-                            <p class="project-description">
-                                9-month comprehensive ghostwriting, editorial direction, legal auditing, and worldwide publication campaign for one of West Africa's foremost manufacturing chairpersons, generating international broadsheet acclaim.
-                            </p>
-                            <div class="project-actions">
-                                <button type="button" class="btn-project-view" data-project-id="father">
-                                    <span class="btn-text">Read Manuscript Brief</span>
-                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Case Study 4: Extractive Whistleblower & ESG Forensic Audit -->
-                    <article class="project-card work-filterable" data-category="crisis">
-                        <div class="project-visual-wrapper bronze-plate">
-                            <div class="project-plate-content">
-                                <span class="plate-tag">Mandate 04 · Forensic Inquest</span>
-                                <h3 class="plate-title">EXTRACTIVE SECTOR ESG & PROCUREMENT AUDIT</h3>
-                                <span class="plate-sub">$80M Conduit Exposed · National Legislative Probe</span>
-                            </div>
-                        </div>
-                        <div class="project-body">
-                            <div class="project-meta-strip">
-                                <span>Forensic Inquest</span>
-                                <span class="sep">·</span>
-                                <span>6-Month Audit</span>
-                                <span class="sep">·</span>
-                                <span>NMMA Laureate</span>
-                            </div>
-                            <h3 class="project-name">Supply Chain Forensic Investigation & Asset Recovery</h3>
-                            <p class="project-description">
-                                A ground-level investigative inquest uncovering fraudulent procurement pipelines in the extractive sector, spurring parliamentary inquiry, anti-corruption proceedings, and international governance reforms.
-                            </p>
-                            <div class="project-actions">
-                                <button type="button" class="btn-project-view" data-project-id="art-3">
-                                    <span>Examine Case Dossier</span>
-                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- ADVISORY RETAINER STRUCTURES -->
-        <section id="retainers" class="section-retainers">
-            <div class="container">
-                <header class="section-header">
-                    <span class="section-kicker">Transparent Engagement Models</span>
-                    <h2 class="section-title">Advisory Retainer Structures</h2>
-                    <p class="section-subtitle">Flexible institutional frameworks designed for continuous counsel, surge situations, and landmark publication milestones.</p>
-                </header>
-
-                <div class="retainers-grid">
-                    <!-- Tier 1 -->
-                    <div class="retainer-card">
-                        <div class="retainer-header">
-                            <span class="retainer-kicker">Boardroom Counsel</span>
-                            <h3 class="retainer-name">Executive Thought Leadership</h3>
-                            <p class="retainer-desc">Continuous narrative positioning and executive broadsheet counsel for CEOs, Managing Directors, and Board Chairs.</p>
-                            <div class="retainer-cadence">Monthly Retainer</div>
-                        </div>
-                        <ul class="retainer-features">
-                            <li><i class="fas fa-check" aria-hidden="true"></i> 2 Strategic Op-Eds or Speeches Monthly</li>
-                            <li><i class="fas fa-check" aria-hidden="true"></i> Monthly Boardroom Message Drafting</li>
-                            <li><i class="fas fa-check" aria-hidden="true"></i> Tier-1 Broadsheet Syndication</li>
-                            <li><i class="fas fa-check" aria-hidden="true"></i> Continuous Media Sentiment Tracking</li>
-                            <li><i class="fas fa-check" aria-hidden="true"></i> 4-Hour Response Advisory SLA</li>
-                        </ul>
-                        <a href="#contact" class="btn-select-tier" data-tier-select="Executive Retainer">Select Retainer</a>
-                    </div>
-
-                    <!-- Tier 2 -->
-                    <div class="retainer-card featured">
-                        <span class="retainer-featured-tag">Priority Marquee</span>
-                        <div class="retainer-header">
-                            <span class="retainer-kicker">24/7 War Room</span>
-                            <h3 class="retainer-name">Special Situations & Crisis</h3>
-                            <p class="retainer-desc">Immediate rapid-response war room activation during regulatory audits, litigation battles, or market volatility.</p>
-                            <div class="retainer-cadence">Surge & Incident Retainer</div>
-                        </div>
-                        <ul class="retainer-features">
-                            <li><i class="fas fa-check" aria-hidden="true"></i> Dedicated 24/7 Crisis War Room Team</li>
-                            <li><i class="fas fa-check" aria-hidden="true"></i> 2-Hour Rapid Response SLA Guarantee</li>
-                            <li><i class="fas fa-check" aria-hidden="true"></i> Cross-Border Regulatory Press Containment</li>
-                            <li><i class="fas fa-check" aria-hidden="true"></i> Real-Time Disinformation Counter-Measures</li>
-                            <li><i class="fas fa-check" aria-hidden="true"></i> Executive Broadcast Interrogation Coaching</li>
-                        </ul>
-                        <a href="#contact" class="btn-select-tier" data-tier-select="Crisis War Room">Select Retainer</a>
-                    </div>
-
-                    <!-- Tier 3 -->
-                    <div class="retainer-card">
-                        <div class="retainer-header">
-                            <span class="retainer-kicker">Legacy Publishing</span>
-                            <h3 class="retainer-name">Corporate Monograph</h3>
-                            <p class="retainer-desc">Turnkey 6–9 month executive book ghostwriting, packaging, and worldwide distribution for industry icons.</p>
-                            <div class="retainer-cadence">Full Project Mandate</div>
-                        </div>
-                        <ul class="retainer-features">
-                            <li><i class="fas fa-check" aria-hidden="true"></i> Complete 250–350 Page Manuscript Ghostwriting</li>
-                            <li><i class="fas fa-check" aria-hidden="true"></i> Archival Research & 30+ Deep Inquest Interviews</li>
-                            <li><i class="fas fa-check" aria-hidden="true"></i> Publisher Pitching & Worldwide Rights Strategy</li>
-                            <li><i class="fas fa-check" aria-hidden="true"></i> Hardcover Packaging & Amazon Global Launch</li>
-                            <li><i class="fas fa-check" aria-hidden="true"></i> International PR Tour & Broadsheet Reviews</li>
-                        </ul>
-                        <a href="#contact" class="btn-select-tier" data-tier-select="Corporate Publishing">Select Retainer</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ADVISORY METHODOLOGY -->
-        <section id="process" class="section-process">
-            <div class="container">
-                <header class="section-header">
-                    <span class="section-kicker">Institutional Governance</span>
-                    <h2 class="section-title">Advisory Methodology</h2>
-                    <p class="section-subtitle">A battle-tested four-stage protocol engineered over 25+ years in transatlantic newsrooms and boardroom counsel.</p>
-                </header>
-
-                <div class="process-track">
-                    <!-- Step 1 -->
-                    <div class="process-node">
-                        <div class="node-indicator">
-                            <span class="node-number">01</span>
-                            <div class="node-line" aria-hidden="true"></div>
-                        </div>
-                        <div class="node-content">
-                            <h3 class="node-title">Inquest & Forensic Discovery</h3>
-                            <p class="node-body">
-                                Every successful narrative strategy begins with exhaustive forensic inquest. We audit public filings, examine whistleblower reports, map out regulatory exposure, and identify hidden vulnerabilities before they surface.
-                            </p>
-                            <span class="node-deliverable">Outcome: Comprehensive Fact Dossier & Vulnerability Map</span>
-                        </div>
-                    </div>
-
-                    <!-- Step 2 -->
-                    <div class="process-node">
-                        <div class="node-indicator">
-                            <span class="node-number">02</span>
-                            <div class="node-line" aria-hidden="true"></div>
-                        </div>
-                        <div class="node-content">
-                            <h3 class="node-title">Narrative Architecture & Positioning</h3>
-                            <p class="node-body">
-                                Facts alone do not persuade; architecture does. We formulate the core thesis, craft crisis defense matrices, align executive talking points, and model stakeholder scrutiny under high-stress conditions.
-                            </p>
-                            <span class="node-deliverable">Outcome: Strategic Framing Blueprint & Core Thesis</span>
-                        </div>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="process-node">
-                        <div class="node-indicator">
-                            <span class="node-number">03</span>
-                            <div class="node-line" aria-hidden="true"></div>
-                        </div>
-                        <div class="node-content">
-                            <h3 class="node-title">Senior Editorial Calibration & Legal Polish</h3>
-                            <p class="node-body">
-                                Relentless sentence-level craftsmanship. Speeches, shareholder letters, and press statements are stripped of ambiguity, aligned with legal invariants, and polished to international broadsheet standards.
-                            </p>
-                            <span class="node-deliverable">Outcome: Bulletproof Broadsheet & Boardroom Prose</span>
-                        </div>
-                    </div>
-
-                    <!-- Step 4 -->
-                    <div class="process-node">
-                        <div class="node-indicator">
-                            <span class="node-number">04</span>
-                            <div class="node-line" aria-hidden="true"></div>
-                        </div>
-                        <div class="node-content">
-                            <h3 class="node-title">Multilateral Syndication & Crisis Containment</h3>
-                            <p class="node-body">
-                                Deployment across national and international press corridors, broadcast war rooms, and diplomatic channels. We coordinate media briefings, counter disinformation, and cement enduring market trust.
-                            </p>
-                            <span class="node-deliverable">Outcome: Market Trust & Measurable Policy Impact</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- LEADERSHIP & ADVISORY BOARD -->
-        <section id="leadership" class="section-about">
-            <div class="container">
-                <header class="section-header">
-                    <span class="section-kicker">Practice Principals & Governance</span>
-                    <h2 class="section-title">Executive Leadership</h2>
+                    <span class="section-kicker">Managing Principal & Acclaimed Author</span>
+                    <h2 class="section-title">About Me</h2>
                 </header>
 
                 <div class="about-grid-layout">
@@ -1055,7 +632,515 @@
         </section>
 
         <!-- TESTIMONIALS -->
-        <section id="testimonials" class="section-testimonials">
+        
+
+<!-- SERVICES: DESIGN | DEVELOPMENT | BRANDING -->
+        <section id="services" class="section-services">
+            <span id="capabilities" style="display:none;" aria-hidden="true"></span>
+            <div class="container">
+                <header class="section-header">
+                    <span class="section-kicker">Design | Development | Branding</span>
+                    <h2 class="section-title">Services & Capabilities</h2>
+                    <p class="section-subtitle">High-conviction narrative counsel and investigative discipline designed for boardrooms and institutions facing intense public scrutiny.</p>
+                </header>
+
+                <div class="services-grid">
+                    <!-- Service 1 -->
+                    <div class="service-item">
+                        <div class="service-num">01</div>
+                        <h3 class="service-title">C-Suite Strategic Communications & Boardroom Counsel</h3>
+                        <p class="service-desc">
+                            High-altitude executive ghostwriting, CEO keynotes, shareholder annual letters, and top-tier broadsheet op-ed syndication across *The Nation*, *Financial Times*, and *The Guardian*.
+                        </p>
+                        <ul class="service-points">
+                            <li>Executive reputation architecture & positioning</li>
+                            <li>Shareholder, investor & regulatory message alignment</li>
+                            <li>International broadsheet column & op-ed syndication</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="service-item">
+                        <div class="service-num">02</div>
+                        <h3 class="service-title">Crisis Communications & 24/7 War Room</h3>
+                        <p class="service-desc">
+                            Immediate crisis containment during regulatory inquests, corporate litigation, cross-border banking scrutiny, and hostile media campaigns with rapid 2-hour SLA activation.
+                        </p>
+                        <ul class="service-points">
+                            <li>24/7 war room activation & rapid media containment</li>
+                            <li>Litigation, compliance & regulatory defense statements</li>
+                            <li>Stakeholder narrative containment & dark-site standby</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="service-item">
+                        <div class="service-num">03</div>
+                        <h3 class="service-title">Investigative Due Diligence & Narrative Intelligence</h3>
+                        <p class="service-desc">
+                            Pre-merger narrative forensics, cross-border forensic investigations, counter-disinformation audits, and supply chain integrity dossiers leveraging 25+ years of investigative reporting.
+                        </p>
+                        <ul class="service-points">
+                            <li>Cross-border financial & public procurement forensics</li>
+                            <li>Counter-disinformation & reputation vulnerability audits</li>
+                            <li>Whistleblower interview dossiers & verifiable evidence</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="service-item">
+                        <div class="service-num">04</div>
+                        <h3 class="service-title">Corporate Publishing & Executive Monographs</h3>
+                        <p class="service-desc">
+                            Turnkey book packaging, manuscript ghostwriting, structural editing, and international distribution for founders, chairpersons, and industry pioneers seeking enduring legacy.
+                        </p>
+                        <ul class="service-points">
+                            <li>End-to-end executive biography & monograph ghostwriting</li>
+                            <li>Publisher negotiations, printing & worldwide rights</li>
+                            <li>Global book launch, media reviews & bestseller distribution</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 5 -->
+                    <div class="service-item">
+                        <div class="service-num">05</div>
+                        <h3 class="service-title">Media Interrogation & Executive Broadcast Readiness</h3>
+                        <p class="service-desc">
+                            High-intensity on-camera drills, parliamentary and congressional inquiry simulations, and broadcast training for C-suite leaders facing hostile press inquiries.
+                        </p>
+                        <ul class="service-points">
+                            <li>Hostile television & broadcast interrogation drills</li>
+                            <li>Parliamentary & senate committee testimony simulations</li>
+                            <li>Keynote delivery, speechwriting & executive presence</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE ENGAGEMENT SCOPE & ESTIMATOR -->
+        
+
+<section id="calculator" class="section-calculator">
+            <div class="container">
+                <div class="calculator-wrapper">
+                    <div class="calc-controls">
+                        <span class="section-kicker">Live Engagement Modeling</span>
+                        <h3 class="calc-section-title">Interactive Scope & Advisory Estimator</h3>
+                        <p class="calc-section-subtitle">
+                            Configure your corporate parameters below to generate an immediate strategic deliverables roadmap, senior counsel allocation, and advisory structure.
+                        </p>
+
+                        <!-- Group 1: Practice Area -->
+                        <div class="calc-group">
+                            <label class="calc-group-label">1. Select Core Practice Area</label>
+                            <div class="calc-segmented-btns" id="calc-practice-btns">
+                                <button type="button" class="calc-pill-btn active" data-practice="csuite">
+                                    <span>C-Suite Communications</span>
+                                    <span class="pill-sub">Thought Leadership & Op-Eds</span>
+                                </button>
+                                <button type="button" class="calc-pill-btn" data-practice="crisis">
+                                    <span>Crisis War Room</span>
+                                    <span class="pill-sub">24/7 Rapid Response</span>
+                                </button>
+                                <button type="button" class="calc-pill-btn" data-practice="diligence">
+                                    <span>Due Diligence Inquest</span>
+                                    <span class="pill-sub">Narrative Forensics</span>
+                                </button>
+                                <button type="button" class="calc-pill-btn" data-practice="publishing">
+                                    <span>Executive Monograph</span>
+                                    <span class="pill-sub">Legacy Publishing</span>
+                                </button>
+                                <button type="button" class="calc-pill-btn" data-practice="broadcast">
+                                    <span>Broadcast Interrogation</span>
+                                    <span class="pill-sub">Media Readiness Drills</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Group 2: Geographic Corridor -->
+                        <div class="calc-group">
+                            <label class="calc-group-label">2. Target Geographic Corridor</label>
+                            <div class="calc-segmented-btns" id="calc-geo-btns">
+                                <button type="button" class="calc-pill-btn active" data-geo="wa">
+                                    <span>West Africa Regional</span>
+                                    <span class="pill-sub">Lagos, Abuja & ECOWAS</span>
+                                </button>
+                                <button type="button" class="calc-pill-btn" data-geo="us">
+                                    <span>US & North America</span>
+                                    <span class="pill-sub">Washington D.C. & New York</span>
+                                </button>
+                                <button type="button" class="calc-pill-btn" data-geo="global">
+                                    <span>Pan-African & Global</span>
+                                    <span class="pill-sub">Transatlantic Syndicate</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Group 3: Engagement Horizon -->
+                        <div class="calc-group">
+                            <label class="calc-group-label">3. Engagement Horizon & Urgency</label>
+                            <div class="calc-segmented-btns" id="calc-horizon-btns">
+                                <button type="button" class="calc-pill-btn" data-horizon="surge">
+                                    <span>72-Hour Rapid Surge</span>
+                                    <span class="pill-sub">Immediate Emergency Support</span>
+                                </button>
+                                <button type="button" class="calc-pill-btn active" data-horizon="sprint">
+                                    <span>3-Month Strategic Sprint</span>
+                                    <span class="pill-sub">Transaction or Campaign</span>
+                                </button>
+                                <button type="button" class="calc-pill-btn" data-horizon="annual">
+                                    <span>12-Month Annual Retainer</span>
+                                    <span class="pill-sub">Continuous Board Advisory</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculator Summary Box -->
+                    <div class="calc-summary-panel">
+                        <div class="summary-header">
+                            <span class="summary-tier-badge" id="summary-tier-badge">Corporate Retainer Tier</span>
+                            <h4 class="summary-scope-name" id="summary-scope-name">C-Suite Thought Leadership Retainer</h4>
+                        </div>
+
+                        <ul class="summary-specs-list">
+                            <li class="summary-spec-item">
+                                <span class="spec-label">Counsel Allocation:</span>
+                                <span class="spec-val" id="summary-counsel">Olukorede Yishau + 2 Senior Directors</span>
+                            </li>
+                            <li class="summary-spec-item">
+                                <span class="spec-label">Response Commitment:</span>
+                                <span class="spec-val" id="summary-response">Within 4 Business Hours</span>
+                            </li>
+                            <li class="summary-spec-item">
+                                <span class="spec-label">Advisory Framework:</span>
+                                <span class="spec-val" id="summary-framework">Dedicated Milestone Retainer</span>
+                            </li>
+                        </ul>
+
+                        <div class="calc-deliverables-box">
+                            <div class="calc-deliverables-title">Strategic Deliverables Blueprint</div>
+                            <p class="calc-deliverables-text" id="summary-deliverables">
+                                • Bi-weekly executive op-eds syndicated to Tier-1 broadsheets<br>
+                                • CEO keynote drafting and congressional hearing preparation<br>
+                                • Monthly narrative risk audit & counter-disinformation monitoring
+                            </p>
+                        </div>
+
+                        <button type="button" class="btn-transfer-scope" id="btn-transfer-scope">
+                            <span>Transfer Scope to RFP Form</span>
+                            <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SELECTED CASE STUDIES -->
+        
+
+<section id="retainers" class="section-retainers">
+            <div class="container">
+                <header class="section-header">
+                    <span class="section-kicker">Transparent Engagement Models</span>
+                    <h2 class="section-title">Advisory Retainer Structures</h2>
+                    <p class="section-subtitle">Flexible institutional frameworks designed for continuous counsel, surge situations, and landmark publication milestones.</p>
+                </header>
+
+                <div class="retainers-grid">
+                    <!-- Tier 1 -->
+                    <div class="retainer-card">
+                        <div class="retainer-header">
+                            <span class="retainer-kicker">Boardroom Counsel</span>
+                            <h3 class="retainer-name">Executive Thought Leadership</h3>
+                            <p class="retainer-desc">Continuous narrative positioning and executive broadsheet counsel for CEOs, Managing Directors, and Board Chairs.</p>
+                            <div class="retainer-cadence">Monthly Retainer</div>
+                        </div>
+                        <ul class="retainer-features">
+                            <li><i class="fas fa-check" aria-hidden="true"></i> 2 Strategic Op-Eds or Speeches Monthly</li>
+                            <li><i class="fas fa-check" aria-hidden="true"></i> Monthly Boardroom Message Drafting</li>
+                            <li><i class="fas fa-check" aria-hidden="true"></i> Tier-1 Broadsheet Syndication</li>
+                            <li><i class="fas fa-check" aria-hidden="true"></i> Continuous Media Sentiment Tracking</li>
+                            <li><i class="fas fa-check" aria-hidden="true"></i> 4-Hour Response Advisory SLA</li>
+                        </ul>
+                        <a href="#contact" class="btn-select-tier" data-tier-select="Executive Retainer">Select Retainer</a>
+                    </div>
+
+                    <!-- Tier 2 -->
+                    <div class="retainer-card featured">
+                        <span class="retainer-featured-tag">Priority Marquee</span>
+                        <div class="retainer-header">
+                            <span class="retainer-kicker">24/7 War Room</span>
+                            <h3 class="retainer-name">Special Situations & Crisis</h3>
+                            <p class="retainer-desc">Immediate rapid-response war room activation during regulatory audits, litigation battles, or market volatility.</p>
+                            <div class="retainer-cadence">Surge & Incident Retainer</div>
+                        </div>
+                        <ul class="retainer-features">
+                            <li><i class="fas fa-check" aria-hidden="true"></i> Dedicated 24/7 Crisis War Room Team</li>
+                            <li><i class="fas fa-check" aria-hidden="true"></i> 2-Hour Rapid Response SLA Guarantee</li>
+                            <li><i class="fas fa-check" aria-hidden="true"></i> Cross-Border Regulatory Press Containment</li>
+                            <li><i class="fas fa-check" aria-hidden="true"></i> Real-Time Disinformation Counter-Measures</li>
+                            <li><i class="fas fa-check" aria-hidden="true"></i> Executive Broadcast Interrogation Coaching</li>
+                        </ul>
+                        <a href="#contact" class="btn-select-tier" data-tier-select="Crisis War Room">Select Retainer</a>
+                    </div>
+
+                    <!-- Tier 3 -->
+                    <div class="retainer-card">
+                        <div class="retainer-header">
+                            <span class="retainer-kicker">Legacy Publishing</span>
+                            <h3 class="retainer-name">Corporate Monograph</h3>
+                            <p class="retainer-desc">Turnkey 6–9 month executive book ghostwriting, packaging, and worldwide distribution for industry icons.</p>
+                            <div class="retainer-cadence">Full Project Mandate</div>
+                        </div>
+                        <ul class="retainer-features">
+                            <li><i class="fas fa-check" aria-hidden="true"></i> Complete 250–350 Page Manuscript Ghostwriting</li>
+                            <li><i class="fas fa-check" aria-hidden="true"></i> Archival Research & 30+ Deep Inquest Interviews</li>
+                            <li><i class="fas fa-check" aria-hidden="true"></i> Publisher Pitching & Worldwide Rights Strategy</li>
+                            <li><i class="fas fa-check" aria-hidden="true"></i> Hardcover Packaging & Amazon Global Launch</li>
+                            <li><i class="fas fa-check" aria-hidden="true"></i> International PR Tour & Broadsheet Reviews</li>
+                        </ul>
+                        <a href="#contact" class="btn-select-tier" data-tier-select="Corporate Publishing">Select Retainer</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADVISORY METHODOLOGY -->
+        
+
+<!-- FEATURED PROJECTS -->
+        <section id="work" class="section-work">
+            <span id="case-studies" style="display:none;" aria-hidden="true"></span>
+            <div class="container">
+                <div class="work-header-split">
+                    <div>
+                        <span class="section-kicker">Proven Impact & Transaction Track Record</span>
+                        <h2 class="section-title">Featured Projects</h2>
+                        <p class="section-subtitle">Representative corporate engagements demonstrating narrative choreography, regulatory crisis containment, and corporate publishing authority.</p>
+                    </div>
+
+                    <!-- Filter Controls (Segmented Buttons) -->
+                    <div class="filter-controls" role="group" aria-label="Filter case studies by category">
+                        <button type="button" class="filter-btn active" data-filter="all">All Mandates</button>
+                        <button type="button" class="filter-btn" data-filter="transactions">Transactions & M&A</button>
+                        <button type="button" class="filter-btn" data-filter="crisis">Crisis & Regulatory</button>
+                        <button type="button" class="filter-btn" data-filter="publishing">Corporate Publishing</button>
+                    </div>
+                </div>
+
+                <!-- Projects / Case Studies Grid -->
+                <div class="projects-grid">
+                    <!-- Case Study 1: Pan-African Energy Restructuring -->
+                    <article class="project-card work-filterable" data-category="transactions">
+                        <div class="project-visual-wrapper navy-plate">
+                            <div class="project-plate-content">
+                                <span class="plate-tag">Mandate 01 · Capital Restructuring</span>
+                                <h3 class="plate-title">PAN-AFRICAN ENERGY DEBT RESTRUCTURING</h3>
+                                <span class="plate-sub">$1.2B Refinancing Narrative · Lagos, London & NYC</span>
+                            </div>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-meta-strip">
+                                <span>Capital Markets</span>
+                                <span class="sep">·</span>
+                                <span>$1.2B Facility</span>
+                                <span class="sep">·</span>
+                                <span>100% Positive Coverage</span>
+                            </div>
+                            <h3 class="project-name">Cross-Border Energy Consortium Debt Refinancing</h3>
+                            <p class="project-description">
+                                Designed and executed a comprehensive multi-jurisdiction stakeholder narrative aligning international bondholders, regulatory agencies, and institutional syndicates during a complex $1.2B debt restructuring.
+                            </p>
+                            <div class="project-actions">
+                                <button type="button" class="btn-project-view" data-project-id="art-1">
+                                    <span>Examine Case Dossier</span>
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Case Study 2: Fintech Unicorn Crisis Defense -->
+                    <article class="project-card work-filterable" data-category="crisis">
+                        <div class="project-visual-wrapper slate-plate">
+                            <div class="project-plate-content">
+                                <span class="plate-tag">Mandate 02 · 24/7 Crisis Response</span>
+                                <h3 class="plate-title">FINTECH UNICORN REGULATORY SUSPENSION</h3>
+                                <span class="plate-sub">Central Bank Defense & $65M Series B</span>
+                            </div>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-meta-strip">
+                                <span>Regulatory Crisis</span>
+                                <span class="sep">·</span>
+                                <span>14-Day Resolution</span>
+                                <span class="sep">·</span>
+                                <span>94% Sentiment Rebound</span>
+                            </div>
+                            <h3 class="project-name">Fintech Unicorn Regulatory License Containment</h3>
+                            <p class="project-description">
+                                Orchestrated a 24/7 rapid response war room when unexpected regulatory suspension threatened payment processing operations, achieving full license reinstatement within 14 days and safeguarding a $65M Series B round.
+                            </p>
+                            <div class="project-actions">
+                                <button type="button" class="btn-project-view" data-project-id="art-2">
+                                    <span>Examine Case Dossier</span>
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Case Study 3: Industrial Titan Monograph -->
+                    <article class="project-card work-filterable" data-category="publishing" data-book-card="father">
+                        <div class="project-visual-wrapper dark-plate">
+                            <div class="plate-reading-badge" data-book-badge="father" aria-label="Excerpt reading progress: 100% left" title="Excerpt reading progress">
+                                <svg class="plate-mini-ring" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+                                    <circle class="mini-ring-bg" cx="11" cy="11" r="9" />
+                                    <circle class="mini-ring-fill" cx="11" cy="11" r="9" />
+                                </svg>
+                                <span class="plate-badge-text">100% left</span>
+                            </div>
+                            <div class="project-plate-content">
+                                <span class="plate-tag">Mandate 03 · Executive Monograph</span>
+                                <h3 class="plate-title">INDUSTRIAL TITAN LEGACY BIOGRAPHY</h3>
+                                <span class="plate-sub">40,000+ Distributed · NLNG Prize Recognition</span>
+                            </div>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-meta-strip">
+                                <span>Corporate Biography</span>
+                                <span class="sep">·</span>
+                                <span>320 Pages</span>
+                                <span class="sep">·</span>
+                                <span>Amazon Category #1</span>
+                            </div>
+                            <h3 class="project-name">Industrial Titan Legacy Biography & Global Rollout</h3>
+                            <p class="project-description">
+                                9-month comprehensive ghostwriting, editorial direction, legal auditing, and worldwide publication campaign for one of West Africa's foremost manufacturing chairpersons, generating international broadsheet acclaim.
+                            </p>
+                            <div class="project-actions">
+                                <button type="button" class="btn-project-view" data-project-id="father">
+                                    <span class="btn-text">Read Manuscript Brief</span>
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Case Study 4: Extractive Whistleblower & ESG Forensic Audit -->
+                    <article class="project-card work-filterable" data-category="crisis">
+                        <div class="project-visual-wrapper bronze-plate">
+                            <div class="project-plate-content">
+                                <span class="plate-tag">Mandate 04 · Forensic Inquest</span>
+                                <h3 class="plate-title">EXTRACTIVE SECTOR ESG & PROCUREMENT AUDIT</h3>
+                                <span class="plate-sub">$80M Conduit Exposed · National Legislative Probe</span>
+                            </div>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-meta-strip">
+                                <span>Forensic Inquest</span>
+                                <span class="sep">·</span>
+                                <span>6-Month Audit</span>
+                                <span class="sep">·</span>
+                                <span>NMMA Laureate</span>
+                            </div>
+                            <h3 class="project-name">Supply Chain Forensic Investigation & Asset Recovery</h3>
+                            <p class="project-description">
+                                A ground-level investigative inquest uncovering fraudulent procurement pipelines in the extractive sector, spurring parliamentary inquiry, anti-corruption proceedings, and international governance reforms.
+                            </p>
+                            <div class="project-actions">
+                                <button type="button" class="btn-project-view" data-project-id="art-3">
+                                    <span>Examine Case Dossier</span>
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADVISORY RETAINER STRUCTURES -->
+        
+
+<section id="process" class="section-process">
+            <div class="container">
+                <header class="section-header">
+                    <span class="section-kicker">Advisory Methodology</span>
+                    <h2 class="section-title">Process: Discover → Plan → Design → Build</h2>
+                    <p class="section-subtitle">A battle-tested four-stage protocol engineered over 25+ years in transatlantic newsrooms and boardroom counsel.</p>
+                </header>
+
+                <div class="process-track">
+                    <!-- Step 1 -->
+                    <div class="process-node">
+                        <div class="node-indicator">
+                            <span class="node-number">01</span>
+                            <div class="node-line" aria-hidden="true"></div>
+                        </div>
+                        <div class="node-content">
+                            <h3 class="node-title">01 · Discover: Inquest & Forensic Audit</h3>
+                            <p class="node-body">
+                                Every successful narrative strategy begins with exhaustive forensic inquest. We audit public filings, examine whistleblower reports, map out regulatory exposure, and identify hidden vulnerabilities before they surface.
+                            </p>
+                            <span class="node-deliverable">Outcome: Comprehensive Fact Dossier & Vulnerability Map</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="process-node">
+                        <div class="node-indicator">
+                            <span class="node-number">02</span>
+                            <div class="node-line" aria-hidden="true"></div>
+                        </div>
+                        <div class="node-content">
+                            <h3 class="node-title">02 · Plan: Narrative Architecture & Strategy</h3>
+                            <p class="node-body">
+                                Facts alone do not persuade; architecture does. We formulate the core thesis, craft crisis defense matrices, align executive talking points, and model stakeholder scrutiny under high-stress conditions.
+                            </p>
+                            <span class="node-deliverable">Outcome: Strategic Framing Blueprint & Core Thesis</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="process-node">
+                        <div class="node-indicator">
+                            <span class="node-number">03</span>
+                            <div class="node-line" aria-hidden="true"></div>
+                        </div>
+                        <div class="node-content">
+                            <h3 class="node-title">03 · Design: Message Calibration & Editorial Polish</h3>
+                            <p class="node-body">
+                                Relentless sentence-level craftsmanship. Speeches, shareholder letters, and press statements are stripped of ambiguity, aligned with legal invariants, and polished to international broadsheet standards.
+                            </p>
+                            <span class="node-deliverable">Outcome: Bulletproof Broadsheet & Boardroom Prose</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="process-node">
+                        <div class="node-indicator">
+                            <span class="node-number">04</span>
+                            <div class="node-line" aria-hidden="true"></div>
+                        </div>
+                        <div class="node-content">
+                            <h3 class="node-title">04 · Build: Syndication & Authority Rollout</h3>
+                            <p class="node-body">
+                                Deployment across national and international press corridors, broadcast war rooms, and diplomatic channels. We coordinate media briefings, counter disinformation, and cement enduring market trust.
+                            </p>
+                            <span class="node-deliverable">Outcome: Market Trust & Measurable Policy Impact</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEADERSHIP & ADVISORY BOARD -->
+        
+
+<section id="testimonials" class="section-testimonials">
             <div class="container">
                 <header class="section-header text-center">
                     <span class="section-kicker">Institutional Endorsements</span>
@@ -1104,16 +1189,19 @@
         </section>
 
         <!-- CORPORATE CONSULTATION DESK & RFP -->
-        <section id="contact" class="section-contact-cta">
+        
+
+<section id="contact" class="section-contact-cta">
             <div class="container">
                 <div class="work-together-banner">
-                    <span class="section-kicker">Confidential Mandate Intake</span>
-                    <h2 class="work-together-title">Corporate Consultation Desk & RFP</h2>
+                    <span class="section-kicker">Big CTA · Let's Talk</span>
+                    <h2 class="work-together-title">Ready to Command Market Trust & Protect Your Institutional Reputation?</h2>
                     <p class="work-together-lead">
-                        Initiate a confidential briefing with Managing Principal Olukorede Yishau and our senior advisory team. All inquiries protected under strict fiduciary confidentiality; mutual NDAs executed within 24 hours.
+                        Initiate a confidential discovery briefing with Managing Principal Olukorede Yishau and our senior advisory war room. All inquiries protected under strict fiduciary confidentiality; mutual NDAs executed within 24 hours.
                     </p>
                     <div class="banner-cta-cluster">
-                        <a href="#project-intake" class="btn-start-project" id="btn-open-intake">
+                        <a href="#project-intake" class="btn-start-project btn-lets-talk" data-tag="#LetsTalk" id="btn-open-intake" title="Open intake with #LetsTalk tag">
+                            <span class="lets-talk-pill">#LetsTalk</span>
                             <span>Initiate Corporate Briefing</span>
                             <i class="fas fa-arrow-down" aria-hidden="true"></i>
                         </a>
@@ -1189,6 +1277,71 @@
                             </label>
                         </div>
 
+                        <!-- Message & Mandate Tags Selector -->
+                        <div class="message-tags-wrapper">
+                            <div class="message-tags-header">
+                                <span class="message-tags-title">
+                                    <i class="fas fa-tags" aria-hidden="true"></i> Mandate & Advisory Message Tags
+                                </span>
+                                <span class="message-tags-counter" id="message-tags-counter">0 tags selected</span>
+                            </div>
+                            <p class="message-tags-sub">Select relevant advisory message tags to classify your mandate, or enter custom tags below:</p>
+
+                            <!-- Preset Message Tags -->
+                            <div class="message-tags-grid" id="message-tags-grid">
+                                <button type="button" class="msg-tag-chip msg-tag-chip-featured active" data-tag="#LetsTalk" id="chip-tag-lets-talk" title="Priority: Let's Talk consultation brief">
+                                    <span class="tag-hash">#</span>LetsTalk <span class="tag-live-dot" title="Priority Mandate Mode"></span>
+                                </button>
+                                <button type="button" class="msg-tag-chip" data-tag="#CrisisWarRoom">
+                                    <span class="tag-hash">#</span>CrisisWarRoom
+                                </button>
+                                <button type="button" class="msg-tag-chip" data-tag="#RegulatoryScrutiny">
+                                    <span class="tag-hash">#</span>RegulatoryScrutiny
+                                </button>
+                                <button type="button" class="msg-tag-chip" data-tag="#CSuiteOpEd">
+                                    <span class="tag-hash">#</span>CSuiteOpEd
+                                </button>
+                                <button type="button" class="msg-tag-chip" data-tag="#M&ADisclosure">
+                                    <span class="tag-hash">#</span>M&ADisclosure
+                                </button>
+                                <button type="button" class="msg-tag-chip" data-tag="#WhistleblowerForensics">
+                                    <span class="tag-hash">#</span>WhistleblowerForensics
+                                </button>
+                                <button type="button" class="msg-tag-chip" data-tag="#ExecutiveMonograph">
+                                    <span class="tag-hash">#</span>ExecutiveMonograph
+                                </button>
+                                <button type="button" class="msg-tag-chip" data-tag="#CongressionalHearing">
+                                    <span class="tag-hash">#</span>CongressionalHearing
+                                </button>
+                                <button type="button" class="msg-tag-chip" data-tag="#StrictEmbargo">
+                                    <span class="tag-hash">#</span>StrictEmbargo
+                                </button>
+                                <button type="button" class="msg-tag-chip" data-tag="#SurgeResponse24h">
+                                    <span class="tag-hash">#</span>SurgeResponse24h
+                                </button>
+                                <button type="button" class="msg-tag-chip" data-tag="#BroadsheetSyndication">
+                                    <span class="tag-hash">#</span>BroadsheetSyndication
+                                </button>
+                            </div>
+
+                            <!-- Custom Tag Input Bar -->
+                            <div class="custom-tag-bar">
+                                <div class="custom-tag-input-group">
+                                    <span class="tag-prefix">#</span>
+                                    <input type="text" id="custom-tag-input" class="custom-tag-input" placeholder="Add custom message tag (e.g. LitigationDefense)..." maxlength="30">
+                                </div>
+                                <button type="button" class="btn-add-custom-tag" id="btn-add-tag">
+                                    <i class="fas fa-plus" aria-hidden="true"></i> Add Tag
+                                </button>
+                            </div>
+
+                            <!-- Selected Active Tags Display -->
+                            <div class="selected-tags-display" id="selected-tags-display" style="display: none;">
+                                <span class="selected-tags-label"><i class="fas fa-paperclip" aria-hidden="true"></i> Attached to brief:</span>
+                                <div class="selected-tags-chips" id="selected-tags-chips"></div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="form-message" class="form-label">Mandate Context & Core Objectives</label>
                             <textarea id="form-message" class="form-textarea" rows="4" placeholder="Summarize your institutional context, key stakeholders, public scrutiny issues, or publishing objectives..." required></textarea>
@@ -1204,7 +1357,9 @@
                 </div>
             </div>
         </section>
-    </main>
+    
+
+</main>
 
     <!-- Reading Modal / Drawer for Articles & Book Excerpts -->
     <div id="reader-modal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
@@ -1490,7 +1645,31 @@
         <div class="container footer-content">
             <div class="footer-top-grid">
                 <div class="footer-col footer-col-brand">
-                    <span class="footer-title">Yishau Strategic Media & Advisory</span>
+                    <a href="#" class="brand-mark footer-brand-lockup" aria-label="Yishau Strategic Advisory Home">
+                        <span class="brand-logo-crest" aria-hidden="true">
+                            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                                <rect x="2" y="2" width="40" height="40" rx="9" class="logo-frame" stroke="currentColor" stroke-width="1.5" />
+                                <rect x="5.5" y="5.5" width="33" height="33" rx="6.5" class="logo-frame-inner" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2 2" opacity="0.6"/>
+                                <path d="M22 8L27 18H17L22 8Z" class="logo-nib" fill="url(#logoGoldGradFoot)" />
+                                <path d="M14 18L22 27L30 18" class="logo-letter-y" stroke="url(#logoGoldGradFoot)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 27V36" class="logo-stem" stroke="url(#logoGoldGradFoot)" stroke-width="2.5" stroke-linecap="round"/>
+                                <circle cx="22" cy="19.5" r="1.5" fill="currentColor" class="logo-diamond"/>
+                                <circle cx="9.5" cy="22" r="1.2" fill="url(#logoGoldGradFoot)"/>
+                                <circle cx="34.5" cy="22" r="1.2" fill="url(#logoGoldGradFoot)"/>
+                                <defs>
+                                    <linearGradient id="logoGoldGradFoot" x1="12" y1="8" x2="32" y2="36" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#E5C158" />
+                                        <stop offset="50%" stop-color="#C8963E" />
+                                        <stop offset="100%" stop-color="#9A6B22" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </span>
+                        <span class="brand-text-group">
+                            <span class="brand-name-main">YISHAU</span>
+                            <span class="brand-tagline-sub">STRATEGIC ADVISORY · EST. 1999</span>
+                        </span>
+                    </a>
                     <p class="footer-desc">Transatlantic strategic communications, narrative intelligence, crisis management, and corporate publishing consultancy. Offices in Lagos and Washington D.C.</p>
                     <div class="footer-fiduciary-badge">
                         <i class="fas fa-shield-halved" aria-hidden="true"></i>

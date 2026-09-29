@@ -1254,6 +1254,151 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.getElementById('submit-btn');
     const openIntakeBtn = document.getElementById('btn-open-intake');
 
+    // Message & Mandate Tags Management
+    const selectedMessageTags = new Set(['#LetsTalk']);
+    const messageTagsGrid = document.getElementById('message-tags-grid');
+    const messageTagsCounter = document.getElementById('message-tags-counter');
+    const customTagInput = document.getElementById('custom-tag-input');
+    const btnAddTag = document.getElementById('btn-add-tag');
+    const selectedTagsDisplay = document.getElementById('selected-tags-display');
+    const selectedTagsChips = document.getElementById('selected-tags-chips');
+
+    const updateMessageTagsUI = () => {
+        if (messageTagsCounter) {
+            messageTagsCounter.textContent = `${selectedMessageTags.size} tag${selectedMessageTags.size === 1 ? '' : 's'} selected`;
+        }
+
+        // Update active class on preset tag chips
+        if (messageTagsGrid) {
+            messageTagsGrid.querySelectorAll('.msg-tag-chip').forEach(chip => {
+                const tag = chip.getAttribute('data-tag');
+                if (selectedMessageTags.has(tag)) {
+                    chip.classList.add('active');
+                } else {
+                    chip.classList.remove('active');
+                }
+            });
+        }
+
+        // Render selected tags display
+        if (selectedTagsDisplay && selectedTagsChips) {
+            if (selectedMessageTags.size > 0) {
+                selectedTagsDisplay.style.display = 'flex';
+                selectedTagsChips.innerHTML = Array.from(selectedMessageTags).map(tag => `
+                    <span class="active-tag-badge">
+                        ${escapeHtml(tag)}
+                        <button type="button" class="btn-remove-tag" data-tag="${escapeHtml(tag)}" title="Remove tag" aria-label="Remove ${escapeHtml(tag)}">
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                        </button>
+                    </span>
+                `).join('');
+
+                // Attach remove handlers
+                selectedTagsChips.querySelectorAll('.btn-remove-tag').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const tagToRemove = btn.getAttribute('data-tag');
+                        selectedMessageTags.delete(tagToRemove);
+                        updateMessageTagsUI();
+                    });
+                });
+            } else {
+                selectedTagsDisplay.style.display = 'none';
+                selectedTagsChips.innerHTML = '';
+            }
+        }
+    };
+
+    // Auto-activate #LetsTalk tag when clicking any "Let's Talk" button
+    const activateLetsTalkTag = (focusInput = true) => {
+        selectedMessageTags.add('#LetsTalk');
+        updateMessageTagsUI();
+
+        const intakeBox = document.getElementById('project-intake');
+        if (intakeBox) {
+            intakeBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        if (focusInput) {
+            setTimeout(() => {
+                const nameInput = document.getElementById('form-name');
+                if (nameInput) {
+                    nameInput.focus();
+                }
+            }, 450);
+        }
+
+        if (typeof showToast === 'function') {
+            showToast({
+                title: '#LetsTalk Tag Attached',
+                message: 'Consultation brief activated with #LetsTalk priority tag.',
+                type: 'success',
+                duration: 2500
+            });
+        }
+    };
+
+    document.querySelectorAll('.btn-lets-talk').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            activateLetsTalkTag(true);
+        });
+    });
+
+    // Initial render of default tags
+    updateMessageTagsUI();
+
+    if (messageTagsGrid) {
+        messageTagsGrid.querySelectorAll('.msg-tag-chip').forEach(chip => {
+            chip.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tag = chip.getAttribute('data-tag');
+                if (selectedMessageTags.has(tag)) {
+                    selectedMessageTags.delete(tag);
+                } else {
+                    selectedMessageTags.add(tag);
+                }
+                updateMessageTagsUI();
+            });
+        });
+    }
+
+    const addCustomTag = () => {
+        if (!customTagInput) return;
+        let val = customTagInput.value.trim();
+        if (!val) return;
+        if (!val.startsWith('#')) val = '#' + val;
+        val = val.replace(/\s+/g, '');
+        if (val.length > 1) {
+            selectedMessageTags.add(val);
+            customTagInput.value = '';
+            updateMessageTagsUI();
+            if (typeof showToast === 'function') {
+                showToast({
+                    title: 'Tag Attached',
+                    message: `Tag "${val}" attached to mandate brief.`,
+                    type: 'info',
+                    duration: 2500
+                });
+            }
+        }
+    };
+
+    if (btnAddTag) {
+        btnAddTag.addEventListener('click', (e) => {
+            e.preventDefault();
+            addCustomTag();
+        });
+    }
+
+    if (customTagInput) {
+        customTagInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addCustomTag();
+            }
+        });
+    }
+
     if (openIntakeBtn) {
         openIntakeBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -1306,6 +1451,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const practiceTitle = typeInput.options[typeInput.selectedIndex]?.text || 'Strategic Communications';
             const isNdaRequested = ndaInput ? ndaInput.checked : true;
             const clientMsg = messageInput?.value.trim() || '';
+            const tagsArray = Array.from(selectedMessageTags);
 
             try {
                 // Post to real backend API: /api/inquiries
@@ -1319,7 +1465,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         inquiryType: typeInput.value,
                         budget: budgetInput ? budgetInput.value : 'tier-standard',
                         nda: isNdaRequested,
-                        message: clientMsg
+                        message: clientMsg,
+                        tags: tagsArray
                     })
                 });
 
@@ -1327,8 +1474,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const refNumber = data.reference || ('YSM-' + Math.floor(100000 + Math.random() * 900000));
                 const inboundEmail = getInboundEmail();
                 const mailtoRecipient = inboundEmail || '';
+                const tagsStr = tagsArray.length ? `\nMessage Tags: ${tagsArray.join(', ')}` : '';
                 const mailtoSubject = encodeURIComponent(`Executive Mandate [${refNumber}]: ${practiceTitle} - ${companyName}`);
-                const mailtoBody = encodeURIComponent(`To: Olukorede Yishau / Advisory Team${inboundEmail ? ' (' + inboundEmail + ')' : ''}\nReference: ${refNumber}\n\nClient: ${clientName}\nCompany: ${companyName}\nPractice: ${practiceTitle}\nNDA Requested: ${isNdaRequested ? 'Yes' : 'No'}\n\nMandate Overview:\n${clientMsg}\n\n--\nDispatched via Yishau Strategic Advisory Desk`);
+                const mailtoBody = encodeURIComponent(`To: Olukorede Yishau / Advisory Team${inboundEmail ? ' (' + inboundEmail + ')' : ''}\nReference: ${refNumber}\n\nClient: ${clientName}\nCompany: ${companyName}\nPractice: ${practiceTitle}\nNDA Requested: ${isNdaRequested ? 'Yes' : 'No'}${tagsStr}\n\nMandate Overview:\n${clientMsg}\n\n--\nDispatched via Yishau Strategic Advisory Desk`);
                 const mailtoLink = `mailto:${mailtoRecipient}?subject=${mailtoSubject}&body=${mailtoBody}`;
 
                 if (submitBtn) {
@@ -1344,6 +1492,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="feedback-ref">Backend Reference: <strong>${refNumber}</strong></span><br>
                             ${isNdaRequested ? '• Mutual Non-Disclosure Agreement (NDA) protocol initiated.<br>' : ''}
                             ${inboundEmail ? `• Inbound notification routed to <strong>${inboundEmail}</strong>.<br>` : '• Mandate recorded on server; no personal email address currently configured.<br>'}
+                            ${tagsArray.length ? `
+                                <div style="margin-top: 0.5rem; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;">
+                                    <strong style="font-size: 0.8rem; color: var(--accent-gold);">Attached Tags:</strong> 
+                                    ${tagsArray.map(t => `<span class="mandate-msg-tag"><i class="fas fa-tag"></i> ${escapeHtml(t)}</span>`).join(' ')}
+                                </div>
+                            ` : ''}
                             <div style="margin-top: 0.9rem;">
                                 <a href="${mailtoLink}" class="btn-mailto-dispatch" title="Open and send direct email">
                                     <i class="fas fa-envelope" aria-hidden="true"></i>
@@ -1355,6 +1509,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 inquiryForm.reset();
+                selectedMessageTags.clear();
+                updateMessageTagsUI();
 
                 setTimeout(() => {
                     if (submitBtn) {
@@ -1474,6 +1630,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="mandate-tag-pill"><i class="fas fa-briefcase"></i> ${escapeHtml(inq.inquiryTypeLabel || inq.inquiryType)}</span>
                         <span class="mandate-tag-pill"><i class="fas fa-coins"></i> ${escapeHtml(inq.budgetLabel || inq.budget)}</span>
                         ${inq.nda ? '<span class="mandate-tag-pill nda-pill"><i class="fas fa-shield-halved"></i> Mutual NDA</span>' : ''}
+                        ${Array.isArray(inq.tags) && inq.tags.length ? inq.tags.map(t => `<span class="mandate-msg-tag"><i class="fas fa-tag"></i> ${escapeHtml(t)}</span>`).join('') : ''}
                     </div>
                     <p class="mandate-message-text">"${escapeHtml(inq.message)}"</p>
                 </div>
@@ -1609,7 +1766,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 7. Mobile Bottom Navigation Scrollspy
     // --------------------------------------------------------------------------
     const bottomTabs = document.querySelectorAll('.bottom-tab');
-    const trackedSections = ['capabilities', 'calculator', 'case-studies', 'retainers', 'contact']
+    const trackedSections = ['about', 'services', 'capabilities', 'work', 'case-studies', 'process', 'testimonials', 'contact']
         .map(id => document.getElementById(id))
         .filter(Boolean);
 
