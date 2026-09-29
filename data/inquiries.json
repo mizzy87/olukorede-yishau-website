@@ -1,0 +1,62 @@
+[
+  {
+    "id": "YSM-20260929-7815",
+    "createdAt": "2026-09-29T12:16:22.847Z",
+    "name": "Governor Tunde Fashola",
+    "email": "tunde@lagosstate.gov.ng",
+    "company": "Lagos State Infrastructure Council",
+    "inquiryType": "csuite",
+    "inquiryTypeLabel": "C-Suite Strategic Communications & Op-Eds",
+    "budget": "tier-standard",
+    "budgetLabel": "Executive Retainer ($10,000 – $25,000 / month)",
+    "nda": true,
+    "message": "Consultation on international bond roadshow strategic messaging.",
+    "status": "Pending Review",
+    "notes": "Submitted via Yishau Strategic Advisory Consultation Desk."
+  },
+  {
+    "id": "YSM-20260920-8491",
+    "createdAt": "2026-09-20T14:32:00.000Z",
+    "name": "Dr. Adebayo Adeleke",
+    "email": "adeleke@westatlanticcap.com",
+    "company": "West Atlantic Capital PLC",
+    "inquiryType": "csuite",
+    "inquiryTypeLabel": "C-Suite Strategic Communications & Op-Eds",
+    "budget": "tier-standard",
+    "budgetLabel": "Executive Retainer ($10,000 – $25,000 / month)",
+    "nda": true,
+    "message": "Engaging for executive thought leadership and syndication across London and New York dailies ahead of our Q4 infrastructure bond issuance.",
+    "status": "Consultation Scheduled",
+    "notes": "Discovery call set with Olukorede Yishau; mutual NDA signed."
+  },
+  {
+    "id": "YSM-20260924-4109",
+    "createdAt": "2026-09-24T09:15:00.000Z",
+    "name": "Elena Rostova",
+    "email": "e.rostova@meridianenergy.ch",
+    "company": "Meridian Energy Partners",
+    "inquiryType": "crisis",
+    "inquiryTypeLabel": "24/7 Crisis Communications & War Room",
+    "budget": "tier-surge",
+    "budgetLabel": "Crisis War Room & Surge ($25,000 – $75,000)",
+    "nda": true,
+    "message": "Immediate 24/7 dark-site preparation and regulatory rebuttal drafting regarding multi-jurisdictional compliance inquiry.",
+    "status": "NDA Dispatched",
+    "notes": "Standard corporate mutual NDA dispatched within 2 hours."
+  },
+  {
+    "id": "YSM-20260927-1823",
+    "createdAt": "2026-09-27T16:45:00.000Z",
+    "name": "Oluwaseun Balogun",
+    "email": "s.balogun@apexindustries.ng",
+    "company": "Apex Industrial Holdings",
+    "inquiryType": "publishing",
+    "inquiryTypeLabel": "Corporate Publishing & Executive Monograph",
+    "budget": "tier-monograph",
+    "budgetLabel": "Enterprise Monograph Project ($50,000 – $120,000)",
+    "nda": false,
+    "message": "Commissioning a 350-page centenary commemorative monograph chronicling 50 years of industrial expansion and legacy.",
+    "status": "Pending Review",
+    "notes": "Reviewing preliminary historical archive requirements."
+  }
+]

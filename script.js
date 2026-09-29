@@ -735,6 +735,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Attach click handlers to 3D book cards & excerpt action buttons
+    document.querySelectorAll('.book-card-3d, .btn-read-excerpt').forEach(el => {
+        el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const projectId = el.getAttribute('data-project-id');
+            if (projectId) openModal(projectId);
+        });
+        el.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const projectId = el.getAttribute('data-project-id');
+                if (projectId) openModal(projectId);
+            }
+        });
+    });
+
     // Attach click handlers directly to reading progress widgets on book cards
     document.querySelectorAll('.reading-progress-widget').forEach(widget => {
         widget.addEventListener('click', (e) => {
@@ -830,7 +846,408 @@ document.addEventListener('DOMContentLoaded', () => {
     checkDeepLinkExcerpt();
 
     // --------------------------------------------------------------------------
-    // 6. Interactive Project Intake & Collaboration Form
+    // 5b. Interactive Scope & Advisory Estimator Engine
+    // --------------------------------------------------------------------------
+    const SCOPE_CONFIG = {
+        practices: {
+            'csuite': {
+                name: 'C-Suite Thought Leadership Retainer',
+                tier: 'Corporate Retainer Tier',
+                counsel: 'Olukorede Yishau + 2 Senior Directors',
+                response: 'Within 4 Business Hours',
+                framework: 'Ongoing Monthly Board Advisory',
+                deliverables: '• Bi-weekly executive op-eds syndicated to Tier-1 broadsheets\n• CEO keynote drafting and congressional hearing preparation\n• Monthly narrative risk audit & counter-disinformation monitoring',
+                budgetVal: 'tier-standard',
+                inquiryVal: 'csuite'
+            },
+            'crisis': {
+                name: '24/7 Crisis War Room & Incident Containment',
+                tier: 'Emergency Surge Tier',
+                counsel: 'Dedicated 24/7 Crisis Rapid Response Unit',
+                response: 'Guaranteed Within 2 Hours',
+                framework: 'Surge Incident Standby & War Room',
+                deliverables: '• 24/7 active press room & regulatory statement choreography\n• Real-time digital sentiment tracking & dark-site deployment\n• Executive interrogation drills & stakeholder alignment protocols',
+                budgetVal: 'tier-surge',
+                inquiryVal: 'crisis'
+            },
+            'diligence': {
+                name: 'Investigative Due Diligence & Narrative Inquest',
+                tier: 'Forensic Audit Mandate',
+                counsel: 'Olukorede Yishau + Forensic Investigative Team',
+                response: 'Within 24 Hours for Milestone Briefings',
+                framework: 'Project-Based Investigative Dossier',
+                deliverables: '• Pre-merger narrative audit & public record cross-examination\n• Whistleblower testimony validation & counter-intelligence\n• Comprehensive confidential risk matrix & mitigation dossier',
+                budgetVal: 'tier-surge',
+                inquiryVal: 'diligence'
+            },
+            'publishing': {
+                name: 'Corporate Monograph & Legacy Publishing Mandate',
+                tier: 'Landmark Publication Tier',
+                counsel: 'Chief Narrative Officer + Senior Editorial Staff',
+                response: 'Weekly Manuscript Progress Sessions',
+                framework: '6–9 Month Full Lifecycle Publishing',
+                deliverables: '• 250–350 page full-length executive biography / corporate history\n• 30+ deep inquest interviews & archival document recovery\n• Publisher acquisition, hardcover design & international PR launch',
+                budgetVal: 'tier-monograph',
+                inquiryVal: 'publishing'
+            },
+            'broadcast': {
+                name: 'Executive Broadcast & Interrogation Mastery',
+                tier: 'Executive Intensive Tier',
+                counsel: 'Olukorede Yishau (Broadcast Interrogator)',
+                response: 'Immediate 48-Hour Scheduling',
+                framework: '2-Day C-Suite Intensive Simulation',
+                deliverables: '• On-camera hostile cross-examination & broadcast simulations\n• Congressional / parliamentary committee hearing mock sessions\n• Crisis media playbook & executive teleprompter delivery calibration',
+                budgetVal: 'tier-standard',
+                inquiryVal: 'broadcast'
+            }
+        },
+        geos: {
+            'wa': 'West Africa Regional (Lagos, Abuja & ECOWAS)',
+            'us': 'US & North America (Washington D.C. & New York)',
+            'global': 'Pan-African & Global Transatlantic Syndicate'
+        },
+        horizons: {
+            'surge': '72-Hour Rapid Surge',
+            'sprint': '3-Month Strategic Sprint',
+            'annual': '12-Month Annual Retainer'
+        }
+    };
+
+    let currentScope = {
+        practice: 'csuite',
+        geo: 'wa',
+        horizon: 'sprint'
+    };
+
+    const updateCalculatorDisplay = () => {
+        const pData = SCOPE_CONFIG.practices[currentScope.practice] || SCOPE_CONFIG.practices['csuite'];
+        const geoText = SCOPE_CONFIG.geos[currentScope.geo] || 'West Africa Regional';
+        const horizonText = SCOPE_CONFIG.horizons[currentScope.horizon] || '3-Month Strategic Sprint';
+
+        const tierBadge = document.getElementById('summary-tier-badge');
+        const scopeName = document.getElementById('summary-scope-name');
+        const counselEl = document.getElementById('summary-counsel');
+        const responseEl = document.getElementById('summary-response');
+        const frameworkEl = document.getElementById('summary-framework');
+        const deliverablesEl = document.getElementById('summary-deliverables');
+
+        if (tierBadge) tierBadge.textContent = pData.tier;
+        if (scopeName) scopeName.textContent = pData.name;
+        if (counselEl) counselEl.textContent = pData.counsel;
+        if (responseEl) responseEl.textContent = pData.response;
+        if (frameworkEl) frameworkEl.textContent = `${pData.framework} (${geoText} · ${horizonText})`;
+        if (deliverablesEl) {
+            deliverablesEl.innerHTML = pData.deliverables.replace(/\n/g, '<br>');
+        }
+    };
+
+    // Wire segmented buttons for practice, geo, and horizon
+    const setupSegmentedGroup = (containerId, stateKey) => {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const buttons = container.querySelectorAll('.calc-pill-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentScope[stateKey] = btn.getAttribute(`data-${stateKey}`);
+                updateCalculatorDisplay();
+            });
+        });
+    };
+
+    setupSegmentedGroup('calc-practice-btns', 'practice');
+    setupSegmentedGroup('calc-geo-btns', 'geo');
+    setupSegmentedGroup('calc-horizon-btns', 'horizon');
+    updateCalculatorDisplay();
+
+    // Transfer Scope to RFP Form handler
+    const transferScopeBtn = document.getElementById('btn-transfer-scope');
+    if (transferScopeBtn) {
+        transferScopeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pData = SCOPE_CONFIG.practices[currentScope.practice] || SCOPE_CONFIG.practices['csuite'];
+            const geoText = SCOPE_CONFIG.geos[currentScope.geo] || 'West Africa';
+            const horizonText = SCOPE_CONFIG.horizons[currentScope.horizon] || '3-Month Sprint';
+
+            const typeSelect = document.getElementById('form-inquiry-type');
+            const budgetSelect = document.getElementById('form-budget');
+            const messageInput = document.getElementById('form-message');
+            const contactSection = document.getElementById('contact');
+
+            if (typeSelect && pData.inquiryVal) {
+                typeSelect.value = pData.inquiryVal;
+            }
+            if (budgetSelect && pData.budgetVal) {
+                budgetSelect.value = pData.budgetVal;
+            }
+            if (messageInput) {
+                messageInput.value = `Mandate Request: ${pData.name}\nGeographic Target: ${geoText}\nEngagement Horizon: ${horizonText}\n\nObjectives & Context: `;
+            }
+
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+                const nameInput = document.getElementById('form-name');
+                if (nameInput) setTimeout(() => nameInput.focus(), 600);
+            }
+
+            if (typeof showToast === 'function') {
+                showToast({
+                    title: 'Scope Transferred',
+                    message: `${pData.name} loaded into the RFP Desk.`
+                });
+            }
+        });
+    }
+
+    // Direct Retainer Selection buttons
+    document.querySelectorAll('.btn-select-tier').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const tierType = btn.getAttribute('data-tier-select') || '';
+            const typeSelect = document.getElementById('form-inquiry-type');
+            const budgetSelect = document.getElementById('form-budget');
+            const messageInput = document.getElementById('form-message');
+            const contactSection = document.getElementById('contact');
+
+            if (tierType === 'Executive Retainer') {
+                if (typeSelect) typeSelect.value = 'csuite';
+                if (budgetSelect) budgetSelect.value = 'tier-standard';
+                if (messageInput) messageInput.value = 'Inquiry: Executive Thought Leadership Monthly Retainer. We seek ongoing broadsheet syndication and C-suite reputation counsel.';
+            } else if (tierType === 'Crisis War Room') {
+                if (typeSelect) typeSelect.value = 'crisis';
+                if (budgetSelect) budgetSelect.value = 'tier-surge';
+                if (messageInput) messageInput.value = 'URGENT: Special Situations & Crisis War Room Activation. We require immediate 24/7 containment and regulatory defense.';
+            } else if (tierType === 'Corporate Publishing') {
+                if (typeSelect) typeSelect.value = 'publishing';
+                if (budgetSelect) budgetSelect.value = 'tier-monograph';
+                if (messageInput) messageInput.value = 'Inquiry: Corporate Monograph & Legacy Publishing Mandate. We seek a comprehensive ghostwritten biography/history and international distribution.';
+            }
+
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+                const nameInput = document.getElementById('form-name');
+                if (nameInput) setTimeout(() => nameInput.focus(), 600);
+            }
+        });
+    });
+
+    // --------------------------------------------------------------------------
+    // 5c. Executive Thought Leadership & LinkedIn Dispatches Sharing
+    // --------------------------------------------------------------------------
+    const dispatchShareBtns = document.querySelectorAll('.btn-dispatch-share');
+    dispatchShareBtns.forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const title = btn.getAttribute('data-title') || 'Executive Dispatch';
+            const url = btn.getAttribute('data-url') || 'https://www.linkedin.com/in/olukorede-yishau';
+
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(url);
+                } else {
+                    const temp = document.createElement('input');
+                    temp.value = url;
+                    document.body.appendChild(temp);
+                    temp.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(temp);
+                }
+
+                if (typeof showToast === 'function') {
+                    showToast({
+                        title: 'LinkedIn Dispatch Copied',
+                        message: `Link to "${title}" copied to your clipboard.`,
+                        type: 'success',
+                        duration: 3200
+                    });
+                }
+            } catch (err) {
+                if (typeof showToast === 'function') {
+                    showToast({
+                        title: 'Dispatch Profile Link',
+                        message: 'https://www.linkedin.com/in/olukorede-yishau',
+                        type: 'info',
+                        duration: 3500
+                    });
+                }
+            }
+        });
+    });
+
+    // --------------------------------------------------------------------------
+    // 5d. Inbound Email Login & Connection Manager (Configurable / Default Blank)
+    // --------------------------------------------------------------------------
+    const EMAIL_STORAGE_KEY = 'user_inbound_email';
+    const emailLoginModal = document.getElementById('email-login-modal');
+    const emailLoginForm = document.getElementById('email-login-form');
+    const customUserEmailInput = document.getElementById('custom-user-email');
+    const emailLoginCloseBtn = document.getElementById('email-login-close');
+    const btnClearEmail = document.getElementById('btn-clear-email');
+    const emailLoginStatus = document.getElementById('email-login-status');
+
+    const getInboundEmail = () => {
+        return (localStorage.getItem(EMAIL_STORAGE_KEY) || '').trim();
+    };
+
+    const setInboundEmail = async (email) => {
+        const clean = (email || '').trim();
+        if (clean) {
+            localStorage.setItem(EMAIL_STORAGE_KEY, clean);
+        } else {
+            localStorage.removeItem(EMAIL_STORAGE_KEY);
+        }
+        updateEmailUI();
+
+        // Sync with backend server
+        try {
+            await fetch('/api/config', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ inboundEmail: clean })
+            });
+        } catch (err) {
+            console.warn('Backend config sync:', err.message);
+        }
+    };
+
+    const openEmailLoginModal = () => {
+        if (!emailLoginModal) return;
+        const currentEmail = getInboundEmail();
+        if (customUserEmailInput) {
+            customUserEmailInput.value = currentEmail;
+        }
+        if (emailLoginStatus) {
+            emailLoginStatus.textContent = currentEmail 
+                ? `Currently connected to: ${currentEmail}` 
+                : 'No recipient email configured (blank state). Enter your email to connect.';
+            emailLoginStatus.style.color = 'var(--text-secondary)';
+        }
+        emailLoginModal.style.display = 'flex';
+        emailLoginModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (customUserEmailInput) {
+            setTimeout(() => customUserEmailInput.focus(), 150);
+        }
+    };
+
+    const closeEmailLoginModal = () => {
+        if (!emailLoginModal) return;
+        emailLoginModal.style.display = 'none';
+        emailLoginModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    };
+
+    if (emailLoginCloseBtn) {
+        emailLoginCloseBtn.addEventListener('click', closeEmailLoginModal);
+    }
+
+    if (emailLoginModal) {
+        emailLoginModal.addEventListener('click', (e) => {
+            if (e.target === emailLoginModal) {
+                closeEmailLoginModal();
+            }
+        });
+    }
+
+    if (btnClearEmail) {
+        btnClearEmail.addEventListener('click', () => {
+            setInboundEmail('');
+            if (customUserEmailInput) customUserEmailInput.value = '';
+            if (emailLoginStatus) {
+                emailLoginStatus.textContent = 'Email reset to blank.';
+                emailLoginStatus.style.color = 'var(--accent-gold)';
+            }
+            closeEmailLoginModal();
+            if (typeof showToast === 'function') {
+                showToast({
+                    title: 'Email Reset',
+                    message: 'Inbound email cleared to blank state.',
+                    type: 'info'
+                });
+            }
+        });
+    }
+
+    if (emailLoginForm) {
+        emailLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const val = customUserEmailInput ? customUserEmailInput.value.trim() : '';
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (val && !emailPattern.test(val)) {
+                if (emailLoginStatus) {
+                    emailLoginStatus.textContent = 'Please enter a valid email address.';
+                    emailLoginStatus.style.color = '#DC2626';
+                }
+                return;
+            }
+
+            setInboundEmail(val);
+            closeEmailLoginModal();
+
+            if (typeof showToast === 'function') {
+                showToast({
+                    title: val ? 'Email Connected' : 'Email Blank',
+                    message: val ? `Inbound inquiries will now route to ${val}.` : 'Email set to blank.',
+                    type: 'success'
+                });
+            }
+        });
+    }
+
+    const updateEmailUI = () => {
+        const currentEmail = getInboundEmail();
+        const displaySpans = document.querySelectorAll('.email-val-display');
+        const footerEmailVal = document.getElementById('footer-email-val');
+
+        displaySpans.forEach(span => {
+            if (span.id === 'footer-email-val') return;
+            if (currentEmail) {
+                span.textContent = currentEmail;
+            } else {
+                span.textContent = 'Direct Email';
+            }
+        });
+
+        if (footerEmailVal) {
+            footerEmailVal.textContent = currentEmail || '— (Click to Connect)';
+        }
+
+        const adminEmailDisp = document.getElementById('stat-inbound-email-display');
+        if (adminEmailDisp) {
+            adminEmailDisp.textContent = currentEmail || '— (Blank)';
+        }
+    };
+
+    // Attach click events to all dynamic-email-btn elements
+    document.querySelectorAll('.dynamic-email-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const currentEmail = getInboundEmail();
+            if (currentEmail) {
+                const mailtoUrl = `mailto:${encodeURIComponent(currentEmail)}?subject=${encodeURIComponent('Corporate Mandate Inquiry')}`;
+                window.location.href = mailtoUrl;
+            } else {
+                openEmailLoginModal();
+            }
+        });
+    });
+
+    // Initialize UI on load & sync with backend config
+    updateEmailUI();
+    fetch('/api/config')
+        .then(r => r.ok ? r.json() : null)
+        .then(cfg => {
+            if (cfg && cfg.inboundEmail) {
+                localStorage.setItem(EMAIL_STORAGE_KEY, cfg.inboundEmail);
+                updateEmailUI();
+            }
+        })
+        .catch(() => {});
+
+    // --------------------------------------------------------------------------
+    // 6. Interactive Corporate Consultation Desk & RFP Form (Connected to Backend)
     // --------------------------------------------------------------------------
     const inquiryForm = document.getElementById('inquiry-form');
     const formFeedback = document.getElementById('form-feedback');
@@ -850,17 +1267,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (inquiryForm) {
-        inquiryForm.addEventListener('submit', (e) => {
+        inquiryForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const nameInput = document.getElementById('form-name');
             const emailInput = document.getElementById('form-email');
+            const companyInput = document.getElementById('form-company');
             const typeInput = document.getElementById('form-inquiry-type');
+            const budgetInput = document.getElementById('form-budget');
             const messageInput = document.getElementById('form-message');
+            const ndaInput = document.getElementById('form-nda');
 
             if (!nameInput.value.trim() || !emailInput.value.trim() || !messageInput.value.trim()) {
                 if (formFeedback) {
-                    formFeedback.textContent = 'Please provide your name, email, and project overview.';
+                    formFeedback.textContent = 'Please complete your name, corporate email, and mandate overview.';
+                    formFeedback.style.color = '#DC2626';
+                }
+                return;
+            }
+
+            // Email format check
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(emailInput.value.trim())) {
+                if (formFeedback) {
+                    formFeedback.textContent = 'Please provide a valid corporate email address.';
                     formFeedback.style.color = '#DC2626';
                 }
                 return;
@@ -868,20 +1298,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = `<span>Transmitting Project Brief...</span> <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>`;
+                submitBtn.innerHTML = `<span>Transmitting Mandate to Backend Engine...</span> <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>`;
             }
 
-            setTimeout(() => {
+            const clientName = nameInput.value.trim();
+            const companyName = companyInput?.value.trim() || 'Your Enterprise';
+            const practiceTitle = typeInput.options[typeInput.selectedIndex]?.text || 'Strategic Communications';
+            const isNdaRequested = ndaInput ? ndaInput.checked : true;
+            const clientMsg = messageInput?.value.trim() || '';
+
+            try {
+                // Post to real backend API: /api/inquiries
+                const res = await fetch('/api/inquiries', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: clientName,
+                        email: emailInput.value.trim(),
+                        company: companyName,
+                        inquiryType: typeInput.value,
+                        budget: budgetInput ? budgetInput.value : 'tier-standard',
+                        nda: isNdaRequested,
+                        message: clientMsg
+                    })
+                });
+
+                const data = await res.json();
+                const refNumber = data.reference || ('YSM-' + Math.floor(100000 + Math.random() * 900000));
+                const inboundEmail = getInboundEmail();
+                const mailtoRecipient = inboundEmail || '';
+                const mailtoSubject = encodeURIComponent(`Executive Mandate [${refNumber}]: ${practiceTitle} - ${companyName}`);
+                const mailtoBody = encodeURIComponent(`To: Olukorede Yishau / Advisory Team${inboundEmail ? ' (' + inboundEmail + ')' : ''}\nReference: ${refNumber}\n\nClient: ${clientName}\nCompany: ${companyName}\nPractice: ${practiceTitle}\nNDA Requested: ${isNdaRequested ? 'Yes' : 'No'}\n\nMandate Overview:\n${clientMsg}\n\n--\nDispatched via Yishau Strategic Advisory Desk`);
+                const mailtoLink = `mailto:${mailtoRecipient}?subject=${mailtoSubject}&body=${mailtoBody}`;
+
                 if (submitBtn) {
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = `<span>Brief Received</span> <i class="fas fa-check" aria-hidden="true"></i>`;
+                    submitBtn.innerHTML = `<span>Mandate Registered</span> <i class="fas fa-check" aria-hidden="true"></i>`;
                 }
 
                 if (formFeedback) {
                     formFeedback.innerHTML = `
                         <div class="feedback-success">
-                            <strong>Project Brief Received Successfully.</strong><br>
-                            Thank you, ${nameInput.value.trim()}. Your inquiry regarding "${typeInput.options[typeInput.selectedIndex]?.text || 'Editorial Project'}" has been forwarded directly to Olukorede Yishau’s bureau desk. A personal response and initial alignment call invitation will follow within 48 business hours.
+                            <strong>Corporate Mandate Logged in Backend Engine.</strong><br>
+                            Thank you, ${clientName}. Your institutional mandate on behalf of <strong>${companyName}</strong> regarding <em>"${practiceTitle}"</em> has been recorded in the fiduciary database.<br>
+                            <span class="feedback-ref">Backend Reference: <strong>${refNumber}</strong></span><br>
+                            ${isNdaRequested ? '• Mutual Non-Disclosure Agreement (NDA) protocol initiated.<br>' : ''}
+                            ${inboundEmail ? `• Inbound notification routed to <strong>${inboundEmail}</strong>.<br>` : '• Mandate recorded on server; no personal email address currently configured.<br>'}
+                            <div style="margin-top: 0.9rem;">
+                                <a href="${mailtoLink}" class="btn-mailto-dispatch" title="Open and send direct email">
+                                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                                    <span>${inboundEmail ? `Send Copy via Email to ${inboundEmail}` : 'Send Copy via Your Mail Client'}</span>
+                                </a>
+                            </div>
                         </div>
                     `;
                 }
@@ -890,18 +1358,258 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 setTimeout(() => {
                     if (submitBtn) {
-                        submitBtn.innerHTML = `<span>Submit Project Request</span> <i class="fas fa-paper-plane" aria-hidden="true"></i>`;
+                        submitBtn.innerHTML = `<span>Submit Corporate Mandate & Request Briefing</span> <i class="fas fa-paper-plane" aria-hidden="true"></i>`;
                     }
-                }, 5000);
-            }, 600);
+                }, 6000);
+
+            } catch (err) {
+                console.error('Submission error:', err);
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<span>Submit Corporate Mandate & Request Briefing</span> <i class="fas fa-paper-plane" aria-hidden="true"></i>`;
+                }
+                if (formFeedback) {
+                    formFeedback.innerHTML = `
+                        <div class="feedback-error" style="color: #DC2626; padding: 1rem; background: rgba(220,38,38,0.08); border-radius: 4px; margin-top: 1rem;">
+                            <strong>Server Connection Notice:</strong> ${err.message || 'Unable to reach backend'}. Please send your brief via direct email.
+                        </div>
+                    `;
+                }
+            }
         });
     }
 
     // --------------------------------------------------------------------------
-    // 7. Mobile Bottom Navigation Scrollspy (Matching User's Layout)
+    // 6b. Fiduciary Mandate Admin Portal Controller (Backend Sync)
+    // --------------------------------------------------------------------------
+    const adminPortalModal = document.getElementById('admin-portal-modal');
+    const openAdminPortalBtn = document.getElementById('btn-open-admin-portal');
+    const adminPortalCloseBtn = document.getElementById('admin-portal-close');
+    const refreshInquiriesBtn = document.getElementById('btn-refresh-inquiries');
+    const exportCsvBtn = document.getElementById('btn-export-csv');
+    const inquiriesListEl = document.getElementById('admin-inquiries-list');
+    const filterTabsEl = document.getElementById('admin-filter-tabs');
+
+    let allLoadedInquiries = [];
+    let currentInquiriesFilter = 'all';
+
+    const loadAdminInquiries = async () => {
+        if (!inquiriesListEl) return;
+        inquiriesListEl.innerHTML = `<div class="admin-loading-state"><i class="fas fa-spinner fa-spin"></i> Querying backend /api/inquiries...</div>`;
+
+        try {
+            const [inqRes, healthRes] = await Promise.all([
+                fetch('/api/inquiries'),
+                fetch('/api/health')
+            ]);
+            const inqData = await inqRes.json();
+            const healthData = await healthRes.json();
+
+            allLoadedInquiries = inqData.inquiries || [];
+
+            // Update stats
+            const totalEl = document.getElementById('stat-total-mandates');
+            const pendingEl = document.getElementById('stat-pending-mandates');
+            const ndaEl = document.getElementById('stat-nda-mandates');
+            const emailDispEl = document.getElementById('stat-inbound-email-display');
+            const serverStatusBadge = document.getElementById('admin-server-status');
+
+            if (totalEl) totalEl.textContent = allLoadedInquiries.length;
+            if (pendingEl) pendingEl.textContent = allLoadedInquiries.filter(i => i.status === 'Pending Review').length;
+            if (ndaEl) ndaEl.textContent = allLoadedInquiries.filter(i => i.nda).length;
+            if (emailDispEl) emailDispEl.textContent = getInboundEmail() || '— (Blank)';
+
+            if (serverStatusBadge && healthData.status === 'online') {
+                serverStatusBadge.innerHTML = `<span class="badge-dot"></span> Online (${healthData.bureaus.lagos.timezone} / ${healthData.bureaus.washington.timezone})`;
+            }
+
+            renderInquiriesList();
+        } catch (err) {
+            inquiriesListEl.innerHTML = `
+                <div class="admin-error-state">
+                    <i class="fas fa-triangle-exclamation"></i>
+                    <p>Unable to connect to backend: ${err.message}.</p>
+                </div>
+            `;
+        }
+    };
+
+    const renderInquiriesList = () => {
+        if (!inquiriesListEl) return;
+        let items = allLoadedInquiries;
+        if (currentInquiriesFilter !== 'all') {
+            items = items.filter(i => i.status === currentInquiriesFilter);
+        }
+
+        if (!items.length) {
+            inquiriesListEl.innerHTML = `<div class="admin-empty-state"><p>No mandates matching filter "${currentInquiriesFilter}".</p></div>`;
+            return;
+        }
+
+        inquiriesListEl.innerHTML = items.map(inq => `
+            <div class="mandate-row-card" data-id="${inq.id}">
+                <div class="mandate-row-header">
+                    <div class="mandate-id-col">
+                        <span class="mandate-ref-badge">${inq.id}</span>
+                        <span class="mandate-date">${new Date(inq.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                    </div>
+                    <div class="mandate-status-col">
+                        <select class="mandate-status-select" data-id="${inq.id}">
+                            <option value="Pending Review" ${inq.status === 'Pending Review' ? 'selected' : ''}>Pending Review</option>
+                            <option value="NDA Dispatched" ${inq.status === 'NDA Dispatched' ? 'selected' : ''}>NDA Dispatched</option>
+                            <option value="Consultation Scheduled" ${inq.status === 'Consultation Scheduled' ? 'selected' : ''}>Consultation Scheduled</option>
+                            <option value="Archived" ${inq.status === 'Archived' ? 'selected' : ''}>Archived</option>
+                        </select>
+                        <button type="button" class="btn-delete-mandate" data-id="${inq.id}" title="Remove mandate record">
+                            <i class="fas fa-trash-can"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="mandate-row-body">
+                    <div class="mandate-client-info">
+                        <strong>${escapeHtml(inq.name)}</strong> · <span class="mandate-company">${escapeHtml(inq.company || 'Enterprise')}</span>
+                        <a href="mailto:${escapeHtml(inq.email)}" class="mandate-email-link"><i class="fas fa-envelope"></i> ${escapeHtml(inq.email)}</a>
+                    </div>
+                    <div class="mandate-tags">
+                        <span class="mandate-tag-pill"><i class="fas fa-briefcase"></i> ${escapeHtml(inq.inquiryTypeLabel || inq.inquiryType)}</span>
+                        <span class="mandate-tag-pill"><i class="fas fa-coins"></i> ${escapeHtml(inq.budgetLabel || inq.budget)}</span>
+                        ${inq.nda ? '<span class="mandate-tag-pill nda-pill"><i class="fas fa-shield-halved"></i> Mutual NDA</span>' : ''}
+                    </div>
+                    <p class="mandate-message-text">"${escapeHtml(inq.message)}"</p>
+                </div>
+            </div>
+        `).join('');
+
+        // Wire up status updates
+        inquiriesListEl.querySelectorAll('.mandate-status-select').forEach(sel => {
+            sel.addEventListener('change', async (e) => {
+                const id = sel.getAttribute('data-id');
+                const newStatus = e.target.value;
+                try {
+                    await fetch(`/api/inquiries/${id}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ status: newStatus })
+                    });
+                    const item = allLoadedInquiries.find(i => i.id === id);
+                    if (item) item.status = newStatus;
+                    if (typeof showToast === 'function') {
+                        showToast({
+                            title: 'Status Updated',
+                            message: `Mandate ${id} status set to "${newStatus}".`,
+                            type: 'success'
+                        });
+                    }
+                } catch (err) {
+                    console.error('Failed to update status:', err);
+                }
+            });
+        });
+
+        // Wire up delete
+        inquiriesListEl.querySelectorAll('.btn-delete-mandate').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const id = btn.getAttribute('data-id');
+                if (!confirm(`Archive mandate ${id}?`)) return;
+                try {
+                    await fetch(`/api/inquiries/${id}`, { method: 'DELETE' });
+                    allLoadedInquiries = allLoadedInquiries.filter(i => i.id !== id);
+                    renderInquiriesList();
+                    if (typeof showToast === 'function') {
+                        showToast({ title: 'Mandate Archived', message: `${id} removed from active feed.`, type: 'info' });
+                    }
+                } catch (err) {
+                    console.error('Failed to delete mandate:', err);
+                }
+            });
+        });
+    };
+
+    const escapeHtml = (str) => {
+        if (!str) return '';
+        return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+    };
+
+    if (openAdminPortalBtn) {
+        openAdminPortalBtn.addEventListener('click', () => {
+            if (!adminPortalModal) return;
+            adminPortalModal.style.display = 'flex';
+            adminPortalModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            loadAdminInquiries();
+        });
+    }
+
+    if (adminPortalCloseBtn) {
+        adminPortalCloseBtn.addEventListener('click', () => {
+            if (!adminPortalModal) return;
+            adminPortalModal.style.display = 'none';
+            adminPortalModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        });
+    }
+
+    if (adminPortalModal) {
+        adminPortalModal.addEventListener('click', (e) => {
+            if (e.target === adminPortalModal) {
+                adminPortalModal.style.display = 'none';
+                adminPortalModal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    if (refreshInquiriesBtn) {
+        refreshInquiriesBtn.addEventListener('click', loadAdminInquiries);
+    }
+
+    if (filterTabsEl) {
+        filterTabsEl.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabsEl.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentInquiriesFilter = tab.getAttribute('data-filter') || 'all';
+                renderInquiriesList();
+            });
+        });
+    }
+
+    if (exportCsvBtn) {
+        exportCsvBtn.addEventListener('click', () => {
+            if (!allLoadedInquiries.length) {
+                alert('No mandates to export.');
+                return;
+            }
+            const headers = ['Reference ID', 'Date', 'Client Name', 'Email', 'Company', 'Practice Area', 'Scope', 'NDA Required', 'Status', 'Message'];
+            const rows = allLoadedInquiries.map(i => [
+                i.id,
+                i.createdAt,
+                `"${(i.name || '').replace(/"/g, '""')}"`,
+                `"${(i.email || '').replace(/"/g, '""')}"`,
+                `"${(i.company || '').replace(/"/g, '""')}"`,
+                `"${(i.inquiryTypeLabel || i.inquiryType || '').replace(/"/g, '""')}"`,
+                `"${(i.budgetLabel || i.budget || '').replace(/"/g, '""')}"`,
+                i.nda ? 'Yes' : 'No',
+                `"${(i.status || '').replace(/"/g, '""')}"`,
+                `"${(i.message || '').replace(/"/g, '""')}"`
+            ]);
+
+            const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', `Yishau_Mandates_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
+
+    // --------------------------------------------------------------------------
+    // 7. Mobile Bottom Navigation Scrollspy
     // --------------------------------------------------------------------------
     const bottomTabs = document.querySelectorAll('.bottom-tab');
-    const trackedSections = ['work', 'services', 'process', 'about', 'contact']
+    const trackedSections = ['capabilities', 'calculator', 'case-studies', 'retainers', 'contact']
         .map(id => document.getElementById(id))
         .filter(Boolean);
 
@@ -920,7 +1628,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Edge case: top or bottom of page
         if (window.pageYOffset < 280) {
-            currentActiveId = 'work';
+            currentActiveId = 'capabilities';
         } else if ((window.innerHeight + window.pageYOffset) >= document.documentElement.scrollHeight - 80) {
             currentActiveId = 'contact';
         }
@@ -951,6 +1659,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
 
     // Touch swipe down on bottom sheet drag handle to close
     const modalWindow = modal ? modal.querySelector('.modal-window') : null;

@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { GoogleGenAI } from '@google/genai';
 
@@ -12,52 +13,368 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(__dirname));
 
-const SYSTEM_INSTRUCTION = `You are the personal Work & Literary AI Assistant for Olukorede Yishau — acclaimed Nigerian investigative journalist, novelist, and United States Bureau Chief / Associate Editor at The Nation newspaper.
+const DATA_DIR = path.join(__dirname, 'data');
+const INQUIRIES_FILE = path.join(DATA_DIR, 'inquiries.json');
+const CONFIG_FILE = path.join(DATA_DIR, 'config.json');
+const DISPATCHES_FILE = path.join(DATA_DIR, 'dispatches.json');
 
-Your role is to answer visitor questions accurately, warmly, and concisely about Olukorede Yishau's work, books, investigative reporting, career, awards, and availability for projects.
+// Ensure data files exist helper
+async function ensureDataFiles() {
+  try {
+    await fs.mkdir(DATA_DIR, { recursive: true });
+    try {
+      await fs.access(INQUIRIES_FILE);
+    } catch {
+      await fs.writeFile(INQUIRIES_FILE, JSON.stringify([], null, 2), 'utf-8');
+    }
+    try {
+      await fs.access(CONFIG_FILE);
+    } catch {
+      await fs.writeFile(CONFIG_FILE, JSON.stringify({ inboundEmail: '', notificationsEnabled: true }, null, 2), 'utf-8');
+    }
+    try {
+      await fs.access(DISPATCHES_FILE);
+    } catch {
+      await fs.writeFile(DISPATCHES_FILE, JSON.stringify([], null, 2), 'utf-8');
+    }
+  } catch (err) {
+    console.error('Error ensuring data files:', err);
+  }
+}
 
-Key Knowledge Base:
-- Identity: Olukorede Yishau is a distinguished Nigerian author and senior investigative journalist with 25+ years of experience (since 1999). Based between Lagos, Nigeria, and Washington D.C., USA.
-- Published Literary Books:
-  1. "In the Name of Our Father" (2018) - Acclaimed debut novel exposing religious hypocrisy, state tyranny, and military dictatorship. Longlisted for the prestigious Nigeria Prize for Literature (NLNG).
-  2. "Vaults of Secrets" (2020) - Gripping collection of short stories exploring betrayal, emotional resilience, prison conditions, and the Nigerian condition.
-  3. "After The End" (2024) - Deeply emotional novel addressing widowhood, grief, societal expectations, inheritance traditions, and resilience in contemporary society.
-- Investigative Journalism & Columns:
-  - Lead Investigation: "The Shadow Pipeline" (tracking multi-billion offshore conduits and illicit capital flight).
-  - "Ghost Contractors & Decaying Schools" (highlighting abandoned infrastructure in the Niger Delta).
-  - Cross-border exposés on human trafficking rings in the Sahel corridor.
-  - Highly influential weekly editorial columns at The Nation Newspaper focusing on democracy, social justice, and governance.
-- Accolades & Recognition:
-  - Multiple-time winner of the Nigerian Media Merit Award (NMMA), including Columnist of the Year and Investigative Reporter honours.
-  - Diamond Awards for Media Excellence (DAME) laureate and finalist.
-  - Longlisted for the NLNG Nigeria Prize for Literature.
-  - Associate Editor and United States Bureau Chief for The Nation.
-- Professional Offerings & Services:
-  - Investigative Commissions & In-depth Reporting
-  - Literary Fiction & Creative Non-Fiction Consulting
-  - Editorial Leadership, Book Editing & Ghostwriting
-  - Keynote Speeches, Literary Festivals & Media Masterclasses
-- Inquiries & Booking:
-  - Visitors can submit project requests directly through the "Let's Work Together" form on this website or reach out for literary rights, press interviews, and speaking engagements.
+await ensureDataFiles();
 
-Tone: Professional, dignified, knowledgeable, warm, and distinctly editorial. Keep answers focused, crisp, and helpful. Format responses with clean paragraphs and bullet points where helpful.`;
+// Helper to safely read JSON
+async function readJson(filePath, fallback = []) {
+  try {
+    const content = await fs.readFile(filePath, 'utf-8');
+    return JSON.parse(content);
+  } catch (err) {
+    console.warn(`Could not read ${filePath}, using fallback:`, err.message);
+    return fallback;
+  }
+}
 
-// Local fallback knowledge responder if API key is not configured or in case of network issues
+// Helper to safely write JSON
+async function writeJson(filePath, data) {
+  await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');
+}
+
+// ==========================================================================
+// 1. SYSTEM HEALTH & METRICS API
+// ==========================================================================
+app.get('/api/health', async (req, res) => {
+  const inquiries = await readJson(INQUIRIES_FILE, []);
+  const config = await readJson(CONFIG_FILE, {});
+  
+  res.json({
+    status: 'online',
+    version: '1.2.0',
+    firm: 'Yishau Strategic Media & Advisory',
+    bureaus: {
+      lagos: { status: 'operational', timezone: 'WAT (UTC+1)' },
+      washington: { status: 'operational', timezone: 'EDT (UTC-4)' }
+    },
+    metrics: {
+      totalMandates: inquiries.length,
+      pendingNdas: inquiries.filter(i => i.status === 'Pending Review' || i.status === 'NDA Dispatched').length,
+      inboundEmailConfigured: Boolean(config.inboundEmail && config.inboundEmail.trim())
+    },
+    uptimeSeconds: Math.floor(process.uptime()),
+    timestamp: new Date().toISOString()
+  });
+});
+
+// ==========================================================================
+// 2. CONFIGURATION & INBOUND EMAIL API
+// ==========================================================================
+app.get('/api/config', async (req, res) => {
+  const config = await readJson(CONFIG_FILE, { inboundEmail: '', notificationsEnabled: true });
+  res.json({
+    inboundEmail: config.inboundEmail || '',
+    notificationsEnabled: config.notificationsEnabled ?? true,
+    updatedAt: config.updatedAt || null
+  });
+});
+
+app.post('/api/config', async (req, res) => {
+  const { inboundEmail, notificationsEnabled } = req.body || {};
+  
+  if (inboundEmail !== undefined && typeof inboundEmail !== 'string') {
+    return res.status(400).json({ error: 'inboundEmail must be a string' });
+  }
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const cleanEmail = (inboundEmail || '').trim();
+  if (cleanEmail && !emailPattern.test(cleanEmail)) {
+    return res.status(400).json({ error: 'Please provide a valid email address.' });
+  }
+
+  const currentConfig = await readJson(CONFIG_FILE, {});
+  const updated = {
+    ...currentConfig,
+    inboundEmail: cleanEmail,
+    notificationsEnabled: notificationsEnabled !== undefined ? Boolean(notificationsEnabled) : currentConfig.notificationsEnabled ?? true,
+    updatedAt: new Date().toISOString()
+  };
+
+  await writeJson(CONFIG_FILE, updated);
+
+  res.json({
+    success: true,
+    message: cleanEmail ? `Inbound recipient email connected to ${cleanEmail}.` : 'Inbound email reset to blank.',
+    config: updated
+  });
+});
+
+// ==========================================================================
+// 3. CORPORATE MANDATES & RFP INQUIRIES API
+// ==========================================================================
+const PRACTICE_LABELS = {
+  csuite: 'C-Suite Strategic Communications & Op-Eds',
+  crisis: '24/7 Crisis Communications & War Room',
+  diligence: 'Investigative Due Diligence & Narrative Inquest',
+  publishing: 'Corporate Publishing & Executive Monograph',
+  broadcast: 'Media Interrogation & Broadcast Readiness',
+  general: 'Boardroom Counsel & General Inquiry'
+};
+
+const BUDGET_LABELS = {
+  'tier-standard': 'Executive Retainer ($10,000 – $25,000 / month)',
+  'tier-surge': 'Crisis War Room & Surge ($25,000 – $75,000)',
+  'tier-monograph': 'Enterprise Monograph Project ($50,000 – $120,000)',
+  'tier-custom': 'Custom Institutional Mandate'
+};
+
+// GET: List all inquiries
+app.get('/api/inquiries', async (req, res) => {
+  const inquiries = await readJson(INQUIRIES_FILE, []);
+  const { status, type } = req.query;
+
+  let filtered = inquiries;
+  if (status) {
+    filtered = filtered.filter(i => i.status?.toLowerCase() === status.toLowerCase());
+  }
+  if (type) {
+    filtered = filtered.filter(i => i.inquiryType?.toLowerCase() === type.toLowerCase());
+  }
+
+  res.json({
+    total: filtered.length,
+    inquiries: filtered
+  });
+});
+
+// POST: Create a new RFP mandate inquiry
+app.post('/api/inquiries', async (req, res) => {
+  const { name, email, company, inquiryType, budget, nda, message } = req.body || {};
+
+  if (!name || typeof name !== 'string' || !name.trim()) {
+    return res.status(400).json({ error: 'Client full name & title is required.' });
+  }
+  if (!email || typeof email !== 'string' || !email.trim()) {
+    return res.status(400).json({ error: 'Corporate email address is required.' });
+  }
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email.trim())) {
+    return res.status(400).json({ error: 'Invalid corporate email address format.' });
+  }
+  if (!message || typeof message !== 'string' || !message.trim()) {
+    return res.status(400).json({ error: 'Mandate context and core objectives are required.' });
+  }
+
+  const inquiries = await readJson(INQUIRIES_FILE, []);
+  const config = await readJson(CONFIG_FILE, {});
+
+  const now = new Date();
+  const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
+  const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+  const id = `YSM-${dateStr}-${randomSuffix}`;
+
+  const newInquiry = {
+    id,
+    createdAt: now.toISOString(),
+    name: name.trim(),
+    email: email.trim(),
+    company: (company || 'Enterprise Entity').trim(),
+    inquiryType: inquiryType || 'csuite',
+    inquiryTypeLabel: PRACTICE_LABELS[inquiryType] || 'Strategic Communications Advisory',
+    budget: budget || 'tier-standard',
+    budgetLabel: BUDGET_LABELS[budget] || 'Custom Institutional Mandate',
+    nda: Boolean(nda ?? true),
+    message: message.trim(),
+    status: 'Pending Review',
+    notes: 'Submitted via Yishau Strategic Advisory Consultation Desk.'
+  };
+
+  inquiries.unshift(newInquiry);
+  await writeJson(INQUIRIES_FILE, inquiries);
+
+  // If inbound email is configured, simulate server notification dispatch
+  const hasInboundRecipient = Boolean(config.inboundEmail && config.inboundEmail.trim());
+  const dispatchedTo = hasInboundRecipient ? config.inboundEmail : null;
+
+  res.status(201).json({
+    success: true,
+    message: 'Corporate mandate registered under strict fiduciary confidentiality.',
+    reference: id,
+    inquiry: newInquiry,
+    notification: {
+      dispatched: hasInboundRecipient,
+      recipient: dispatchedTo
+    }
+  });
+});
+
+// PATCH: Update an inquiry's status or notes
+app.patch('/api/inquiries/:id', async (req, res) => {
+  const { id } = req.params;
+  const { status, notes } = req.body || {};
+
+  const inquiries = await readJson(INQUIRIES_FILE, []);
+  const index = inquiries.findIndex(i => i.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: `Mandate with ID "${id}" not found.` });
+  }
+
+  if (status) {
+    inquiries[index].status = status;
+  }
+  if (notes !== undefined) {
+    inquiries[index].notes = notes;
+  }
+  inquiries[index].updatedAt = new Date().toISOString();
+
+  await writeJson(INQUIRIES_FILE, inquiries);
+
+  res.json({
+    success: true,
+    message: `Mandate ${id} updated successfully.`,
+    inquiry: inquiries[index]
+  });
+});
+
+// DELETE: Delete an inquiry
+app.delete('/api/inquiries/:id', async (req, res) => {
+  const { id } = req.params;
+  const inquiries = await readJson(INQUIRIES_FILE, []);
+  const initialLength = inquiries.length;
+  const updated = inquiries.filter(i => i.id !== id);
+
+  if (updated.length === initialLength) {
+    return res.status(404).json({ error: `Mandate with ID "${id}" not found.` });
+  }
+
+  await writeJson(INQUIRIES_FILE, updated);
+  res.json({ success: true, message: `Mandate ${id} removed.` });
+});
+
+// ==========================================================================
+// 4. EXECUTIVE DISPATCHES API
+// ==========================================================================
+app.get('/api/dispatches', async (req, res) => {
+  const dispatches = await readJson(DISPATCHES_FILE, []);
+  res.json({
+    total: dispatches.length,
+    dispatches
+  });
+});
+
+// ==========================================================================
+// 5. ESTIMATOR & FEE CALCULATION ENGINE API
+// ==========================================================================
+app.post('/api/estimator/calculate', (req, res) => {
+  const { practiceArea, scopeScale, urgency, broadsheetSyndication } = req.body || {};
+
+  const BASE_FEES = {
+    csuite: 15000,
+    crisis: 35000,
+    diligence: 25000,
+    publishing: 65000,
+    broadcast: 18000,
+    general: 12000
+  };
+
+  const SCALE_MULTIPLIERS = {
+    tier1: 1.0,  // Standard corporate division
+    tier2: 1.45, // Multinational conglomerate
+    tier3: 2.1   // Sovereign entity / global consortium
+  };
+
+  const URGENCY_MULTIPLIERS = {
+    standard: 1.0,
+    surge: 1.35,
+    critical: 1.75
+  };
+
+  const base = BASE_FEES[practiceArea] || 15000;
+  const scale = SCALE_MULTIPLIERS[scopeScale] || 1.0;
+  const surge = URGENCY_MULTIPLIERS[urgency] || 1.0;
+  const syndicationAddOn = broadsheetSyndication ? 8500 : 0;
+
+  const totalFee = Math.round((base * scale * surge) + syndicationAddOn);
+  const retainerEstMonthly = Math.round(totalFee / 3);
+
+  res.json({
+    practiceArea: practiceArea || 'csuite',
+    estimatedTotalUsd: totalFee,
+    estimatedMonthlyRetainerUsd: retainerEstMonthly,
+    timelineWeeks: practiceArea === 'publishing' ? 24 : practiceArea === 'crisis' ? 4 : 12,
+    deliverables: [
+      'Dedicated Senior Fiduciary Communications Director',
+      'Confidential War Room & Strategy Dossier',
+      'Primary Broadsheet & Institutional Wire Alignment',
+      '24-hour Mutual NDA & Regulatory Escrow Protocol'
+    ]
+  });
+});
+
+// ==========================================================================
+// 6. EXECUTIVE AI ASSISTANT CHAT API
+// ==========================================================================
+const SYSTEM_INSTRUCTION = `You are the Executive Client Advisory Assistant for Yishau Strategic Media & Advisory — a premier transatlantic strategic communications, narrative intelligence, crisis management, and corporate publishing consultancy led by Managing Principal Olukorede Yishau.
+
+Firm Overview & Credentials:
+- Managing Principal: Olukorede Yishau — acclaimed author, veteran investigative journalist with 25+ years experience, United States Bureau Chief, and multiple-time Nigeria Media Merit Award (NMMA) laureate.
+- Transatlantic Footprint: Offices in Lagos, Nigeria and Washington D.C., USA.
+- Track Record: Advised on $450M+ in cross-border capital transactions and M&A communications, 120+ executive dossiers and monographs delivered, 100% discretion and fiduciary confidentiality.
+
+Core Advisory Practice Areas:
+1. C-Suite Strategic Communications & Boardroom Advisory: Executive ghostwriting, CEO keynotes, shareholder letters, and broadsheet op-ed syndication across top international dailies (The Nation, Financial Times, The Guardian).
+2. Crisis Communications & 24/7 War Room: Rapid-response containment for regulatory probes, corporate litigation, stakeholder disputes, and cross-border media crises.
+3. Investigative Due Diligence & Narrative Intelligence: Pre-merger narrative audits, whistleblower inquests, supply chain integrity dossiers, and counter-disinformation audits.
+4. Corporate Publishing & Executive Monographs: Full-cycle book packaging, ghostwriting, editorial direction, and global book distribution for founders and industrial captains.
+5. Executive Media Interrogation & Broadcast Readiness: High-pressure camera drills, parliamentary / congressional inquiry simulations, and crisis press conference training.
+
+Engagement Models & Retainers:
+- Executive Thought Leadership Retainer: Ongoing strategic counsel, 2 executive op-eds monthly, continuous media monitoring.
+- Special Situations & Crisis Rapid Response: Dedicated 24/7 war room team, regulatory briefings, rapid media containment.
+- Enterprise Monograph & Legacy Publishing: 6–9 month full-lifecycle book production, ghostwriting, international launch.
+
+Client Inquiry Protocol:
+Advise visitors to submit a formal corporate RFP via the "Corporate Consultation Desk" form on this site or use the interactive Scope & Fee Calculator to model their engagement parameters.
+
+Tone: Authoritative, polished, discreet, executive, and commercially astute. Format replies with clear paragraphs and crisp bullet points.`;
+
 const getLocalFallbackReply = (query) => {
   const q = (query || '').toLowerCase();
-  if (q.includes('book') || q.includes('novel') || q.includes('published') || q.includes('write') || q.includes('author')) {
-    return "Olukorede Yishau has authored three critically acclaimed literary works:\n\n1. **In the Name of Our Father** (2018) – A celebrated novel examining religious charlatanism, political tyranny, and moral courage. It was longlisted for the Nigeria Prize for Literature (NLNG).\n2. **Vaults of Secrets** (2020) – A gripping short story collection exploring betrayal, resilience, and the complexities of human condition.\n3. **After The End** (2024) – A poignant exploration of grief, widowhood traditions, societal expectations, and personal redemption.\n\nYou can read excerpts of his works directly in the Selected Work section above!";
+  if (q.includes('service') || q.includes('practice') || q.includes('capabilit') || q.includes('offer') || q.includes('what do you do')) {
+    return "Yishau Strategic Media & Advisory provides five core practice areas for corporate leaders and enterprises:\n\n1. **C-Suite Strategic Communications**: Boardroom counsel, executive ghostwriting, and top-tier broadsheet op-ed syndication.\n2. **Crisis Communications & 24/7 War Room**: Rapid-response media containment for regulatory inquiries, litigation, and market crises.\n3. **Investigative Due Diligence & Narrative Intelligence**: Pre-transaction narrative forensics, counter-disinformation audits, and supply chain integrity dossiers.\n4. **Corporate Publishing & Executive Monographs**: Turnkey book packaging, ghostwriting, and international distribution for chairpersons and industry pioneers.\n5. **Executive Media Interrogation & Broadcast Readiness**: High-intensity on-camera drills and congressional hearing simulations.\n\nYou can explore our full capabilities or configure your engagement scope directly on this site!";
   }
-  if (q.includes('award') || q.includes('prize') || q.includes('honour') || q.includes('recognition') || q.includes('nmma')) {
-    return "Olukorede Yishau is a decorated journalist and author with numerous industry recognitions:\n\n- **Nigeria Media Merit Award (NMMA)**: Multiple-time winner, including *Columnist of the Year* and *Investigative Reporter*.\n- **Nigeria Prize for Literature (NLNG)**: Longlisted for his novel *In the Name of Our Father*.\n- **Diamond Awards for Media Excellence (DAME)**: Multiple-time finalist and laureate.\n- **Editorial Leadership**: Recognized as United States Bureau Chief and Associate Editor for The Nation newspaper.";
+  if (q.includes('retainer') || q.includes('cost') || q.includes('price') || q.includes('fee') || q.includes('package') || q.includes('tier')) {
+    return "We offer three primary engagement structures tailored to corporate scale and urgency:\n\n- **Executive Thought Leadership Retainer**: Ongoing monthly counsel, 2 strategic broadsheet op-eds, CEO keynote drafting, and media monitoring.\n- **Special Situations & Crisis War Room**: 24/7 rapid response activation, dedicated crisis response team, and stakeholder narrative containment.\n- **Corporate Monograph & Legacy Publishing**: Full 6–9 month engagement covering manuscript ghostwriting, legal review, and international distribution.\n\nUse our interactive **Engagement Scope Builder** on the page or submit an RFP to receive an itemized mandate proposal.";
   }
-  if (q.includes('investigat') || q.includes('journalis') || q.includes('article') || q.includes('nation') || q.includes('column')) {
-    return "With over 25+ years in journalism, Olukorede Yishau has broken major investigative stories:\n\n- **The Shadow Pipeline**: Forensic investigations into multi-billion offshore conduits and illicit wealth expatriation.\n- **Ghost Contractors & Decaying Niger Delta Schools**: Ground-level reporting uncovering abandoned public infrastructure.\n- **The Unbroken Chains**: Cross-border exposés on human trafficking networks across the Sahel.\n- **Weekly Columns**: Thought-provoking socio-political analyses syndicated across Nigeria and internationally.";
+  if (q.includes('case study') || q.includes('track record') || q.includes('client') || q.includes('result') || q.includes('impact')) {
+    return "Our senior team has advised on landmark transactions and market challenges across West Africa, Europe, and North America:\n\n- **$1.2B Capital Restructuring**: Coordinated global narrative and broadsheet coverage for a pan-African energy consortium across Lagos, London, and New York with zero regulatory leakages.\n- **Fintech Unicorn Regulatory Defense**: Guided a high-growth fintech through cross-border central bank scrutiny, securing license restoration in 14 days and closing a $65M Series B.\n- **Industrial Titan Monograph**: Authored and published a bestselling 320-page corporate biography, distributing 40,000+ copies globally.\n- **Whistleblower ESG Inquest**: Uncovered an $80M procurement conduit, triggering legislative reform and earning national media merit honors.";
   }
-  if (q.includes('contact') || q.includes('hire') || q.includes('work') || q.includes('email') || q.includes('commission') || q.includes('service')) {
-    return "You can collaborate with Olukorede Yishau for:\n\n- Investigative Reporting & Feature Commissions\n- Literary Manuscripts & Ghostwriting\n- Editorial Direction & Strategic Communication\n- Keynotes, Literary Panels & University Masterclasses\n\nTo start a conversation, scroll to the **Let's Work Together** section below or submit an inquiry using the direct desk form!";
+  if (q.includes('book') || q.includes('author') || q.includes('publish') || q.includes('novel')) {
+    return "Managing Principal Olukorede Yishau is an acclaimed novelist and essayist whose published works include:\n\n- **In the Name of Our Father** (Longlisted for the NLNG Nigeria Prize for Literature)\n- **Vaults of Secrets** (Critically celebrated short story collection)\n- **After The End** (Deeply acclaimed novel exploring grief, traditions, and resilience)\n\nWe bring this literary mastery directly to executive biographies and corporate monographs through our **Corporate Publishing Practice**.";
   }
-  return "Olukorede Yishau is an acclaimed Nigerian author, investigative journalist, and United States Bureau Chief with 25+ years of experience. He is known for award-winning novels like *In the Name of Our Father*, *Vaults of Secrets*, and *After The End*, alongside pioneering investigative reporting. How can I help you learn more about his books, journalism, or project collaborations?";
+  if (q.includes('contact') || q.includes('hire') || q.includes('rfp') || q.includes('consult') || q.includes('proposal') || q.includes('schedule')) {
+    return "To engage Yishau Strategic Media & Advisory:\n\n1. Scroll to the **Corporate Consultation Desk & RFP** section below.\n2. Submit your institutional mandate, scope requirements, and timeline.\n3. We execute mutual non-disclosure agreements (NDAs) within 24 hours prior to confidential discovery sessions.";
+  }
+  return "Welcome to Yishau Strategic Media & Advisory. We provide boardroom strategic communications, 24/7 crisis war room advisory, investigative narrative intelligence, and executive book publishing for enterprise leaders across Lagos and Washington D.C. How can we assist your executive team today?";
 };
 
 app.post('/api/assistant/chat', async (req, res) => {
@@ -115,15 +432,17 @@ app.post('/api/assistant/chat', async (req, res) => {
     }
   }
 
-  // Graceful fallback when GEMINI_API_KEY is not configured
   const localReply = getLocalFallbackReply(message);
   return res.json({ reply: localReply });
 });
 
+// Fallback route for SPA
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running at http://0.0.0.0:${PORT}`);
+  console.log(`[Backend Engine] Yishau Strategic Media & Advisory Server running at http://0.0.0.0:${PORT}`);
+  console.log(`[Backend Engine] Inquiries API: http://0.0.0.0:${PORT}/api/inquiries`);
+  console.log(`[Backend Engine] Health API:    http://0.0.0.0:${PORT}/api/health`);
 });
