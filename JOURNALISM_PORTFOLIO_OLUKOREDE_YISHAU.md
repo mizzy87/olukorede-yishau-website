@@ -6,7 +6,7 @@
 ---
 
 <p align="center">
-  <img src="../.gemini/antigravity-ide/brain/36e11269-5619-4040-b513-ba7db9569bad/.user_uploaded/media_1790873963693.jpg" alt="Olukorede Yishau" width="280" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
+  <img src="https://global.ariseplay.com/amg/www.thisdaylive.com/uploads/0bf785b3-7493-4c01-b538-638d906fd198.jpg" alt="Olukorede Yishau" width="280" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
 </p>
 
 > **"A journalist's primary allegiance is to truth, public memory, and the courage to illuminate what power prefers to keep in the dark."**  
